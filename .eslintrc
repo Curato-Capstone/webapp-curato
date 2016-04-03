@@ -1,0 +1,12 @@
+{
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+        "new-cap": 0,
+        "key-spacing": 0,//["error", { "align": "colon" }],
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "comma-dangle": ["error", "never"],
+        "react/jsx-indent-props": 0,
+        "react/prefer-stateless-function": 0
+    }
+}

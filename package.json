@@ -1,0 +1,73 @@
+{
+  "name": "3REK",
+  "version": "1.0.0",
+  "description": "boilerplate for app using React, Redux, RethinkDB, and Koa",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "npm run clean && npm run build:webpack",
+    "start": "NODE_ENV=development node server.babel.js",
+    "nodemon": "NODE_ENV=development nodemon server.babel.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "NODE_ENV=production node server.babel.js",
+    "lint": "eslint client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NgoKnows/3REK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NgoKnows/3REK/issues"
+  },
+  "homepage": "https://github.com/NgoKnows/3REK#readme",
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "immutable": "^3.7.6",
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^3.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^2.0.0",
+    "radium": "^0.17.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-redux": "^4.0.6",
+    "react-router": "^2.0.0-rc5",
+    "redux": "^3.0.5",
+    "redux-immutablejs": "0.0.8",
+    "redux-thunk": "^2.0.1",
+    "rethinkdb": "^2.2.1",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5",
+    "superagent": "^1.6.1",
+    "superagent-bluebird-promise": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.4.0",
+    "babel-eslint": "^6.0.2",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.0.1",
+    "babel-preset-stage-0": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.5.3",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3",
+    "file-loader": "^0.8.5",
+    "json-loader": "^0.5.4",
+    "koa-webpack-dev-middleware": "^1.0.1",
+    "koa-webpack-hot-middleware": "^1.0.1",
+    "react-router-redux": "^4.0.0",
+    "redux-devtools": "^3.0.1",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.9.11"
+  }
+}
