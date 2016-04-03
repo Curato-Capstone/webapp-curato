@@ -3,7 +3,7 @@
     "parser": "babel-eslint",
     "rules": {
         "new-cap": 0,
-        "key-spacing": 0,//["error", { "align": "colon" }],
+        "key-spacing": 0,
         "indent": ["error", 4, {"SwitchCase": 1}],
         "comma-dangle": ["error", "never"],
         "react/jsx-indent-props": 0,
