@@ -42,11 +42,7 @@ import bodyParser from 'koa-bodyparser';
 
 const myRouter = router();
 
-app.use(bodyParser({
-    onerror(err, ctx) {
-        ctx.throw('body parse error', 422);
-    }
-}));
+app.use(bodyParser());
 
 app
     .use(myRouter.routes())

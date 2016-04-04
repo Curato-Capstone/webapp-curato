@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -23,9 +23,7 @@ export default class Root extends Component {
             <Provider store={store} >
                 <div>
                     <Router history={history}>
-                        <Route path="/" component={App}>
-
-                        </Route>
+                        <Route path="/" component={App} />
                     </Router>
                     { isDevelopment ? <DevTools /> : null }
                 </div>

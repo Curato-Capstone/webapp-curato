@@ -13,9 +13,11 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx'],
         alias: {
-            react: path.join(ROOT_DIR, 'node_modules', 'react'),
-            containers: path.join(ROOT_DIR, 'client', 'js', 'containers')
-
+            components: path.join(ROOT_DIR, 'client', 'js', 'components'),
+            containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
+            flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
+            js: path.join(ROOT_DIR, 'client', 'js'),
+            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets')
         }
     },
 
@@ -38,8 +40,7 @@ module.exports = {
                 loader: 'babel',
                 exclude: path.join(ROOT_DIR, 'node_modules'),
                 query: {
-                    presets: ["es2015", "react", "stage-0"],
-                    plugins: ["transform-decorators-legacy"],
+                    presets: ["es2015", "react", "stage-1"],
                     "env": {
                         "development": {
                             "presets": ["react-hmre"]

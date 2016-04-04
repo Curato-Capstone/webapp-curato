@@ -6,19 +6,18 @@ module.exports = {
     context: ROOT_DIR,
 
     entry: [
+        'webpack-hot-middleware/client',
         path.resolve(ROOT_DIR, 'client', 'js', 'index.js')
     ],
 
     resolve: {
-        extensions: ['', '.js', '.jsx', '.es6.js'],
-        alias : {
-            react: path.join(__dirname, 'node_modules', 'react'),
-            classes: path.join(ROOT_DIR, 'client', 'js', 'classes'),
-            components: path.join(ROOT_DIR, 'universal', 'components'),
-            containers: path.join(ROOT_DIR, 'universal', 'containers'),
-            flux: path.join(ROOT_DIR, 'universal', 'redux'),
-            js: path.join(ROOT_DIR, 'client', 'js'),
-            universal: path.join(ROOT_DIR, 'universal')
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            react: path.join(ROOT_DIR, 'node_modules', 'react'),
+            components: path.join(ROOT_DIR, 'client', 'js', 'components'),
+            containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
+            flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
+            js: path.join(ROOT_DIR, 'client', 'js')
         }
     },
 
@@ -48,14 +47,24 @@ module.exports = {
                 loader: 'babel',
                 exclude: path.join(ROOT_DIR, 'node_modules'),
                 query: {
-                    "presets": ["es2015", "react", "stage-0"],
+                    "presets": ["es2015", "react", "stage-1"],
                 }
+            },
+
+            {
+                test: /\.(jpg|png|woff|woff2|eot|ttf|svg|otf|pdf)$/,
+                loader: 'url-loader?limit=10000'
             },
 
             {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             },
+
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            }
         ]
     }
 };
