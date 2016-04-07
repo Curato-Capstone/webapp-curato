@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 
-import Sample from 'components/Sample';
+import Sample from '../components/Sample';
 
 type Props = {};
 class App extends Component {

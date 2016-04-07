@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-type Props = { name?: string };
+type Props = { name: string };
 class Sample extends Component {
     static defaultProps = {};
     state: void;
@@ -16,8 +16,15 @@ class Sample extends Component {
 }
 
 const STYLES = {
-    ':hover': {
-        color: 'orange'
+    hi: {
+        color: 'orange',
+        fontWeight: 'bold'
+    },
+
+    bye: {
+        ':hover': {
+            opacity: 0
+        }
     }
 }
 
