@@ -1,10 +1,17 @@
 import { ADD_TODO } from './constants';
 
-export function addTodo(todo) {
+export function addTodo() {
     return {
         type: ADD_TODO,
         todo
     };
+}
+
+export function removeTodo() {
+    return {
+        type: REMOVE_TODO,
+        
+    }
 }
 
 export function thunk() {
@@ -12,3 +19,4 @@ export function thunk() {
         // do stuff
     };
 }
+

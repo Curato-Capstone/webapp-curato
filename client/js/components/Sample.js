@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-type Props = { name?: string };
+type Props = { name: string };
 class Sample extends Component {
     static defaultProps = {};
     state: void;
@@ -10,14 +10,24 @@ class Sample extends Component {
 
     render() {
         return (
-            <div style={STYLES}>Hello! {this.props.name.toUpperCase()}</div>
+            <div>
+                <div style={[STYLES.hi]}>Hello {this.props.name}</div>
+                <div style={STYLES.bye}>Bye!</div>
+            </div>
         );
     }
 }
 
 const STYLES = {
-    ':hover': {
-        color: 'orange'
+    hi: {
+        color: 'orange',
+        fontWeight: 'bold'
+    },
+
+    bye: {
+        ':hover': {
+            opacity: 0
+        }
     }
 }
 
