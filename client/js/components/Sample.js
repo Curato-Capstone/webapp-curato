@@ -10,7 +10,7 @@ class Sample extends Component {
 
     render() {
         return (
-            <div style={STYLES}>Hello! {this.props.name.toUpperCase()}</div>
+            <div style={STYLES}>Hello!!!!!! {this.props.name.toUpperCase()}</div>
         );
     }
 }

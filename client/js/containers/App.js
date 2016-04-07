@@ -17,7 +17,7 @@ class App extends Component {
 
         return (
             <div>
-                <Sample name="helloo" />
+                <Sample name="yoooo" />
             </div>
         );
     }

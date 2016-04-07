@@ -35,9 +35,11 @@ import serve from 'koa-static';
 
 app.use(convert(serve(path.resolve('client'))));
 
+
 // Routing
 // --------------------------------------------------
 import router from 'koa-router';
+import send from 'koa-send';
 import bodyParser from 'koa-bodyparser';
 
 const myRouter = router();
@@ -45,7 +47,11 @@ const myRouter = router();
 app
     .use(bodyParser())
     .use(myRouter.routes())
-    .use(myRouter.allowedMethods());
+
+// catches any request that isn't handled by koa-static or koa-router
+app.use(async function (ctx) {
+    await send(ctx, 'client/index.html')
+});
 
 
 // Start Server
