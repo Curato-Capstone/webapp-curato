@@ -38,12 +38,22 @@ Make sure to resolve any issues before committing.
 If you want persist linting, make sure you have `watch` installed via brew, and run it using the command
 
 ```bash
-npm run watch-flow
+npm run lint:watch
 ```
 
 ### Testing
 
-TBA GOTTA WRITE TESTSSES
+```bash
+npm run test
+```
+
+Write hella tests, ya feel
+
+If you want persist testing, run it using the command
+
+```bash
+npm run test:watch
+```
 
 ### Helpful Tools
 [React DevTools Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)

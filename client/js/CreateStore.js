@@ -8,7 +8,6 @@ import DevTools from 'containers/DevTools';
 import Reducer from './redux/reducer';
 
 export default function composeStore() {
-    // always use thunk middleware
     const middleware = [
         applyMiddleware(thunk),
         applyMiddleware(routerMiddleware(browserHistory))

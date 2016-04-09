@@ -1,24 +1,25 @@
 {
-  "name": "curato-webapp",
+  "name": "webapp-curato",
   "version": "0.0.1",
   "description": "Web app for Curato",
   "scripts": {
     "start": "NODE_ENV=development node server.babel.js",
     "serve": "NODE_ENV=production node server.babel.js",
     "nodemon": "NODE_ENV=development nodemon server.babel.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js 'test/**/*.@(js|jsx)'",
     "lint": "eslint client/ server.js --color; exit 0",
     "flow": "flow --color=\"always\"; exit 0",
-    "watch-lint": "watch --color npm run lint",
-    "watch-flow": "watch --color npm run flow"
+    "test:watch": "npm run test -- --watch --watch-extensions jsx",
+    "lint:watch": "watch --color npm run lint",
+    "flow:watch": "watch --color npm run flow"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Curato-Capstone/curato-webapp.git"
+    "url": "git+https://github.com/Curato-Capstone/webapp-curato.git"
   },
   "author": "Curato",
   "license": "ISC",
-  "homepage": "https://github.com/Curato-Capstone/curato-webapp#readme",
+  "homepage": "https://github.com/Curato-Capstone/webapp-curato#readme",
   "dependencies": {
     "bluebird": "^3.1.1",
     "immutable": "^3.7.6",
@@ -50,6 +51,8 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-0": "^6.3.13",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.4",
     "css-loader": "^0.23.1",
     "eslint": "^2.5.3",
     "eslint-config-airbnb": "^6.2.0",
@@ -58,6 +61,7 @@
     "json-loader": "^0.5.4",
     "koa-webpack-dev-middleware": "^1.0.1",
     "koa-webpack-hot-middleware": "^1.0.1",
+    "mocha": "^2.4.5",
     "react-router-redux": "^4.0.0",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
