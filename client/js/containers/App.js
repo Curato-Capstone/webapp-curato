@@ -4,9 +4,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 
-import Sample from '../components/Sample';
+import * as userActions from '../modules/user';
+import * as suggestionsActions from '../modules/suggestions';
 
-type Props = {};
+import Sample from '../components/Sample';
+import TestForm from '../components/TestForm';
+
+type Props = {
+    user          : Object,
+    suggestions   : Object,
+    signup        : Object,
+    actions       : Object,
+    routerActions : Object
+};
 class App extends Component {
     static defaultProps: void;
     state: void;
@@ -18,6 +28,7 @@ class App extends Component {
         return (
             <div>
                 <Sample name="yoooo" />
+                <TestForm />
             </div>
         );
     }
@@ -25,14 +36,20 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        user: state.get('user'),
+        suggestions: state.get('suggestions'),
+        signup: state.get('signup')
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        //actions : bindActionCreators({dispatchAction}, dispatch),
-        //routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators(Object.assign(
+            {},
+            userActions,
+            suggestionsActions
+        ), dispatch),
+        routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
 

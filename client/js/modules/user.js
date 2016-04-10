@@ -1,0 +1,164 @@
+// @flow
+import { fromJS, Map, List } from 'immutable';
+
+// Actions
+// -----------------------------------
+export const SET_USER = 'SET_USER';
+export const SET_EMAIL = 'SET_EMAIL';
+export const SET_NAME = 'SET_NAME';
+export const SET_AGE = 'SET_AGE';
+export const SET_ETHNICITY = 'SET_ETHNICITY';
+
+export const SET_FAVORITES = 'SET_FAVORITES';
+export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+
+export const SET_PREFERENCES = 'SET_PREFERENCES';
+export const CHANGE_PREFERENCE = 'CHANGE_PREFERENCE';
+
+
+// Action Creators
+// -----------------------------------
+export function setUser(user: Object): Object {
+    return {
+        type: SET_USER,
+        user
+    };
+}
+
+export function setEmail(email: string): Object {
+    return {
+        type: SET_EMAIL,
+        email
+    };
+}
+
+export function setName(name: string): Object {
+    return {
+        type: SET_NAME,
+        name
+    };
+}
+
+export function setAge(age: number): Object {
+    return {
+        type: SET_AGE,
+        age
+    };
+}
+
+export function setEthnicity(ethnicity: string): Object {
+    return {
+        type: SET_ETHNICITY,
+        ethnicity
+    };
+}
+
+export function setFavorites(favorites: Array<Object>): Object {
+    return {
+        type: SET_FAVORITES,
+        favorites
+    };
+}
+
+export function setPreferences(preferences: Object): Object {
+    return {
+        type: SET_PREFERENCES,
+        preferences
+    };
+}
+
+export function addFavorite(favorite: Object): Object {
+    return {
+        type: ADD_FAVORITE,
+        favorite
+    };
+}
+
+export function removeFavorite(index: number): Object {
+    return {
+        type: REMOVE_FAVORITE,
+        index
+    };
+}
+
+export function changePreference(preferenceName: string, value: number): Object {
+    return {
+        type: CHANGE_PREFERENCE,
+        preferenceName,
+        value
+    };
+}
+
+
+// Reducers
+// -----------------------------------
+const initialState = Map({
+    email       : '',
+    name        : '',
+    age         : null,
+    ethnicity   : '',
+    favorites   : List(),
+    preferences : Map()
+});
+
+type State = Map<string, any>
+export default function reducer(state: State = initialState, action: Object): State {
+    switch (action.type) {
+        case SET_USER:
+            return fromJS(action.user);
+
+        case SET_EMAIL:
+            return state.set('email', action.email);
+
+        case SET_NAME:
+            return state.set('name', action.name);
+
+        case SET_AGE:
+            return state.set('age', action.age);
+
+        case SET_ETHNICITY:
+            return state.set('ethnicity', action.ethnicity);
+
+        case SET_FAVORITES:
+        case ADD_FAVORITE:
+        case REMOVE_FAVORITE:
+            return state.set('favorites', favoritesReducer(state.get('favorites'), action));
+
+        case SET_PREFERENCES:
+        case CHANGE_PREFERENCE:
+            return state.set('preferences', preferencesReducer(state.get('preferences'), action));
+
+        default:
+            return state;
+    }
+}
+
+function favoritesReducer(state: List<Object>, action: Object): List<Object>  {
+    switch (action.type) {
+        case SET_FAVORITES:
+            return fromJS(action.favorites);
+
+        case ADD_FAVORITE:
+            return state.push(fromJS(action.favorite));
+
+        case REMOVE_FAVORITE:
+            return state.delete(action.index);
+
+        default:
+            return state;
+    }
+}
+
+function preferencesReducer(state: Map<string, number>, action: Object): Map<string, number>  {
+    switch (action.type) {
+        case SET_PREFERENCES:
+            return Map(action.preferences);
+
+        case CHANGE_PREFERENCE:
+            return state.set(action.preferenceName, action.value);
+
+        default:
+            return state;
+    }
+}

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import { isDevelopment } from '../utils';
+import { isDevelopment } from '../utils/utils';
 
 import DevTools from './DevTools';
 import App from './App';

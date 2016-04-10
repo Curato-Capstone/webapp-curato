@@ -46,11 +46,11 @@ const myRouter = router();
 
 app
     .use(bodyParser())
-    .use(myRouter.routes())
+    .use(myRouter.routes());
 
 // catches any request that isn't handled by koa-static or koa-router
-app.use(async function (ctx) {     
-    await send(ctx, 'client/index.html')
+app.use(async (ctx) => {
+    await send(ctx, 'client/index.html');
 });
 
 
@@ -59,5 +59,5 @@ app.use(async function (ctx) {
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-    console.log('App is listening on port', port);
+    console.info('App is listening on port', port);
 });

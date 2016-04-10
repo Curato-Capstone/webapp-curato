@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-type Props = { name?: string };
+type Props = { name: string };
 class Sample extends Component {
     static defaultProps = {};
     state: void;
@@ -28,6 +28,6 @@ const STYLES = {
             opacity: 0
         }
     }
-}
+};
 
-export default Sample;
+export default Radium(Sample);
