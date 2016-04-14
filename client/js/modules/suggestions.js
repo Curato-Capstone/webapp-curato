@@ -1,5 +1,5 @@
-// @flow
 import { fromJS, Map, List } from 'immutable';
+import type { Place, Action } from '../../../types/index';
 
 // Actions
 // -----------------------------------
@@ -11,28 +11,28 @@ export const CLEAR_SUGGESTIONS = 'CLEAR_SUGGESTIONS';
 
 // Action Creators
 // -----------------------------------
-export function setSuggestions(suggestions: Array<Object>): Object {
+export function setSuggestions(suggestions: Array<Place>): Action {
     return {
         type: SET_SUGGESTIONS,
         suggestions
     };
 }
 
-export function addSuggestion(suggestion: Object): Object {
+export function addSuggestion(suggestion: Place): Action {
     return {
         type: ADD_SUGGESTION,
         suggestion
     };
 }
 
-export function removeSuggestion(index: number): Object {
+export function removeSuggestion(index: number): Action {
     return {
         type: REMOVE_SUGGESTION,
         index
     };
 }
 
-export function clearSuggestions(): Object {
+export function clearSuggestions(): Action {
     return {
         type: CLEAR_SUGGESTIONS
     };
@@ -46,7 +46,7 @@ const initialState = Map({
 });
 
 type State = Map<string, any>;
-export default function reducer(state: State = initialState, action: Object): State  {
+export default function reducer(state: State = initialState, action: Action): State  {
     switch (action.type) {
         case SET_SUGGESTIONS:
             return state.set('suggestions', fromJS(action.suggestions));
@@ -60,7 +60,6 @@ export default function reducer(state: State = initialState, action: Object): St
             return state.update('suggestions', (suggestions) => {
                 return suggestions.delete(action.index);
             });
-
 
         case CLEAR_SUGGESTIONS:
             return initialState;

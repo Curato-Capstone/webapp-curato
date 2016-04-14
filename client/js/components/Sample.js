@@ -2,32 +2,37 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-type Props = { name: string };
+import Slider from './Reusable/Slider';
+import Button from './Reusable/Button';
+import Card from './Reusable/Card';
+import Dots from './Reusable/Dots';
+import Input from './Reusable/Input';
+
 class Sample extends Component {
     static defaultProps = {};
     state: void;
-    props: Props;
+    props: void;
 
-    render() : React.Element {
-        const { name } = this.props;
-
+    render() {
         return (
-            <div style={STYLES}>Hello!!!!!! {name.toUpperCase()}</div>
+            <div style={STYLES}>
+                <Slider name="Art" />
+
+                <Button label="Button" type="primary" />
+                <Button label="Button" type="secondary" />
+
+                <Card />
+
+                <Dots />
+
+                <Input />
+            </div>
         );
     }
 }
 
 const STYLES = {
-    hi: {
-        color: 'orange',
-        fontWeight: 'bold'
-    },
-
-    bye: {
-        ':hover': {
-            opacity: 0
-        }
-    }
+    margin: '16px'
 };
 
 export default Radium(Sample);

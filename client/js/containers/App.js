@@ -3,19 +3,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
+import { StyleRoot } from 'radium';
 
 import * as userActions from '../modules/user';
 import * as suggestionsActions from '../modules/suggestions';
 
+import SideNav from '../components/Navigation/SideNav';
 import Sample from '../components/Sample';
-import TestForm from '../components/TestForm';
+
 
 type Props = {
     user          : Object,
     suggestions   : Object,
-    signup        : Object,
     actions       : Object,
-    routerActions : Object
+    routerActions : Object,
+    children      : React.Element
 };
 class App extends Component {
     static defaultProps: void;
@@ -26,19 +28,20 @@ class App extends Component {
         const {} = this.props;
 
         return (
-            <div>
-                <Sample name="yoooo" />
-                <TestForm />
-            </div>
+            <StyleRoot>
+                <div style={STYLES}>
+                    <Sample />
+                    {this.props.children}
+                </div>
+            </StyleRoot>
         );
     }
 }
 
 function mapStateToProps(state) {
     return {
-        user: state.get('user'),
-        suggestions: state.get('suggestions'),
-        signup: state.get('signup')
+        user: state.get('user').toJS(),
+        suggestions: state.get('suggestions').toJS()
     };
 }
 
@@ -52,5 +55,9 @@ function mapDispatchToProps(dispatch) {
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
+
+const STYLES = {
+    fontFamily: 'Gidole, Sans-Serif'
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

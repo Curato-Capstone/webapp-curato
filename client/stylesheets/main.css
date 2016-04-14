@@ -1,6 +1,10 @@
 @font-face {
-    font-family: 'Simplifica';
-    src: url('../fonts/Simplifica.ttf') format('truetype');
+    font-family: 'Gidole';
+    src: url('../fonts/Gidole.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+body {
+    margin: 0;
 }
