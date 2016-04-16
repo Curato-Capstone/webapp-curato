@@ -18,6 +18,4 @@ class Account extends Component {
     }
 }
 
-const STYLES = {};
-
 export default Radium(Account);

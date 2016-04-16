@@ -12,6 +12,7 @@
         "indent": ["error", 4, {"SwitchCase": 1}],
         "comma-dangle": 0,
         "react/jsx-indent-props": 0,
-        "react/prefer-stateless-function": 0
+        "react/prefer-stateless-function": 0,
+        "react/sort-comp": 0
     }
 }

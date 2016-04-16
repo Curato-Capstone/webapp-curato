@@ -10,6 +10,7 @@ import * as suggestionsActions from '../modules/suggestions';
 
 import SideNav from '../components/Navigation/SideNav';
 import Sample from '../components/Sample';
+import Card from '../components/Reusable/Card/Card'
 
 
 type Props = {
@@ -30,7 +31,7 @@ class App extends Component {
         return (
             <StyleRoot>
                 <div style={STYLES}>
-                    <Sample />
+                    <Sample fullscreen/>
                     {this.props.children}
                 </div>
             </StyleRoot>
@@ -57,7 +58,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 const STYLES = {
-    fontFamily: 'Gidole, Sans-Serif'
+    fontFamily: 'Montserrat, Sans-Serif',
+    display: 'flex',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

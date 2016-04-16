@@ -19,7 +19,8 @@ module.exports = {
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
             flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
             js: path.join(ROOT_DIR, 'client', 'js'),
-            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets')
+            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
+            utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),
         }
     },
 
@@ -43,6 +44,7 @@ module.exports = {
                 exclude: path.join(ROOT_DIR, 'node_modules'),
                 query: {
                     presets: ["es2015", "react", "stage-1"],
+                    plugins: ["transform-decorators-legacy"],
                     "env": {
                         "development": {
                             "presets": ["react-hmre"]

@@ -19,6 +19,4 @@ class Favorites extends Component {
     }
 }
 
-const STYLES = {};
-
 export default Radium(Favorites);

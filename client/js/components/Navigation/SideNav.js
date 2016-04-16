@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import search from '../../../images/search.svg';
-import list from '../../../images/list.svg';
+import search from '../../../images/icons/search.svg';
+import heart from '../../../images/icons/heart.svg';
+import logo from '../../../images/logo/full-logo.svg';
+
+
+import { primaryColor, secondaryColor } from '../../utils/colors';
 
 type Props = {};
 class SideNav extends Component {
@@ -16,62 +20,101 @@ class SideNav extends Component {
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.itemContainer}>
-                    <div style={STYLES.header}>Curato</div>
+                    <div style={STYLES.header}>
+                        <object data={logo} style={STYLES.headerLogo} type="image/svg+xml" />
+                    </div>
                     <div style={STYLES.item}>
-                        <img style={STYLES.icon} src={search} />
+                        <object data={search} style={STYLES.icon} type="image/svg+xml" />
                         <div>Search</div>
                     </div>
+
+                    <div style={STYLES.dividerContainer}>
+                        <div style={STYLES.divider}/>
+                    </div>
+
                     <div style={STYLES.item}>
-                        <img style={STYLES.icon} src={list} />
+                        <object data={heart} style={STYLES.icon} type="image/svg+xml" />
                         <div>Favorites</div>
                     </div>
+
+                    <div style={STYLES.dividerContainer}>
+                        <div style={STYLES.divider}/>
+                    </div>
+
                 </div>
-                <div style={STYLES.recentContainer}>
-                    <div>Recent Activity</div>
-                </div>
+
             </div>
         );
     }
 }
 
+// <div style={STYLES.recentContainer}>
+//     <div>Recent Activity</div>
+// </div>
+
 const STYLES = {
     container: {
+        color: '#B1B3B0',
         height: '100vh',
         minHeight: '600px',
-        paddingTop: '12px',
-        backgroundColor: '#BC4432',
-        width: '200px'
+        backgroundColor: 'white',
+        width: '225px',
+        display: 'inline-block',
+        boxShadow: '1px 1px 3px #888888'
     },
 
     itemContainer: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'flex-end',
     },
 
     header: {
+        fontSize: '48px',
+        height: '180px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         color: 'white',
-        fontSize: '54px',
-        marginRight: '12px',
-        marginBottom: '24px'
+        backgroundColor: primaryColor,
+        display: 'flex',
+        flexDirection: 'column'
     },
 
     item: {
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        color: 'white',
-        fontSize: '28px',
-        marginBottom: '48px'
+        justifyContent: 'center',
+        flexDirection: 'column',
+        marginRight: '36px',
+        fontSize: '36px',
+        width: '60%',
+        height: '180px'
     },
 
     icon: {
-        width: '70px',
-        height: '70px',
-        marginBottom: '5px'
+        width: '60px',
+        height: '60px',
+        marginRight: '12px',
+        marginBottom: '12px'
+    },
+
+    dividerContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        width: '100%'
+    },
+
+    divider: {
+        borderBottom: '0.5px solid #B1B3B0',
+        width: '90%',
+        // margin: '30px 0'
+    },
+
+    headerLogo: {
+        width: '95%',
     }
-
-
 };
 
 export default Radium(SideNav);

@@ -19,6 +19,4 @@ class Preferences extends Component {
     }
 }
 
-const STYLES = {};
-
 export default Radium(Preferences);

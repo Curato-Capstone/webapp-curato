@@ -19,6 +19,4 @@ class Intro extends Component {
     }
 }
 
-const STYLES = {};
-
 export default Radium(Intro);

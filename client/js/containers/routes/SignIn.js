@@ -19,6 +19,4 @@ class SignIn extends Component {
     }
 }
 
-const STYLES = {};
-
 export default Radium(SignIn);
