@@ -17,7 +17,7 @@ module.exports = {
         alias: {
             components: path.join(ROOT_DIR, 'client', 'js', 'components'),
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
-            flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
+            modules: path.join(ROOT_DIR, 'client', 'js', 'modules'),
             js: path.join(ROOT_DIR, 'client', 'js'),
             stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
             utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),

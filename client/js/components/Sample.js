@@ -1,7 +1,8 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import Slider from './Slider/Slider';
+import Slider from 'components/Slider/Slider';
 import Button from './Reusable/Button/Button';
 import Card from './Reusable/Card/Card';
 import Dots from './Reusable/Dots/Dots';
