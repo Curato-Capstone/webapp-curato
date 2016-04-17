@@ -17,10 +17,12 @@ module.exports = {
         alias: {
             components: path.join(ROOT_DIR, 'client', 'js', 'components'),
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
+            routes: path.join(ROOT_DIR, 'client', 'js', 'containers', 'routes'),
             modules: path.join(ROOT_DIR, 'client', 'js', 'modules'),
-            js: path.join(ROOT_DIR, 'client', 'js'),
-            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
             utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),
+            types: path.join(ROOT_DIR, 'types'),
+            images: path.join(ROOT_DIR, 'client', 'images'),
+            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
         }
     },
 

@@ -70,7 +70,7 @@ const STYLES = {
         }
     },
 
-    active: (active) => {
+    active: (active: boolean): Object => {
         if (active) {
             return {
                 opacity: '1',

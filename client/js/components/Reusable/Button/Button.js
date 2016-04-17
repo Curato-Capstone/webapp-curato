@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { primaryColor, secondaryColor } from 'utils/colors';
 
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 @Radium
 export default class Button extends Component {
@@ -12,7 +12,7 @@ export default class Button extends Component {
         disabled    : false,
         handleClick : () => {}
     };
-    props:{
+    props: {
         label       : string,
         type        : 'primary' | 'secondary',
         handleClick : (event: Object) => void,
@@ -20,16 +20,18 @@ export default class Button extends Component {
     };
     state: void;
 
-
     render() {
-        const { label, type, handleClick, disabled } = this.props;
+        const { label, type, handleClick, disabled, style, ...other } = this.props;
 
         return (
             <div onClick={handleClick}>
                 <RaisedButton
                     backgroundColor={this.getColor(type)}
                     label={label}
+                    labelColor="white"
                     disabled={disabled}
+                    style={Object.assign(STYLES,style)}
+                    {...other}
                 />
             </div>
         );
@@ -42,4 +44,8 @@ export default class Button extends Component {
 
         return secondaryColor;
     }
+}
+
+const STYLES = {
+    color: 'white'
 }

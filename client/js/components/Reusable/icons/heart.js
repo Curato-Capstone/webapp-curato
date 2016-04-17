@@ -1,28 +1,33 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { Component } from 'react';
 import Radium from 'radium';
 
 @Radium
 export default class star extends Component {
     static defaultProps = {};
+    
     props: { active: boolean };
-    state: { changed: boolean };
-    state = { changed: false }
 
-    componentWillReceiveProps(nextProps) {
+    state = { changed: false };
+    state: { changed: boolean };
+
+    componentWillReceiveProps(nextProps: Object) {
         if (nextProps.active !== this.props.active) {
-            this.setState({ changed: true })
+            this.setState({ changed: true });
         }
     }
-
 
     render() {
         const { active } = this.props;
         const { changed } = this.state;
 
         return (
-            <section style={
-                [STYLES.main, STYLES.active(active), STYLES.animating(active && changed)]
-            }/>
+            <section
+                style={[
+                    STYLES.main, STYLES.active(active),
+                    STYLES.animating(active && changed)
+                ]}
+            />
         );
     }
 }
@@ -41,7 +46,7 @@ const STYLES = {
         cursor: 'pointer',
         height: '35px',
         width: '60px',
-        background: `url(${require('../../../../images/animated-icons/heart.png')})`,
+        backgroundImage: `url(${require('images/animated-icons/heart.png')})`,
         backgroundPosition: 'left',
         backgroundRepeat: 'no-repeat',
         backgroundSize: '2900%'

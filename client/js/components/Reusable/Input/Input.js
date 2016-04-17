@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { primaryColor, secondaryColor } from '../../../utils/colors';
 
+import TextField from 'material-ui/TextField';
 import eye from '../../../../images/icons/eye.svg';
-
-import TextField from '../../../../../node_modules/material-ui/lib/text-field';
-
 
 @Radium
 export default class Input extends Component {

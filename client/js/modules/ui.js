@@ -1,4 +1,5 @@
-import { fromJS, Map, List } from 'immutable';
+import { Map } from 'immutable';
+import type { Action } from '../../../types/index';
 
 // Actions
 // -----------------------------------
@@ -7,11 +8,11 @@ export const SET_NAVIGATION_VISIBILITY = 'SET_NAVIGATION_VISIBILITY';
 
 // Action Creators
 // -----------------------------------
-export function setNavigationVisibility(show) {
+export function setNavigationVisibility(show: boolean) {
     return {
         type: SET_NAVIGATION_VISIBILITY,
         show
-    }
+    };
 }
 
 

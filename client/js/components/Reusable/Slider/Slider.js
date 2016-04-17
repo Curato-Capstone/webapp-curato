@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 
@@ -13,7 +14,7 @@ class Slider extends Component {
         handleChange  : (value: number) => void
     };
     state: { dragging : boolean };
-    state = { dragging: false }
+    state = { dragging: false };
 
     render() : React.Element {
         const { name, value } = this.props;
@@ -21,7 +22,7 @@ class Slider extends Component {
 
         return (
             <div
-                id={this.props.name}
+                id={name}
                 style={STYLES.container}
                 onMouseMove={(e) => this.handleDrag(e)}
                 onMouseLeave={() => this.setState({ dragging: false })}
@@ -56,8 +57,6 @@ class Slider extends Component {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
             const location = e.clientX - left;
 
-            console.log('here')
-
             if ((location <= 215) && (location >= 10)) {
                 window.requestAnimationFrame(() => this.props.handleChange(location - 10));
             }
@@ -86,7 +85,7 @@ class Slider extends Component {
                 );
             }
         }
-        return <div></div>;
+        return <div />;
     }
 }
 

@@ -7,12 +7,14 @@ import { isDevelopment } from '../utils/utils';
 
 import DevTools from './DevTools';
 import App from 'containers/App';
-import Account from 'containers/routes/Account';
-import Favorites from 'containers/routes/Favorites';
-import Intro from 'containers/routes/Intro';
-import Preferences from 'containers/routes/Preferences';
-import SignUp from 'containers/routes/SignUp';
-import SignIn from 'containers/routes/SignIn';
+import Account from 'routes/Account';
+import Search from 'routes/Search';
+import Favorites from 'routes/Favorites';
+import Intro from 'routes/Intro';
+import Preferences from 'routes/Preferences';
+import SignUp from 'routes/SignUp';
+import SignIn from 'routes/SignIn';
+import Place from 'routes/Place';
 
 type Props = { store: Object };
 export default class Root extends Component {
@@ -29,13 +31,14 @@ export default class Root extends Component {
                 <div>
                     <Router history={history}>
                         <Route path="/" component={App}>
-                            <IndexRoute />
+                            <IndexRoute component={Search}/>
                             <Route path="intro" component={Intro}>
                                 <Route path="1" />
                                 <Route path="2" />
                                 <Route path="3" />
                                 <Route path="4" />
                             </Route>
+                            <Route path="place" component={Place} />
                             <Route path="signUp" component={SignUp} />
                             <Route path="signIn" component={SignIn} />
                             <Route path="preferences" component={Preferences} />
