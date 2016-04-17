@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import Card from 'reusable/Card/Card'
+
 type Props = {};
 class Favorites extends Component {
     static defaultProps = {};
@@ -13,7 +15,7 @@ class Favorites extends Component {
 
         return (
             <div>
-                This is the favorites pages
+                <Card />
             </div>
         );
     }

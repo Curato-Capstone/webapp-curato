@@ -10,6 +10,7 @@ esproposal.decorators=ignore
 module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/\1'
 module.name_mapper='^containers\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/\1'
 module.name_mapper='^routes\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/routes/\1'
+module.name_mapper='^reusable\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/reusable/\1'
 module.name_mapper='^modules\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/modules/\1'
 module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/utils/\1'
 module.name_mapper='^types\/\(.*\)$' -> '<PROJECT_ROOT>/types/\1'

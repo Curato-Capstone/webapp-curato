@@ -2,15 +2,15 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome'
+import FontAwesome from 'react-fontawesome';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 
-import logo from 'images/logo/logo.svg'
+import logo from 'images/logo/logo.svg';
 
 @Radium
 export default class SideNav extends Component {
-    static defaultProps = {};
+    static defaultProps = { hide: false };
     props: { hide: boolean };
     state: void;
 
@@ -24,19 +24,29 @@ export default class SideNav extends Component {
                         <img src={logo} style={STYLES.logo} type="image/svg+xml" />
                     </Link>
                 </div>
-                
-                <Link to="/">
+
+                <Link to="/" style={STYLES.navItem}>
                     <FontAwesome
-                        name='search'
+                        name="search"
                         size="3x"
                         style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
                     />
                 </Link>
-                <Link to="/favorites">
-                    Favorites
+
+                <Link to="/favorites" style={STYLES.navItem}>
+                    <FontAwesome
+                        name="heart"
+                        size="3x"
+                        style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
                 </Link>
-                <Link to="/preferences">
-                    Preferences
+
+                <Link to="/preferences" style={STYLES.navItem}>
+                    <FontAwesome
+                        name="sliders"
+                        size="3x"
+                        style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
                 </Link>
             </div>
         );
@@ -48,7 +58,7 @@ const STYLES = {
     container: {
         height: '100vh',
         minHeight: '900px',
-        width: '100px',
+        width: '80px',
         backgroundColor: primaryColor,
         display: 'flex',
         flexDirection: 'column',
@@ -61,12 +71,17 @@ const STYLES = {
             return {
                 width: 0,
                 opacity: 0
-            }
+            };
         }
     },
 
     logo: {
-        height: '100px',
-        width: '100px'
+        height: '70px',
+        width: '70px',
+        margin: '20px 0 50px 0'
+    },
+
+    navItem: {
+        margin: '30px 0'
     }
 };

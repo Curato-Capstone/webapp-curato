@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import SearchBar from 'components/Search/Searchbar'
-import Button from 'components/Reusable/Button/Button'
+import SearchBar from 'components/Search/Searchbar';
+import Button from 'components/Reusable/Button/Button';
 @Radium
 export default class Search extends Component {
     static defaultProps = {};
@@ -16,7 +16,11 @@ export default class Search extends Component {
             <div style={STYLES.container}>
                 <div style={STYLES.searchBarContainer}>
                     <SearchBar />
-                    <Button label="Random Suggestions!" type="primary" style={STYLES.randomButton}/>
+                    <Button
+                        label="Random Suggestions!"
+                        type="primary"
+                        style={STYLES.randomButton}
+                    />
                 </div>
             </div>
         );

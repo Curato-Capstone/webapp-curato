@@ -10,13 +10,15 @@ export default class Button extends Component {
     static defaultProps = {
         type        : 'primary',
         disabled    : false,
-        handleClick : () => {}
+        handleClick : () => {},
+        style       : {}
     };
     props: {
         label       : string,
         type        : 'primary' | 'secondary',
         handleClick : (event: Object) => void,
-        disabled    : boolean
+        disabled    : boolean,
+        style       : Object
     };
     state: void;
 
@@ -30,7 +32,7 @@ export default class Button extends Component {
                     label={label}
                     labelColor="white"
                     disabled={disabled}
-                    style={Object.assign(STYLES,style)}
+                    style={Object.assign(STYLES, style)}
                     {...other}
                 />
             </div>
@@ -48,4 +50,4 @@ export default class Button extends Component {
 
 const STYLES = {
     color: 'white'
-}
+};

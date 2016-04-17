@@ -170,7 +170,7 @@ const STYLES = {
             position: 'absolute',
             animation: 'x 2s ease-in-out 0.5s 1 normal forwards',
             animationName: lowerTextKeyframes,
-            //but it translates down 75px
+            // but it translates down 75px
             top: 0,
         },
 

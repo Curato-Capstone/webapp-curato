@@ -31,7 +31,7 @@ export default class Root extends Component {
                 <div>
                     <Router history={history}>
                         <Route path="/" component={App}>
-                            <IndexRoute component={Search}/>
+                            <IndexRoute component={Search} />
                             <Route path="intro" component={Intro}>
                                 <Route path="1" />
                                 <Route path="2" />

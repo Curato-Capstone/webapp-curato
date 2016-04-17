@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { primaryColor, secondaryColor } from 'utils/colors'
-import FontAwesome from 'react-fontawesome'
+import FontAwesome from 'react-fontawesome';
+
+import { primaryColor, secondaryColor } from 'utils/colors';
 
 @Radium
 export default class SearchBar extends Component {
     static defaultProps = {
-        handleChange: (v) => {},
+        handleChange: () => {},
         handleEnter: () => {}
     };
 
@@ -37,7 +38,7 @@ export default class SearchBar extends Component {
                     onMouseUp={() => this.setState({ clicking: false })}
                 >
                     <FontAwesome
-                        name='search'
+                        name="search"
                         size="2x"
                         style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
                     />
@@ -48,10 +49,10 @@ export default class SearchBar extends Component {
 
     handleKeyPress(e) {
         if (e.key === 'Enter') {
-            this.setState({ enter: true })
+            this.setState({ enter: true });
 
             setTimeout(() => {
-                this.setState({ enter: false })
+                this.setState({ enter: false });
                 this.props.handleEnter();
             }, 250);
         }

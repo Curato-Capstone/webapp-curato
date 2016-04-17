@@ -9,7 +9,8 @@ import * as userActions from '../modules/user';
 import * as suggestionsActions from '../modules/suggestions';
 
 import Sample from 'components/Sample';
-import SideNav from 'components/Navigation/SideNav'
+import SideNav from 'components/Navigation/SideNav';
+import UserAvatar from 'components/UserAvatar/UserAvatar';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -36,6 +37,7 @@ class App extends Component {
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div style={STYLES}>
                         <SideNav />
+                        <UserAvatar />
                         {this.props.children}
                     </div>
                 </MuiThemeProvider>
