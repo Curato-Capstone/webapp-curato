@@ -163,7 +163,7 @@ const STYLES = {
 
     tooltip: (value, dragging) => {
         return {
-            left: `${value - 45}px`,
+            left: `${value - 5}px`,
             background: 'rgba(222, 138, 125, 0.95)',
             bottom: '100%',
             color: '#fff',
@@ -174,10 +174,10 @@ const STYLES = {
             padding: '20px',
             pointerEvents: 'none',
             position: 'absolute',
-            width: '60%',
+            width: '40%',
             transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
             transition: 'all .3s ease-out',
-            boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)'
+            boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
         };
     },
 

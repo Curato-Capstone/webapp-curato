@@ -48,6 +48,7 @@ const STYLES = {
     container: {
         position: 'absolute',
         top: 16,
+        left: 40,
         zIndex: 99,
         height: '20px',
         marginLeft: '20px',
@@ -59,6 +60,9 @@ const STYLES = {
         },
         '@media (min-width: 420px)': {
             fontSize: '20px'
+        },
+        '@media (min-width: 520px)': {
+            left: 80,
         },
     },
 

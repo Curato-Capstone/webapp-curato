@@ -35,7 +35,7 @@ class App extends Component {
         return (
             <StyleRoot>
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
-                    <div style={STYLES}>
+                    <div style={STYLES.container}>
                         {this.renderNavigation()}
                         {this.props.children}
                     </div>
@@ -49,7 +49,7 @@ class App extends Component {
 
         if (!location.pathname.includes('intro')) {
             return (
-                <div>
+                <div style={STYLES.navContainer}>
                     <SideNav location={location} />
                     <UserAvatar />
                     <BreadCrumbs location={location}/>
@@ -58,6 +58,21 @@ class App extends Component {
         }
     }
 }
+
+const STYLES = {
+    container: {
+        fontFamily: 'Montserrat, Sans-Serif',
+        display: 'flex',
+        backgroundColor: '#F6F6F6',
+    },
+
+    navContainer: {
+        marginRight: '50px',
+        '@media (min-width: 520px)': {
+            width: '80px',
+        }
+    }
+};
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -77,11 +92,5 @@ function mapDispatchToProps(dispatch) {
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
-
-const STYLES = {
-    fontFamily: 'Montserrat, Sans-Serif',
-    display: 'flex',
-    backgroundColor: '#F6F6F6',
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

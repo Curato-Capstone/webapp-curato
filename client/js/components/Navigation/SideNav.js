@@ -81,6 +81,7 @@ const STYLES = {
         height: '100vh',
         minHeight: '600px',
         width: '50px',
+        position: 'fixed',
         backgroundColor: primaryColor,
         display: 'flex',
         flexDirection: 'column',

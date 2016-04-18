@@ -40,10 +40,10 @@ export default class Root extends Component {
                         <Route path="/" component={App}>
                             <IndexRoute component={Search} />
                             <Route path="intro" component={Intro}>
-                                <Route path="1" component={HomeIntro}/>
-                                <Route path="2" />
-                                <Route path="3" />
-                                <Route path="4" />
+                                <IndexRoute component={HomeIntro} />
+                                <Route path="1" component={PreferencesIntro} />
+                                <Route path="2" component={SuggestionsIntro} />
+                                <Route path="3" component={SignUpIntro} />
                             </Route>
                             <Route path="place" component={Place} />
                             <Route path="signUp" component={SignUp} />
