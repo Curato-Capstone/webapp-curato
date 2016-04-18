@@ -57,8 +57,8 @@ class Slider extends Component {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
             const location = e.clientX - left;
 
-            if ((location <= 215) && (location >= 10)) {
-                window.requestAnimationFrame(() => this.props.handleChange(location - 10));
+            if ((location <= 285) && (location >= 80)) {
+                window.requestAnimationFrame(() => this.props.handleChange(location - 80));
             }
         }
     }
@@ -66,8 +66,8 @@ class Slider extends Component {
     handleClick(e): void {
         const left = document.getElementById(this.props.name).getBoundingClientRect().left;
         const location = e.clientX - left;
-        if ((location <= 215) && (location >= 10)) {
-            this.props.handleChange(location - 10);
+        if ((location <= 285) && (location >= 80)) {
+            this.props.handleChange(location - 80);
         }
     }
 
@@ -97,6 +97,7 @@ const STYLES = {
         justifyContent: 'center',
         position: 'relative',
         width: '220px',
+        padding: '0 70px 30px 70px'
     },
 
     slider: {
@@ -138,7 +139,7 @@ const STYLES = {
             width: '16px',
             borderRadius: '50%',
             backgroundColor: '#BC4432',
-            left: `${value}px`,
+            left: `${value + 70}px`,
             zIndex: 10
         };
     },
@@ -147,22 +148,22 @@ const STYLES = {
         return {
             position: 'absolute',
             cursor: 'pointer',
-            height: '40px',
-            width: '40px',
+            height: '50px',
+            width: '50px',
             borderRadius: '50%',
-            marginLeft: '-12px',
-            marginTop: '-12px',
+            marginLeft: '-16px',
+            marginTop: '-16px',
             backgroundColor: 'lightgrey',
             transition: 'opacity .25s ease-out',
             opacity: dragging ? 0.2 : 0,
-            left: `${value}px`,
+            left: `${value + 70}px`,
             zIndex: 3
         };
     },
 
     tooltip: (value, dragging) => {
         return {
-            left: `${value - 75}px`,
+            left: `${value - 45}px`,
             background: 'rgba(222, 138, 125, 0.95)',
             bottom: '100%',
             color: '#fff',
@@ -190,7 +191,7 @@ const STYLES = {
             transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
             height: 0,
             top: 55,
-            left: `${value + 10}px`,
+            left: `${value + 80}px`,
             marginLeft: '-13px',
             position: 'absolute',
             width: 0

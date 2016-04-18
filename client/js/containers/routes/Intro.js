@@ -12,11 +12,34 @@ class Intro extends Component {
         const { } = this.props;
 
         return (
-            <div>
-                This is the intro page
+            <div style={STYLES.container}>
+                <div style={STYLES.card}>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
 }
 
 export default Radium(Intro);
+
+const STYLES = {
+    container: {
+        height: '100%',
+        height: '100vh',
+        minHeight: '600px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    card: {
+        width: '500px',
+        height: '600px',
+        boxShadow: '3px 8px 12px #888888',
+        backgroundColor: 'rgba(255, 255, 240, 1)',
+        // opacity: 0.25,
+        margin: '40px'
+    }
+};

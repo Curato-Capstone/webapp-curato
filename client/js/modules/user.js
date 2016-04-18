@@ -108,7 +108,16 @@ const initialState = Map({
     gender      : '',
     ethnicity   : '',
     favorites   : List(),
-    preferences : Map()
+    preferences : Map({
+        price         : 0,
+        culture       : 0,
+        food          : 0,
+        outdoor       : 0,
+        entertainment : 0,
+        relaxation    : 0,
+        shopping      : 0,
+        sports        : 0
+    })
 });
 
 type State = Map<string, any>

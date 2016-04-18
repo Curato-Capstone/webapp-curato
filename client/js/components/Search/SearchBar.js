@@ -21,15 +21,17 @@ export default class SearchBar extends Component {
     state = { clicking: false, enter: false };
 
     render() {
-        const { value } = this.props;
+        const { value, handleChange } = this.props;
         const { clicking, enter } = this.state;
 
         return (
             <div style={STYLES.container}>
                 <input
                     type="text"
+                    value={value}
                     style={STYLES.input}
                     placeholder={'Search for something to do!'}
+                    onChange={handleChange}
                     onKeyDown={(e) => this.handleKeyPress(e)}
                 />
                 <div

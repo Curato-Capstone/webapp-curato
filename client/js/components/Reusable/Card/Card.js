@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 
@@ -37,7 +38,9 @@ export default class Card extends Component {
                     <div style={STYLES.cardActions.container}>
                         <Heart handleClick={handleFavorite} active={favorite} />
                         <div onClick={handleDislike}>I don't like this</div>
-                        <div style={STYLES.cardActions.more}>...more</div>
+                        <Link to="/place">
+                            <div style={STYLES.cardActions.more}>...more</div>
+                        </Link>
                     </div>
                 </div>
 

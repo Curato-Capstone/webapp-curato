@@ -1,21 +1,32 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { routerActions } from 'react-router-redux';
+
+import * as userActions from 'modules/user';
+import * as suggestionsActions from 'modules/suggestions';
 
 import SearchBar from 'components/Search/Searchbar';
 import Button from 'components/Reusable/Button/Button';
+
 @Radium
-export default class Search extends Component {
+class Search extends Component {
     static defaultProps = {};
     props: {};
     state: void;
 
     render() {
-        const { } = this.props;
-
+        const { suggestions, actions } = this.props;
+        
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.searchBarContainer}>
-                    <SearchBar />
+                    <SearchBar
+                        value={suggestions.searchText}
+                        handleChange={(e) => actions.changeSearchText(e.target.value)}
+                    />
                     <div style={STYLES.randomButtonContainer}>
                         <Button
                             label="Random Suggestions!"
@@ -31,7 +42,7 @@ export default class Search extends Component {
 
 const lowerSearchBarKeyframes = Radium.keyframes({
     '0%': {
-        transform: 'translateY(-10px)',
+        transform: 'translateY(-35px)',
         opacity: 0
     },
 
@@ -40,7 +51,7 @@ const lowerSearchBarKeyframes = Radium.keyframes({
     },
 
     '100%': {
-        transform: 'translateY(25px)',
+        transform: 'translateY(0px)',
         opacity: 1
     }
 }, 'lowerSearchBar');
@@ -54,7 +65,6 @@ const revealButtonKeyframes = Radium.keyframes({
         opacity: 1
     }
 }, 'revealButton');
-
 
 const STYLES = {
     container: {
@@ -84,3 +94,23 @@ const STYLES = {
         marginTop: '36px',
     }
 };
+
+function mapStateToProps(state) {
+    return {
+        user: state.get('user').toJS(),
+        suggestions: state.get('suggestions').toJS(),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(Object.assign(
+            {},
+            userActions,
+            suggestionsActions
+        ), dispatch),
+        routerActions : bindActionCreators(routerActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

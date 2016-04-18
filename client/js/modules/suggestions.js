@@ -7,6 +7,7 @@ export const SET_SUGGESTIONS = 'SET_SUGGESTIONS';
 export const ADD_SUGGESTION = 'ADD_SUGGESTION';
 export const REMOVE_SUGGESTION = 'REMOVE_SUGGESTION';
 export const CLEAR_SUGGESTIONS = 'CLEAR_SUGGESTIONS';
+export const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 
 
 // Action Creators
@@ -38,11 +39,19 @@ export function clearSuggestions(): Action {
     };
 }
 
+export function changeSearchText(text: string): Action {
+    return {
+        type: CHANGE_SEARCH_TEXT,
+        text
+    };
+}
+
 
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    suggestions : List()
+    suggestions : List(),
+    searchText: ''
 });
 
 type State = Map<string, any>;
@@ -63,6 +72,9 @@ export default function reducer(state: State = initialState, action: Action): St
 
         case CLEAR_SUGGESTIONS:
             return initialState;
+
+        case CHANGE_SEARCH_TEXT:
+            return initialState.set('searchText', action.text);
 
         default:
             return state;

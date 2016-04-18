@@ -22,12 +22,12 @@ export default class SideNav extends Component {
 
         return (
             <div style={[STYLES.container, STYLES.hide(hide)]}>
-                <div style={STYLES.logoContainer}>
+                <div>
                     <Link to="/">
                         <img src={logo} style={STYLES.logo} type="image/svg+xml" />
                     </Link>
                 </div>
-                <div style={STYLES.navItemsContainer}>
+                <div style={STYLES.navItemsContainer} key="search">
                     <div style={STYLES.navItem}>
                         <Link to="/">
                             <FontAwesome
@@ -37,7 +37,7 @@ export default class SideNav extends Component {
                             />
                         </Link>
                     </div>
-                    <div style={STYLES.navItem}>
+                    <div style={STYLES.navItem} key="favorites">
                         <Link to="/favorites">
                             <FontAwesome
                                 name="heart"
@@ -46,7 +46,7 @@ export default class SideNav extends Component {
                             />
                         </Link>
                     </div>
-                    <div style={STYLES.navItem}>
+                    <div style={STYLES.navItem} key="preferences">
                         <Link to="/preferences">
                             <FontAwesome
                                 name="sliders"
@@ -61,7 +61,7 @@ export default class SideNav extends Component {
         );
     }
 
-    getActiveIndex(location) {
+    getActiveIndex(location: string) {
         switch (location) {
             case '/':
                 return 0;
@@ -79,7 +79,7 @@ export default class SideNav extends Component {
 const STYLES = {
     container: {
         height: '100vh',
-        minHeight: '900px',
+        minHeight: '600px',
         width: '50px',
         backgroundColor: primaryColor,
         display: 'flex',
@@ -91,7 +91,7 @@ const STYLES = {
         }
     },
 
-    hide: (hide) => {
+    hide: (hide: boolean) => {
         if (hide) {
             return {
                 width: 0,
@@ -122,11 +122,14 @@ const STYLES = {
     navItem: {
         margin: '40px 0',
         height: '45px',
-        transition: 'all 1s ease-in-out',
+        transition: 'all 0.5s ease-in-out',
         transform: 'scale(0.72,0.72)',
+        ':hover': {
+            opacity: 0.6
+        },
         '@media (min-width: 520px)': {
             transform: 'scale(1, 1)'
-        }
+        },
     },
 
     active: (item: number) => {

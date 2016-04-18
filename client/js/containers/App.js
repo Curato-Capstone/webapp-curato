@@ -5,12 +5,13 @@ import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import { StyleRoot } from 'radium';
 
-import * as userActions from '../modules/user';
-import * as suggestionsActions from '../modules/suggestions';
+import * as userActions from 'modules/user';
+import * as suggestionsActions from 'modules/suggestions';
 
 import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
-import UserAvatar from 'components/UserAvatar/UserAvatar';
+import UserAvatar from 'components/Navigation/UserAvatar';
+import BreadCrumbs from 'components/Navigation/BreadCrumbs';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -31,19 +32,30 @@ class App extends Component {
     state: void;
 
     render(): React.Element {
-        const { location } = this.props;
-
         return (
             <StyleRoot>
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div style={STYLES}>
-                        <SideNav location={location} />
-                        <UserAvatar />
+                        {this.renderNavigation()}
                         {this.props.children}
                     </div>
                 </MuiThemeProvider>
             </StyleRoot>
         );
+    }
+
+    renderNavigation() {
+        const { location } = this.props;
+
+        if (!location.pathname.includes('intro')) {
+            return (
+                <div>
+                    <SideNav location={location} />
+                    <UserAvatar />
+                    <BreadCrumbs location={location}/>
+                </div>
+            )
+        }
     }
 }
 
