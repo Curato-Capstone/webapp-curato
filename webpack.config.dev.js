@@ -18,7 +18,7 @@ module.exports = {
             components: path.join(ROOT_DIR, 'client', 'js', 'components'),
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
             routes: path.join(ROOT_DIR, 'client', 'js', 'containers', 'routes'),
-            reusable: path.join(ROOT_DIR, 'client', 'js', 'Reusable'),
+            reusable: path.join(ROOT_DIR, 'client', 'js', 'components','Reusable'),
             modules: path.join(ROOT_DIR, 'client', 'js', 'modules'),
             utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),
             types: path.join(ROOT_DIR, 'types'),

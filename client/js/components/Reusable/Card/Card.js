@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import { primaryColor, secondaryColor } from 'utils/colors';
+
 import Heart from 'components/Reusable/Icons/Heart';
 
 @Radium
@@ -75,10 +77,15 @@ const raiseImageKeyframes = Radium.keyframes({
 const STYLES = {
     container: {
         marginTop: '75px',
-        marginBottom: '40px',
+        marginBottom: '80px',
         position: 'relative',
-        height: '450px',
-        // margin: '60px 0'
+        height: '350px',
+        marginLeft: '15px',
+        transition: 'all 1s ease-out',
+        '@media (min-width: 520px)': {
+            height: '450px',
+            // marginBottom: '80px',
+        },
     },
 
     cardImage: {
@@ -87,38 +94,54 @@ const STYLES = {
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
-            height: '400px',
-            width: '350px',
+            width: '250px',
+            height: '300px',
             transition: 'all 1s ease-out',
-            animation: 'x 1s ease-in-out 0.5s 1 normal forwards',
+            animation: 'x 1s ease-in-out 0.2s 1 normal forwards',
             animationName: raiseImageKeyframes,
+            '@media (min-width: 520px)': {
+                width: '350px',
+                height: '400px'
+            },
         },
 
         main: {
             transition: 'all 1s ease-out',
-            width: '900px'
+            width: '700px',
+            '@media (min-width: 520px)': {
+                width: '900px',
+            },
         }
     },
 
     cardText: {
         container: {
-            boxShadow: '3px 8px 5px #888888',
-            height: '400px',
-            width: '380px',
+            boxShadow: '3px 8px 12px #888888',
+            height: '300px',
+            width: '280px',
             marginLeft: '-15px',
             background: 'white',
             opacity: 0,
             position: 'absolute',
-            animation: 'x 1s ease-in-out 0.5s 1 normal forwards',
+            transition: 'all 1s ease-out',
+            animation: 'x 1s ease-in-out 0.2s 1 normal forwards',
             animationName: lowerTextKeyframes,
             top: 0,
+            '@media (min-width: 520px)': {
+                height: '400px',
+                width: '380px',
+            },
         },
 
         text: {
             position: 'absolute',
             color: 'grey',
-            top: 250 + 20,
-            left: 20
+            top: 185,
+            left: 20,
+            transition: 'all 1s ease-out',
+            '@media (min-width: 520px)': {
+                top: 270,
+            }
         },
 
         placeName: {
@@ -126,7 +149,7 @@ const STYLES = {
         },
 
         address: {
-            color: 'black'
+            color: primaryColor
         }
     },
 
@@ -141,7 +164,8 @@ const STYLES = {
         },
 
         more: {
-            color: 'blue'
+            color: 'blue',
+            cursor: 'pointer'
         }
     }
 };

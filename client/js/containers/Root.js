@@ -46,7 +46,7 @@ export default class Root extends Component {
                             <Route path="favorites" component={Favorites} />
                         </Route>
                     </Router>
-                    { !isDevelopment ? <DevTools /> : null }
+                    { isDevelopment ? <DevTools /> : null }
                 </div>
             </Provider>
         );

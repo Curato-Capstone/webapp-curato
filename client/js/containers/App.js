@@ -23,6 +23,7 @@ class App extends Component {
     props: {
         user          : Object,
         suggestions   : Object,
+        location      : Object,
         actions       : Object,
         routerActions : Object,
         children      : React.Element
@@ -30,13 +31,13 @@ class App extends Component {
     state: void;
 
     render(): React.Element {
-        const {} = this.props;
+        const { location } = this.props;
 
         return (
             <StyleRoot>
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div style={STYLES}>
-                        <SideNav />
+                        <SideNav location={location} />
                         <UserAvatar />
                         {this.props.children}
                     </div>
@@ -46,10 +47,11 @@ class App extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
         user: state.get('user').toJS(),
-        suggestions: state.get('suggestions').toJS()
+        suggestions: state.get('suggestions').toJS(),
+        location: ownProps.location
     };
 }
 

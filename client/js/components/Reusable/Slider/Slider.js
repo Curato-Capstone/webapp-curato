@@ -91,9 +91,9 @@ class Slider extends Component {
 
 const STYLES = {
     container: {
-        alignItems: 'center',
+        alignItems: 'flex-end',
         display: 'inline-flex',
-        height: '150px',
+        height: '105px',
         justifyContent: 'center',
         position: 'relative',
         width: '220px',
@@ -174,7 +174,7 @@ const STYLES = {
             pointerEvents: 'none',
             position: 'absolute',
             width: '60%',
-            transform: dragging ? 'translateY(0px)' : 'translateY(20px)',
+            transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
             transition: 'all .3s ease-out',
             boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)'
         };
@@ -187,7 +187,7 @@ const STYLES = {
             borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
             transition: 'all .3s ease-out',
             opacity: dragging ? 1 : 0,
-            transform: dragging ? 'translateY(-10px)' : 'translateY(10px)',
+            transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
             height: 0,
             top: 55,
             left: `${value + 10}px`,

@@ -61,32 +61,39 @@ export default class SearchBar extends Component {
 
 const STYLES = {
     container: {
-        // position: 'relative'
-        display: 'flex'
+        display: 'flex',
+        width: '90%',
+        maxWidth: '700px'
     },
 
     input: {
-        width: '500px',
-        height: '70px',
-        fontSize: '23px',
+        width: '100%',
+        fontSize: '16px',
+        height: '50px',
         paddingLeft: '18px',
-        boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)'
+        boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
+        transition: 'all 0.5s ease-in',
+        '@media (min-width: 520px)': {
+            height: '70px',
+            fontSize: '23px',
+        }
     },
 
     icon: (clicking) => {
         return {
-            // position: 'absolute',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            // top: 0,
-            // right: 0,
             boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
-            width: '75px',
-            height: '72px',
+            width: '65px',
+            height: '52px',
             backgroundColor: primaryColor,
-            transform: clicking ? 'translateY(10px)' : 'translateY(0px)',
-            transition: 'all 0.15s ease-in'
+            transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
+            transition: 'all 0.25s ease-in',
+            '@media (min-width: 520px)': {
+                width: '80px',
+                height: '72px',
+            }
         };
     }
 };
