@@ -112,13 +112,16 @@ export function getSuggestions() {
     return (dispatch, getState) => {
         const query = getState().getIn(['suggestion', 'searchText']);
 
-        request.get('ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/1')
-            .then((res) => {
-                dispatch(setSuggestions(res.body));
-                dispatch(routerActions.push('/suggestions'));
-            })
-            .catch((e) => {
-                console.warn(e)
-            })
+        // request.get('ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/1/favorites')
+        //     .then((res) => {
+        //         dispatch(setSuggestions(res.body));
+        //         dispatch(routerActions.push('/suggestions'));
+        //     })
+        //     .catch((e) => {
+        //         console.warn(e)
+        //     })
+
+        dispatch(routerActions.push('/suggestions'));
+
     }
 }
