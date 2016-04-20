@@ -8,7 +8,7 @@ import { routerActions } from 'react-router-redux';
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
-import SearchBar from 'components/Search/Searchbar';
+import SearchBar from 'components/Search/SearchBar';
 import Button from 'components/Reusable/Button/Button';
 
 @Radium

@@ -3,7 +3,7 @@ import Radium from 'radium';
 import { Link } from 'react-router';
 
 import { primaryColor } from 'utils/colors';
-import preferencesInfo from 'utils/Preferences';
+import preferencesInfo from 'utils/preferences';
 import FontAwesome from 'react-fontawesome';
 
 import Header from 'components/Intro/Header';
