@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 import FontAwesome from 'react-fontawesome';
@@ -8,20 +9,20 @@ import { primaryColor, secondaryColor } from 'utils/colors';
 export default class SearchBar extends Component {
     static defaultProps = {
         handleChange: () => {},
-        handleEnter: () => {}
+        handleSubmit: () => {}
     };
 
     props: {
         value: string,
         handleChange: (value: string) => void,
-        handleEnter: () => void,
+        handleSubmit: () => void,
     };
 
     state : { clicking: boolean, enter: boolean };
     state = { clicking: false, enter: false };
 
     render() {
-        const { value, handleChange } = this.props;
+        const { value, handleChange, handleSubmit } = this.props;
         const { clicking, enter } = this.state;
 
         return (
@@ -36,6 +37,7 @@ export default class SearchBar extends Component {
                 />
                 <div
                     style={STYLES.icon(clicking || enter)}
+                    onClick={() => handleSubmit()}
                     onMouseDown={() => this.setState({ clicking: true })}
                     onMouseUp={() => this.setState({ clicking: false })}
                 >
@@ -49,13 +51,14 @@ export default class SearchBar extends Component {
         );
     }
 
-    handleKeyPress(e) {
+    handleKeyPress(e): void {
         if (e.key === 'Enter') {
             this.setState({ enter: true });
 
+            // wait 250ms for cool animation
             setTimeout(() => {
                 this.setState({ enter: false });
-                this.props.handleEnter();
+                this.props.handleSubmit();
             }, 250);
         }
     }
@@ -91,7 +94,7 @@ const STYLES = {
             height: '52px',
             backgroundColor: primaryColor,
             transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
-            transition: 'all 0.25s ease-in',
+            transition: 'all 0.2s ease-in',
             '@media (min-width: 520px)': {
                 width: '80px',
                 height: '72px',

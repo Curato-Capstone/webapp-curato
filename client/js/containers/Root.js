@@ -10,6 +10,7 @@ import App from 'containers/App';
 import Account from 'routes/Account';
 import Search from 'routes/Search';
 import Favorites from 'routes/Favorites';
+import Suggestions from 'routes/Suggestions'
 
 import Intro from 'routes/Intro';
 
@@ -48,12 +49,13 @@ export default class Root extends Component {
                             <Route path="place" component={Place} />
                             <Route path="signUp" component={SignUp} />
                             <Route path="signIn" component={SignIn} />
+                            <Route path="suggestions" component={Suggestions} />
                             <Route path="preferences" component={Preferences} />
                             <Route path="account" component={Account} />
                             <Route path="favorites" component={Favorites} />
                         </Route>
                     </Router>
-                    { !isDevelopment ? <DevTools /> : null }
+                    { isDevelopment ? <DevTools /> : null }
                 </div>
             </Provider>
         );

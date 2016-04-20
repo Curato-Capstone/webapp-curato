@@ -7,7 +7,7 @@ import { primaryColor } from 'utils/colors'
 
 const pathToCrumbs = {
     '/'            : ['Search'],
-    '/favorites'   : ['Favorites', "Something"],
+    '/favorites'   : ['Favorites'],
     '/preferences' : ['Preferences'],
     '/suggestions' : ['Search', 'Suggestions'],
     '/place'       : ['Place']

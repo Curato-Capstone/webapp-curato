@@ -108,15 +108,16 @@ const initialState = Map({
     gender      : '',
     ethnicity   : '',
     favorites   : List(),
+    id          : '1',
     preferences : Map({
-        price         : 0,
-        culture       : 0,
-        food          : 0,
-        outdoor       : 0,
-        entertainment : 0,
-        relaxation    : 0,
-        shopping      : 0,
-        sports        : 0
+        price         : 123,
+        culture       : 104,
+        food          : 55,
+        outdoor       : 77,
+        entertainment : 90,
+        relaxation    : 33,
+        shopping      : 2,
+        sports        : 22
     })
 });
 

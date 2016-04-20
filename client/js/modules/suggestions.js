@@ -1,5 +1,8 @@
 import { fromJS, Map, List } from 'immutable';
 import type { Place, Action } from '../../../types/index';
+import request from 'superagent-bluebird-promise';
+import { routerActions } from 'react-router-redux';
+
 
 // Actions
 // -----------------------------------
@@ -47,10 +50,31 @@ export function changeSearchText(text: string): Action {
 }
 
 
+const place1 = {
+    name: 'EMP',
+    address: '1234 Street Ave., Seattle, WA',
+    image: require('images/places/emp.jpg'),
+    id: '123'
+};
+
+const place2 = {
+    name: 'Space Needle',
+    address: '3495 James St., Seattle, WA',
+    image: require('images/places/space_needle.jpg'),
+    id: '124',
+};
+
+const place3 = {
+    name: 'Pike Place Market',
+    address: '2nd Pike Pl., Seattle, WA',
+    image: require('images/places/pike_place_market.jpg'),
+    id: '125'
+};
+
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    suggestions : List(),
+    suggestions : List([place1, place2, place3]),
     searchText: ''
 });
 
@@ -78,5 +102,23 @@ export default function reducer(state: State = initialState, action: Action): St
 
         default:
             return state;
+    }
+}
+
+
+// Thunks
+// -----------------------------------
+export function getSuggestions() {
+    return (dispatch, getState) => {
+        const query = getState().getIn(['suggestion', 'searchText']);
+
+        request.get('ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/1')
+            .then((res) => {
+                dispatch(setSuggestions(res.body));
+                dispatch(routerActions.push('/suggestions'));
+            })
+            .catch((e) => {
+                console.warn(e)
+            })
     }
 }

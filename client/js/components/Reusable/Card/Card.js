@@ -36,11 +36,11 @@ export default class Card extends Component {
                         <div style={STYLES.cardText.address}>{place.address}</div>
                     </div>
                     <div style={STYLES.cardActions.container}>
-                        <Heart handleClick={handleFavorite} active={favorite} />
+                        <div onClick={handleFavorite}>
+                            <Heart active={favorite} />
+                        </div>
                         <div onClick={handleDislike}>I don't like this</div>
-                        <Link to="/place">
                             <div style={STYLES.cardActions.more}>...more</div>
-                        </Link>
                     </div>
                 </div>
 

@@ -26,6 +26,7 @@ class Search extends Component {
                     <SearchBar
                         value={suggestions.searchText}
                         handleChange={(e) => actions.changeSearchText(e.target.value)}
+                        handleSubmit={() => actions.getSuggestions()}
                     />
                     <div style={STYLES.randomButtonContainer}>
                         <Button
