@@ -4,6 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
+import FlipMove from 'react-flip-move';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
@@ -34,22 +35,22 @@ class Suggestions extends Component {
 
         return (
             <div style={STYLES.container}>
-                <div style={STYLES.cardsContainer}>
+                <FlipMove className="suggestionsContainer" style={STYLES.cardsContainer}>
                     {suggestions.slice(0, 2).map((place, index) => {
                         return (
-                            <div key={place.id} style={STYLES.cardContainer}>
+                            <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
                                 <Card
                                     key={place.id}
                                     place={place}
                                     favorite={this.checkFavorited(place)}
-                                    handleFavorite={() => this.handledFavorite(place, index)}
+                                    handleFavorite={() => this.handleFavorite(place, index)}
                                     handleDislike={() => actions.removeSuggestion(index)}
                                     handleMore={() => {}}
                                 />
                             </div>
                         );
                     })}
-                </div>
+                </FlipMove>
             </div>
         );
     }
@@ -65,7 +66,7 @@ class Suggestions extends Component {
         return false;
     }
 
-    handledFavorite(place, index) {
+    handleFavorite(place, index) {
         if (this.checkFavorited(place)) {
             this.props.actions.removeFavorite(index);
         } else {
@@ -86,10 +87,7 @@ const STYLES = {
         alignItems: 'center',
         justifyContent: 'space-around',
         width: '100%',
-        marginTop: '64px',
-        '@media (min-width: 1200px)': {
-            flexDirection: 'row',
-        }
+        marginTop: '64px'
     },
 
     cardContainer: {

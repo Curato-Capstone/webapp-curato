@@ -98,7 +98,7 @@ const STYLES = {
 
 function mapStateToProps(state) {
     return {
-        searchText: state.get('suggestions').toJS().suggestions,
+        searchText: state.get('suggestions').toJS().searchText,
     };
 }
 

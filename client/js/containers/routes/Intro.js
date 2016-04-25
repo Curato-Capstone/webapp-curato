@@ -35,7 +35,7 @@ const STYLES = {
         alignItems: 'center',
         height: '100vh',
         minHeight: '600px',
-        width: '100%'
+        width: '100%',
     },
 
     /* replace with paper component */
@@ -47,7 +47,7 @@ const STYLES = {
         padding: '24px',
         boxShadow: '3px 8px 12px #888888',
         backgroundColor: 'white',
-        zIndex: 5
+        zIndex: 5,
     },
 
     background: {

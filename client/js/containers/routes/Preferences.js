@@ -82,7 +82,8 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        minHeight: '100vh'
     },
 
     slidersContainer: {

@@ -59,7 +59,7 @@ export default class Preferences extends Component {
                     size="3x"
                     style={STYLES.arrow}
                 />
-                <div style={STYLES.suggestionButton}>
+                <div style={STYLES.buttonContainer}>
                     <Link to="/intro/2">
                         <Button label="Get Your Suggestions!"/>
                     </Link>
@@ -72,6 +72,7 @@ export default class Preferences extends Component {
 const STYLES = {
     container: {
         display: 'flex',
+        position: 'relative',
         height: '100%',
         flexDirection: 'column',
         alignItems: 'center',
@@ -133,7 +134,11 @@ const STYLES = {
         opacity: '0.75'
     },
 
-    suggestionButton: {
-        marginTop: 'auto'
+    buttonContainer: {
+        position: 'absolute',
+        bottom: -50,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
     }
 };

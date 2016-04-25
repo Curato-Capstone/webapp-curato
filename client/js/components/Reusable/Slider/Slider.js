@@ -188,10 +188,11 @@ const STYLES = {
             background: 'rgba(222, 138, 125, 0.95)',
             color: '#fff',
             marginBottom: '-45px',
-            opacity: dragging ? 1 : 0,
+            opacity: dragging ? 0.9 : 0,
             padding: '20px',
             pointerEvents: 'none',
             width: '40%',
+            zIndex: 100,
             boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
             transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
             /* revisit */

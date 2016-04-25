@@ -1,27 +1,29 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 
 import Header from 'components/Intro/Header';
 import Card from 'reusable/Card/Card';
+import Button from 'reusable/Button/Button';
 
 const place1 = {
     name: 'EMP',
-    address: '1234 Street Ave., Seattle, WA',
+    location: {address: '3495 James St., Seattle, WA'},
     image: require('images/places/emp.jpg'),
     id: '123'
 };
 
 const place2 = {
     name: 'Space Needle',
-    address: '3495 James St., Seattle, WA',
+    location: {address: '3495 James St., Seattle, WA'},
     image: require('images/places/space_needle.jpg'),
     id: '124',
 };
 
 const place3 = {
     name: 'Pike Place Market',
-    address: '2nd Pike Pl., Seattle, WA',
+    location: {address: '3495 James St., Seattle, WA'},
     image: require('images/places/pike_place_market.jpg'),
     id: '125'
 };
@@ -55,6 +57,11 @@ export default class Suggestions extends Component {
                         );
                     })}
                 </div>
+                <div style={STYLES.buttonContainer}>
+                    <Link to="/intro/3">
+                        <Button label="I'm ready to sign up!" type="primary" />
+                    </Link>
+                </div>
             </div>
         );
     }
@@ -62,19 +69,22 @@ export default class Suggestions extends Component {
 
 const STYLES = {
     container: {
-        height: '100%'
+        height: '100%',
+        position: 'relative',
     },
+
     cardContainer: {
         display: 'flex',
         overflow: 'scroll',
         overflowY: 'hidden',
-        height: '70%',
+        height: '80%',
         alignItems: 'center',
         '@media (min-width: 520px)': {
             height: '80%'
         },
 
     },
+
     card: {
         transform: 'scale(0.7, 0.7)'
     },
@@ -82,5 +92,13 @@ const STYLES = {
     text: {
         margin: '24px',
         textAlign: 'center'
+    },
+
+    buttonContainer: {
+        position: 'absolute',
+        bottom: -45,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
     }
 };
