@@ -21,6 +21,7 @@
   "license": "ISC",
   "homepage": "https://github.com/Curato-Capstone/webapp-curato#readme",
   "dependencies": {
+    "autobind-decorator": "^1.3.3",
     "bluebird": "^3.1.1",
     "immutable": "^3.7.6",
     "koa": "^2.0.0",

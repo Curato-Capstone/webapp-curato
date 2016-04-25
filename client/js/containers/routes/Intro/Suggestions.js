@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 
@@ -29,15 +30,15 @@ const place3 = {
 export default class Suggestions extends Component {
     static defaultProps = {};
     props: {};
-    state: void;
-    state = {suggestions: [place1, place2, place3]};
+    state = { suggestions: [place1, place2, place3] };
+    state: { suggestions: Array<Object> };
 
     render() {
         const { } = this.props;
 
         return (
             <div style={STYLES.container}>
-                <Header text="Your Suggestions!"/>
+                <Header text="Your Suggestions!" />
                 <div style={STYLES.text}>These are the suggestions we came up with!</div>
                 <div style={STYLES.cardContainer}>
                     {this.state.suggestions.map((place, index) => {
@@ -47,13 +48,7 @@ export default class Suggestions extends Component {
                                     place={place}
                                     favorite
                                     handleFavorite={() => {}}
-                                    handleDislike={() => {
-                                            let newSuggestions = [...suggestions];
-                                            const value = newSuggestions.splice(index, 1);
-                                            newSuggestions = [...newSuggestions, ...value];
-
-                                            this.setState({ suggestions: newSuggestions });
-                                        }}
+                                    handleDislike={() => {}}
                                     handleMore={() => {}}
                                 />
                             </div>

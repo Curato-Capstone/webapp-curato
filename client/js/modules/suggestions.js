@@ -122,6 +122,5 @@ export function getSuggestions() {
         //     })
 
         dispatch(routerActions.push('/suggestions'));
-
-    }
+    };s
 }

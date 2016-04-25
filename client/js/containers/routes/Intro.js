@@ -8,20 +8,18 @@ import Radium from 'radium';
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
-import { primaryColor } from 'utils/colors'
+import { primaryColor } from 'utils/colors';
 
 @Radium
 class Intro extends Component {
     static defaultProps = {};
     state: void;
-    props: {};
+    props: { children: Array<React.Element>|React.Element };
 
     render() {
-        const { } = this.props;
-
         return (
             <div style={STYLES.container}>
-                <div style={STYLES.background}/>
+                <div style={STYLES.background} />
                 <div style={STYLES.card}>
                     {this.props.children}
                 </div>
@@ -32,34 +30,34 @@ class Intro extends Component {
 
 const STYLES = {
     container: {
-        height: '100%',
-        height: '100vh',
-        minHeight: '600px',
-        width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100vh',
+        minHeight: '600px',
+        width: '100%'
     },
 
+    /* replace with paper component */
     card: {
         width: '80%',
         maxWidth: '600px',
         height: '550px',
-        boxShadow: '3px 8px 12px #888888',
-        backgroundColor: 'white',
         margin: '40px',
         padding: '24px',
-        zIndex: 9
+        boxShadow: '3px 8px 12px #888888',
+        backgroundColor: 'white',
+        zIndex: 5
     },
 
     background: {
         position: 'absolute',
         top: 0,
         left: 0,
-        background: primaryColor,
-        width: '100%',
         height: '50vh',
-        minHeight: '300px'
+        minHeight: '300px',
+        width: '100%',
+        background: primaryColor
     }
 };
 

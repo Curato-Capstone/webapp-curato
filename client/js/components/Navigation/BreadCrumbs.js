@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import FlipMove from 'react-flip-move';
 
-import { primaryColor } from 'utils/colors'
+import { primaryColor } from 'utils/colors';
 
 const pathToCrumbs = {
     '/'            : ['Search'],
@@ -16,7 +16,9 @@ const pathToCrumbs = {
 @Radium
 export default class BreadCrumbs extends Component {
     static defaultProps = {};
-    props: {};
+    props: {
+        location: Object
+    };
     state: void;
 
     render() {
@@ -33,9 +35,11 @@ export default class BreadCrumbs extends Component {
                 >
                     <div key="Curato">Curato</div>
                     { pathToCrumbs[pathname].map((crumb, index) => (
-                        <div style={STYLES.crumb} key={pathname + index}>
+                        <div style={STYLES.crumb} key={crumb + index}>
                             <div style={STYLES.divider}>//</div>
-                            <div style={STYLES.active(pathToCrumbs[pathname].length == index + 1)}>{crumb}</div>
+                            <div style={STYLES.active(pathToCrumbs[pathname].length === index + 1)}>
+                                {crumb}
+                            </div>
                         </div>
                     ))}
                 </FlipMove>
@@ -49,9 +53,9 @@ const STYLES = {
         position: 'absolute',
         top: 16,
         left: 40,
-        zIndex: 99,
         height: '20px',
         marginLeft: '20px',
+        zIndex: 99,
         fontSize: '12px',
         fontFamily: 'Roboto Mono',
         fontWeight: 'bold',
@@ -59,7 +63,7 @@ const STYLES = {
             fontSize: '14px'
         },
         '@media (min-width: 420px)': {
-            fontSize: '20px'
+            fontSize: '21px'
         },
         '@media (min-width: 520px)': {
             left: 80,
@@ -81,7 +85,7 @@ const STYLES = {
 
     active: (active) => {
         if (active) {
-            return {color: primaryColor};
+            return { color: primaryColor };
         }
     }
 };

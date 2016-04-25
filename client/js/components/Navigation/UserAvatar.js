@@ -6,16 +6,16 @@ import Avatar from 'material-ui/Avatar';
 @Radium
 export default class UserAvatar extends Component {
     static defaultProps = {};
-    props: {};
+    props: { name: string };
     state: void;
 
     render() {
-        const { } = this.props;
+        const { name } = this.props;
 
         return (
             <div style={STYLES.container}>
                 <Avatar className="fa fa-paper-plane" style={STYLES.avatarIcon} />
-                <div>Alex Ngo</div>
+                <div>{name}</div>
             </div>
         );
     }

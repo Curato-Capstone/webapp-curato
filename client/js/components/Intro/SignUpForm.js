@@ -1,90 +1,95 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import reduxForm from 'redux-form';
 
-export const fields = [ 'firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes' ]
+const fields = ['email', 'name', 'password', 'age', 'gender', 'ethnicity'];
 
+@Radium
 class SimpleForm extends Component {
+    static defaultProps = {};
+    props: {
+        fields: {
+            email: Object,
+            name: Object,
+            password: Object,
+            age: Object,
+            gender: Object,
+            ethnicity: Object
+        },
+        handleSubmit: () => void,
+        resetForm: () => void,
+        submitting: boolean
+    };
+    state: void;
+
     render() {
         const {
-            fields: { email, name, password, age, ethnicity, gender },
+            fields: { email, name, password, age, gender, ethnicity },
             handleSubmit,
             resetForm,
             submitting
-        } = this.props
-        return (<form onSubmit={handleSubmit}>
+        } = this.props;
+
+        return (<form onSubmit={handleSubmit} style={STYLES.container}>
 
                 <div>
                     <label>Email</label>
                     <div>
-                        <input type="email" placeholder="Email" {...email}/>
+                        <input type="email" placeholder="Email" {...email} />
                     </div>
                 </div>
 
                 <div>
                     <label>Name</label>
                     <div>
-                        <input type="text" placeholder="Name" {...name}/>
+                        <input type="text" placeholder="Name" {...name} />
                     </div>
                 </div>
 
                 <div>
-                    <label>Sex</label>
+                    <label>password</label>
                     <div>
-                        <label>
-                            <input type="radio" {...sex} value="male" checked={sex.value === 'male'}/> Male
-                        </label>
-                        <label>
-                            <input type="radio" {...sex} value="female" checked={sex.value === 'female'}/> Female
-                        </label>
+                        <input type="text" placeholder="Age" {...password} />
                     </div>
                 </div>
+
                 <div>
-                    <label>Favorite Color</label>
+                    <label>age</label>
                     <div>
-                        <select
-                            {...favoriteColor}
-                            // required syntax for reset form to work
-                            // undefined will not change value to first empty option
-                            // when resetting
-                            value={favoriteColor.value || ''}>
-                            <option></option>
-                            <option value="ff0000">Red</option>
-                            <option value="00ff00">Green</option>
-                            <option value="0000ff">Blue</option>
-                        </select>
+                        <input type="text" placeholder="Age" {...age} />
                     </div>
                 </div>
+
                 <div>
-                    <label>
-                        <input type="checkbox" {...employed}/> Employed
-                    </label>
-                </div>
-                <div>
-                    <label>Notes</label>
+                    <label>gender</label>
                     <div>
-            <textarea
-                {...notes}
-                // required for reset form to work (only on textarea's)
-                // see: https://github.com/facebook/react/issues/2533
-                value={notes.value || ''}/>
+                        <input type="text" placeholder="gender" {...gender} />
                     </div>
                 </div>
+
+                <div>
+                    <label>ethnicity</label>
+                    <div>
+                        <input type="text" placeholder="ethnicity" {...ethnicity} />
+                    </div>
+                </div>
+
                 <div>
                     <button type="submit" disabled={submitting}>
-                        {submitting ? <i/> : <i/>} Submit
+                        {submitting ? <i /> : <i />} Submit
                     </button>
                     <button type="button" disabled={submitting} onClick={resetForm}>
                         Clear Values
                     </button>
                 </div>
             </form>
-        )
+        );
     }
 }
 
 export default reduxForm({
     form: 'simple',
     fields
-})(SimpleForm)
+})(SimpleForm);
 
 const STYLES = {};

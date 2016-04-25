@@ -1,19 +1,23 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import autobind from 'autobind-decorator';
 
 class Slider extends Component {
     static defaultProps = {
         tooltipValues : [],
         handleChange  : () => {}
     };
+
     props: {
         name          : string,
+        // value is in terms of the slider itself, 0 = beginning, 200 = end
         value         : number,
         tooltipValues : Array<string>,
         handleChange  : (value: number) => void
     };
-    state: { dragging : boolean };
+
+    state : { dragging : boolean };
     state = { dragging: false };
 
     render() : React.Element {
@@ -24,13 +28,13 @@ class Slider extends Component {
             <div
                 id={name}
                 style={STYLES.container}
-                onMouseMove={(e) => this.handleDrag(e)}
+                onMouseMove={this.handleDrag}
                 onMouseLeave={() => this.setState({ dragging: false })}
                 onMouseUp={() => this.setState({ dragging: false })}
             >
                 <div
                     style={STYLES.slider}
-                    onClick={(e) => this.handleClick(e)}
+                    onClick={this.handleClick}
                 >
                     <div style={STYLES.uncoloredBar} />
                     <div style={STYLES.coloredBar(value)} />
@@ -52,50 +56,63 @@ class Slider extends Component {
         );
     }
 
+    @autobind
     handleDrag(e): void {
         if (this.state.dragging) {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
             const location = e.clientX - left;
 
-            if ((location <= 285) && (location >= 80)) {
-                window.requestAnimationFrame(() => this.props.handleChange(location - 80));
+            // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
+            // 80 = left padding (70) + (container width (220) - slider width (200))
+            let moveTo;
+            if ((location <= 280) && (location >= 80)) {
+                moveTo = location - 80;
+            } else if (location >= 280) {
+                moveTo = 200;
+            } else if (location <= 80) {
+                moveTo = 0;
             }
+            window.requestAnimationFrame(() => this.props.handleChange(moveTo));
         }
     }
 
+    @autobind
     handleClick(e): void {
         const left = document.getElementById(this.props.name).getBoundingClientRect().left;
         const location = e.clientX - left;
-        if ((location <= 285) && (location >= 80)) {
+
+        // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
+        // 80 = left padding (70) + (container width (220) - slider width (200))
+        if ((location <= 280) && (location >= 80)) {
             this.props.handleChange(location - 80);
         }
     }
 
-    getTooltipText(): React.Element {
+    getTooltipText(): React.Element | void {
         const { value, tooltipValues } = this.props;
-
         const length = tooltipValues.length;
 
         for (let i = 0; i <= length; i++) {
-            if (value < (215 / length) * (i + 1)) {
+            // 200 = length (200)
+            if (value < ((200 + 1) / length) * (i + 1)) {
                 return (
-                    <div key={tooltipValues[i]}>
+                    <div style={STYLES.tooltipText} key={tooltipValues[i]}>
                         {tooltipValues[i]}
                     </div>
                 );
             }
         }
-        return <div />;
     }
 }
 
+// |--70px--[-10px-____200px____-10px-]--70px--|
 const STYLES = {
     container: {
-        alignItems: 'flex-end',
-        display: 'inline-flex',
-        height: '105px',
-        justifyContent: 'center',
         position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        height: '105px',
         width: '220px',
         padding: '0 70px 30px 70px'
     },
@@ -108,80 +125,81 @@ const STYLES = {
     },
 
     uncoloredBar: {
-        cursor: 'pointer',
         position: 'absolute',
         height: '4px',
         width: '200px',
         marginTop: '6px',
+        cursor: 'pointer',
         backgroundColor: 'grey',
         borderRadius: '5px'
     },
 
-    coloredBar: (value) => {
+    coloredBar: (value: number) => {
         return {
             position: 'absolute',
-            cursor: 'pointer',
             height: '4px',
             width: `${value + 5}px`,
             marginTop: '6px',
+            cursor: 'pointer',
             backgroundColor: '#BC4432',
             zIndex: 5,
-            transition: 'width .55s ease-out',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            transition: 'width .55s ease-out'
         };
     },
 
-    circle: (value) => {
+    circle: (value: number) => {
         return {
             position: 'absolute',
-            cursor: 'pointer',
+            left: `${value + 70}px`,
             height: '16px',
             width: '16px',
+            cursor: 'pointer',
             borderRadius: '50%',
             backgroundColor: '#BC4432',
-            left: `${value + 70}px`,
             zIndex: 10
         };
     },
 
-    biggerCircle: (value, dragging) => {
+    biggerCircle: (value: number, dragging: boolean) => {
         return {
             position: 'absolute',
-            cursor: 'pointer',
+            left: `${value + 70}px`,
             height: '50px',
             width: '50px',
-            borderRadius: '50%',
             marginLeft: '-16px',
             marginTop: '-16px',
+            borderRadius: '50%',
+            cursor: 'pointer',
             backgroundColor: 'lightgrey',
-            transition: 'opacity .25s ease-out',
             opacity: dragging ? 0.2 : 0,
-            left: `${value + 70}px`,
-            zIndex: 3
+            zIndex: 3,
+            transition: 'opacity .25s ease-out'
         };
     },
 
-    tooltip: (value, dragging) => {
+    tooltip: (value: number, dragging: boolean) => {
         return {
+            position: 'absolute',
             left: `${value - 5}px`,
-            background: 'rgba(222, 138, 125, 0.95)',
             bottom: '100%',
-            color: '#fff',
             display: 'flex',
             justifyContent: 'center',
+            background: 'rgba(222, 138, 125, 0.95)',
+            color: '#fff',
             marginBottom: '-45px',
             opacity: dragging ? 1 : 0,
             padding: '20px',
             pointerEvents: 'none',
-            position: 'absolute',
             width: '40%',
-            transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
-            transition: 'all .3s ease-out',
             boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
+            transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
+            /* revisit */
+            transition: 'all .3s ease-out',
         };
     },
 
-    triangle: (value, dragging) => {
+    triangle: (value: number, dragging: boolean) => {
         return {
             borderLeft: 'solid transparent 10px',
             borderRight: 'solid transparent 10px',
@@ -198,14 +216,7 @@ const STYLES = {
         };
     },
 
-    tooltipText: {
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-        height: '20px',
-        userSelect: 'none'
-    }
-
+    tooltipText: {}
 };
 
 export default Radium(Slider);

@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 
 @Radium
 export default class SearchBar extends Component {
@@ -18,8 +19,8 @@ export default class SearchBar extends Component {
         handleSubmit: () => void,
     };
 
-    state : { clicking: boolean, enter: boolean };
     state = { clicking: false, enter: false };
+    state : { clicking: boolean, enter: boolean };
 
     render() {
         const { value, handleChange, handleSubmit } = this.props;
@@ -32,8 +33,8 @@ export default class SearchBar extends Component {
                     value={value}
                     style={STYLES.input}
                     placeholder={'Search for something to do!'}
-                    onChange={handleChange}
-                    onKeyDown={(e) => this.handleKeyPress(e)}
+                    onChange={(e) => handleChange(e.target.value)}
+                    onKeyDown={this.handleKeyPress}
                 />
                 <div
                     style={STYLES.icon(clicking || enter)}
@@ -51,13 +52,15 @@ export default class SearchBar extends Component {
         );
     }
 
-    handleKeyPress(e): void {
+    @autobind
+    handleKeyPress(e: Object): void {
         if (e.key === 'Enter') {
             this.setState({ enter: true });
 
             // wait 250ms for cool animation
             setTimeout(() => {
                 this.setState({ enter: false });
+                // probably should wait another x seconds for button to go up lol
                 this.props.handleSubmit();
             }, 250);
         }
@@ -72,10 +75,10 @@ const STYLES = {
     },
 
     input: {
-        width: '100%',
-        fontSize: '16px',
         height: '50px',
+        width: '100%',
         paddingLeft: '18px',
+        fontSize: '16px',
         boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
         transition: 'all 0.5s ease-in',
         '@media (min-width: 520px)': {
@@ -84,16 +87,17 @@ const STYLES = {
         }
     },
 
-    icon: (clicking) => {
+    icon: (clicking: boolean) => {
         return {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
             width: '65px',
             height: '52px',
+            boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
             backgroundColor: primaryColor,
             transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
+            /* revisit */
             transition: 'all 0.2s ease-in',
             '@media (min-width: 520px)': {
                 width: '80px',

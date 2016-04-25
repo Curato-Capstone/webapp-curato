@@ -1,28 +1,30 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import autobind from 'autobind-decorator';
+
 import { primaryColor, secondaryColor } from '../../../utils/colors';
 
 import TextField from 'material-ui/TextField';
-import eye from '../../../../images/icons/eye.svg';
+import eye from 'images/icons/eye.svg';
 
 @Radium
 export default class Input extends Component {
-    static defaultProps = {};
+    static defaultProps = {
+        disabled : false,
+        hintText : '',
+        type     : 'primary'
+    };
+
     props: {
         value     : string,
-        disabled? : boolean,
-        hintText? : string,
-        type?     : string,
-        hintText? : string
+        disabled  : boolean,
+        hintText  : string,
+        type      : string,
     };
-    state: { showPassword: boolean };
 
-    constructor(props) {
-        super(props);
-
-        this.state = { showPassword: false };
-        this.handleEyeClick = this.handleEyeClick.bind(this);
-    }
+    state = { showPassword: false };
+    state : { showPassword: boolean };
 
     render() {
         const { type, ...other } = this.props;
@@ -49,24 +51,25 @@ export default class Input extends Component {
         );
     }
 
-    handleEyeClick() {
+    @autobind
+    handleEyeClick(): void {
         this.setState({ showPassword: !this.state.showPassword });
     }
 }
 
 const STYLES = {
     container: {
-        alignItems: 'flex-end',
         display: 'flex',
+        alignItems: 'flex-end',
         width: '200px'
     },
     
     eye: {
-        cursor: 'pointer',
         height: '40px',
+        width: '40px',
         marginBottom: '4px',
         marginLeft: '10px',
         opacity: 0.8,
-        width: '40px'
+        cursor: 'pointer',
     }
 };

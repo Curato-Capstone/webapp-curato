@@ -102,11 +102,11 @@ export function changePreference(preferenceName: string, value: number): Action 
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    email       : '',
-    name        : '',
-    age         : null,
-    gender      : '',
-    ethnicity   : '',
+    email       : 'mister-pie@hotmail.com',
+    name        : 'Mister Pie',
+    age         : 25,
+    gender      : 'male',
+    ethnicity   : 'white',
     favorites   : List(),
     id          : '1',
     preferences : Map({
@@ -116,7 +116,7 @@ const initialState = Map({
         outdoor       : 77,
         entertainment : 90,
         relaxation    : 33,
-        shopping      : 2,
+        shopping      : 20,
         sports        : 22
     })
 });

@@ -10,7 +10,7 @@ import App from 'containers/App';
 import Account from 'routes/Account';
 import Search from 'routes/Search';
 import Favorites from 'routes/Favorites';
-import Suggestions from 'routes/Suggestions'
+import Suggestions from 'routes/Suggestions';
 
 import Intro from 'routes/Intro';
 
@@ -20,7 +20,6 @@ import SuggestionsIntro from 'routes/Intro/Suggestions';
 import SignUpIntro from 'routes/Intro/SignUp';
 
 import Preferences from 'routes/Preferences';
-import SignUp from 'routes/SignUp';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
 
@@ -47,7 +46,6 @@ export default class Root extends Component {
                                 <Route path="3" component={SignUpIntro} />
                             </Route>
                             <Route path="place" component={Place} />
-                            <Route path="signUp" component={SignUp} />
                             <Route path="signIn" component={SignIn} />
                             <Route path="suggestions" component={Suggestions} />
                             <Route path="preferences" component={Preferences} />

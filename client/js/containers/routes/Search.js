@@ -14,19 +14,19 @@ import Button from 'components/Reusable/Button/Button';
 @Radium
 class Search extends Component {
     static defaultProps = {};
-    props: {};
+    props: { searchText: string, actions: Object };
     state: void;
 
     render() {
-        const { suggestions, actions } = this.props;
+        const { searchText, actions } = this.props;
         
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.searchBarContainer}>
                     <SearchBar
-                        value={suggestions.searchText}
-                        handleChange={(e) => actions.changeSearchText(e.target.value)}
-                        handleSubmit={() => actions.getSuggestions()}
+                        value={searchText}
+                        handleChange={actions.changeSearchText}
+                        handleSubmit={actions.getSuggestions}
                     />
                     <div style={STYLES.randomButtonContainer}>
                         <Button
@@ -69,9 +69,9 @@ const revealButtonKeyframes = Radium.keyframes({
 
 const STYLES = {
     container: {
-        width: '100%',
         height: '100vh',
-        minHeight: '300px'
+        minHeight: '300px',
+        width: '100%'
     },
 
     searchBarContainer: {
@@ -98,8 +98,7 @@ const STYLES = {
 
 function mapStateToProps(state) {
     return {
-        user: state.get('user').toJS(),
-        suggestions: state.get('suggestions').toJS(),
+        searchText: state.get('suggestions').toJS().suggestions,
     };
 }
 

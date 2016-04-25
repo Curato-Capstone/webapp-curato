@@ -45,16 +45,16 @@ class App extends Component {
     }
 
     renderNavigation() {
-        const { location } = this.props;
+        const { location, user } = this.props;
 
         if (!location.pathname.includes('intro')) {
             return (
                 <div style={STYLES.navContainer}>
                     <SideNav location={location} />
-                    <UserAvatar />
-                    <BreadCrumbs location={location}/>
+                    <UserAvatar name={user.name} />
+                    <BreadCrumbs location={location} />
                 </div>
-            )
+            );
         }
     }
 }

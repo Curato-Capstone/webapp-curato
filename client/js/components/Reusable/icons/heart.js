@@ -43,9 +43,9 @@ const heartBurst = Radium.keyframes({
 
 const STYLES = {
     main: {
-        cursor: 'pointer',
         height: '35px',
         width: '60px',
+        cursor: 'pointer',
         backgroundImage: `url(${require('images/animated-icons/heart.png')})`,
         backgroundPosition: 'left',
         backgroundRepeat: 'no-repeat',
@@ -58,7 +58,6 @@ const STYLES = {
                 backgroundPosition: 'right'
             };
         }
-        return {};
     },
 
     animating: (animating) => {
@@ -68,6 +67,5 @@ const STYLES = {
                 animationName: heartBurst,
             };
         }
-        return {};
     }
 };

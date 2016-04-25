@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 
@@ -39,7 +40,7 @@ const STYLES = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
-        height: '700px'
+        height: '700px',
+        width: '100%'
     }
 };

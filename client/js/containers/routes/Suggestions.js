@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
@@ -7,21 +8,34 @@ import { routerActions } from 'react-router-redux';
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
-import Card from 'reusable/Card/Card'
+import Card from 'reusable/Card/Card';
 
 @Radium
 class Suggestions extends Component {
     static defaultProps = {};
-    props: {};
+    props: {
+        suggestions: Array<{
+            name : string,
+            id : string,
+            location: {
+                address: string
+            },
+            image: string
+        }>,
+        favorites: Array<{
+            id: string
+        }>,
+        actions: Object
+    };
     state: void;
 
     render() {
-        const { actions, suggestions, favorites } = this.props;
+        const { actions, suggestions } = this.props;
 
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.cardsContainer}>
-                    {suggestions.slice(0,2).map((place, index) => {
+                    {suggestions.slice(0, 2).map((place, index) => {
                         return (
                             <div key={place.id} style={STYLES.cardContainer}>
                                 <Card
@@ -42,7 +56,7 @@ class Suggestions extends Component {
 
     checkFavorited(place) {
         const { favorites } = this.props;
-        for (let i = 0; i < favorites.length; i ++ ){
+        for (let i = 0; i < favorites.length; i ++) {
             if (favorites[i].id === place.id) {
                 return true;
             }
@@ -57,7 +71,6 @@ class Suggestions extends Component {
         } else {
             this.props.actions.addFavorite(place);
         }
-
     }
 }
 

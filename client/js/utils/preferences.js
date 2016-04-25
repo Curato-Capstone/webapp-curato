@@ -39,6 +39,6 @@ const preferencesInfo = {
         icon: 'futbol-o',
         tooltipValues: [],
     }
-}
+};
 
 export default preferencesInfo;

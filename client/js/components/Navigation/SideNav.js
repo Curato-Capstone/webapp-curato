@@ -1,13 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Radium from 'radium'
-
-import { Link } from 'react-router';
+import Radium from 'radium';
 import FontAwesome from 'react-fontawesome';
+import { Link } from 'react-router';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 
 import logo from 'images/logo/logo.svg';
 
@@ -61,16 +58,16 @@ export default class SideNav extends Component {
         );
     }
 
-    getActiveIndex(location: string) {
+    getActiveIndex(location: string): number {
         switch (location) {
             case '/':
                 return 0;
             case '/favorites':
                 return 1;
             case '/preferences':
-                return 2
+                return 2;
             default:
-                return -99
+                return -99;
         }
     }
 }
@@ -78,14 +75,14 @@ export default class SideNav extends Component {
 
 const STYLES = {
     container: {
-        height: '100vh',
-        minHeight: '600px',
-        width: '50px',
         position: 'fixed',
-        backgroundColor: primaryColor,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        height: '100vh',
+        minHeight: '600px',
+        width: '50px',
+        backgroundColor: primaryColor,
         transition: 'width 1s ease-in-out, opacity .5s ease-in-out',
         '@media (min-width: 520px)': {
             width: '80px',
@@ -105,6 +102,7 @@ const STYLES = {
         height: '70px',
         width: '70px',
         margin: '20px 0 60px 0',
+        /* revist */
         transition: 'all 1s ease-in-out',
         transform: 'scale(0.7,0.7)',
         '@media (min-width: 520px)': {
@@ -114,15 +112,15 @@ const STYLES = {
 
     navItemsContainer: {
         position: 'relative',
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        width: '100%',
     },
 
     navItem: {
-        margin: '40px 0',
         height: '45px',
+        margin: '40px 0',
         transition: 'all 0.5s ease-in-out',
         transform: 'scale(0.72,0.72)',
         ':hover': {
@@ -139,9 +137,10 @@ const STYLES = {
             top: 40 + 125 * item,
             left: 2,
             height: '55px',
-            transition: 'all 0.5s ease-in-out',
             width: '3px',
             backgroundColor: 'white',
+            /* revist */
+            transition: 'all 0.5s ease-in-out',
             '@media (min-width: 520px)': {
                 left: 4
             }

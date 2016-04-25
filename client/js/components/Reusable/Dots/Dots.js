@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { primaryColor } from '../../../utils/colors';
 
-import ReactTooltip from 'react-tooltip';
-
 type Item = {
     name  : string,
     handleClick : () => void,
@@ -33,14 +31,6 @@ export default class Dots extends Component {
                             onClick={item.handleClick}
                             style={[STYLES.dot, STYLES.active(active === index)]}
                         />
-                        <ReactTooltip
-                            id={`${item.name}-dot`}
-                            place="top"
-                            type="dark"
-                            effect="solid"
-                        >
-                            {item.name}
-                        </ReactTooltip>
                     </div>
                 ))}
             </div>
@@ -70,7 +60,7 @@ const STYLES = {
         }
     },
 
-    active: (active: boolean): Object => {
+    active: (active: boolean): Object|void => {
         if (active) {
             return {
                 opacity: '1',
@@ -78,7 +68,5 @@ const STYLES = {
                 width: '20px'
             };
         }
-
-        return {};
     }
 };

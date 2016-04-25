@@ -28,11 +28,11 @@ export default class Button extends Component {
         return (
             <div onClick={handleClick}>
                 <RaisedButton
+                    style={Object.assign(STYLES, style)}
                     backgroundColor={this.getColor(type)}
                     label={label}
                     labelColor="white"
                     disabled={disabled}
-                    style={Object.assign(STYLES, style)}
                     {...other}
                 />
             </div>

@@ -16,6 +16,7 @@ export default class Example extends Component {
                 <h2>Inputs</h2>
                 <Input
                     id="empty-input"
+                    value=""
                     hintText="Put something here!"
                     type="text"
                     floatingLabelText="text"

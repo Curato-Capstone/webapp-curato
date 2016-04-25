@@ -8,20 +8,32 @@ import { routerActions } from 'react-router-redux';
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
-import Card from 'reusable/Card/Card'
+import Card from 'reusable/Card/Card';
 
-type Props = {};
+@Radium
 class Favorites extends Component {
     static defaultProps = {};
+    props:{
+        favorites: Array<
+            {
+                name : string,
+                id : string,
+                location: {
+                    address: string
+                },
+                image: string
+            }
+        >
+    };
     state: void;
-    props: Props;
+
 
     render() {
-        const { user } = this.props;
+        const { favorites } = this.props;
 
         return (
             <div style={STYLES.container}>
-                {user.favorites.map((place, index) => {
+                {favorites.map((place) => {
                     return (
                         <Card
                             key={place.id}
@@ -47,13 +59,11 @@ const STYLES = {
         marginTop: '64px',
         minHeight: '100vh'
     }
-}
+};
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        user: state.get('user').toJS(),
-        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
-        location: ownProps.location
+        favorites: state.get('user').toJS().favorites,
     };
 }
 
