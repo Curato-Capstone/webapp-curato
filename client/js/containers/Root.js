@@ -1,13 +1,27 @@
-// @flow
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import { isDevelopment } from '../utils/utils';
 
 import DevTools from './DevTools';
-import App from './App';
+import App from 'containers/App';
+import Account from 'routes/Account';
+import Search from 'routes/Search';
+import Favorites from 'routes/Favorites';
+import Suggestions from 'routes/Suggestions';
+
+import Intro from 'routes/Intro';
+
+import HomeIntro from 'routes/Intro/Home';
+import PreferencesIntro from 'routes/Intro/Preferences';
+import SuggestionsIntro from 'routes/Intro/Suggestions';
+import SignUpIntro from 'routes/Intro/SignUp';
+
+import Preferences from 'routes/Preferences';
+import SignIn from 'routes/SignIn';
+import Place from 'routes/Place';
 
 type Props = { store: Object };
 export default class Root extends Component {
@@ -23,9 +37,23 @@ export default class Root extends Component {
             <Provider store={store} >
                 <div>
                     <Router history={history}>
-                        <Route path="/" component={App} />
+                        <Route path="/" component={App}>
+                            <IndexRoute component={Search} />
+                            <Route path="intro" component={Intro}>
+                                <IndexRoute component={HomeIntro} />
+                                <Route path="1" component={PreferencesIntro} />
+                                <Route path="2" component={SuggestionsIntro} />
+                                <Route path="3" component={SignUpIntro} />
+                            </Route>
+                            <Route path="place" component={Place} />
+                            <Route path="signIn" component={SignIn} />
+                            <Route path="suggestions" component={Suggestions} />
+                            <Route path="preferences" component={Preferences} />
+                            <Route path="account" component={Account} />
+                            <Route path="favorites" component={Favorites} />
+                        </Route>
                     </Router>
-                    { isDevelopment ? <DevTools /> : null }
+                    { !isDevelopment ? <DevTools /> : null }
                 </div>
             </Provider>
         );
