@@ -42,7 +42,7 @@ const STYLES = {
     card: {
         width: '80%',
         maxWidth: '600px',
-        height: '550px',
+        minHeight: '550px',
         margin: '40px',
         padding: '24px',
         boxShadow: '3px 8px 12px #888888',

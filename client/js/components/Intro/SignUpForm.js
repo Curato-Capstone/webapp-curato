@@ -1,95 +1,156 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import reduxForm from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
 
-const fields = ['email', 'name', 'password', 'age', 'gender', 'ethnicity'];
+import validate from './validate';
+
+import Button from 'reusable/Button/Button';
+import Input from 'reusable/Input/TextField';
+import Select from 'reusable/Input/Select';
 
 @Radium
-class SimpleForm extends Component {
+class SignUpForm extends Component {
     static defaultProps = {};
     props: {
-        fields: {
-            email: Object,
-            name: Object,
-            password: Object,
-            age: Object,
-            gender: Object,
-            ethnicity: Object
-        },
         handleSubmit: () => void,
-        resetForm: () => void,
-        submitting: boolean
+        reset: () => void,
+        submitting: boolean,
+        pristine: boolean
     };
     state: void;
 
     render() {
-        const {
-            fields: { email, name, password, age, gender, ethnicity },
-            handleSubmit,
-            resetForm,
-            submitting
-        } = this.props;
-
-        return (<form onSubmit={handleSubmit} style={STYLES.container}>
-
-                <div>
-                    <label>Email</label>
-                    <div>
-                        <input type="email" placeholder="Email" {...email} />
-                    </div>
+        const { handleSubmit, pristine, reset, submitting } = this.props;
+        return (
+            <form onSubmit={handleSubmit} style={STYLES.form}>
+            <div style={STYLES.fieldContainer}>
+                    <Field name="email" component={email =>
+                        <div style={STYLES.field}>
+                          <Input
+                            type="email"
+                            floatingLabelText="Email"
+                            errorText={email.touched && email.error ? email.error : ''}
+                            {...email}
+                          />
+                        </div>
+                    }
+                    />
                 </div>
 
-                <div>
-                    <label>Name</label>
-                    <div>
-                        <input type="text" placeholder="Name" {...name} />
-                    </div>
+                <div style={STYLES.fieldContainer}>
+                    <Field name="password" component={password =>
+                        <div style={STYLES.field}>
+                          <Input
+                            type="password"
+                            floatingLabelText="Password"
+                            errorText={password.touched && password.error ? password.error : ''}
+                            {...password}
+                          />
+                        </div>
+                    }
+                    />
                 </div>
 
-                <div>
-                    <label>password</label>
-                    <div>
-                        <input type="text" placeholder="Age" {...password} />
-                    </div>
+                <div style={STYLES.fieldContainer}>
+                    <Field name="name" component={name =>
+                        <div style={STYLES.field}>
+                            <Input
+                                type="text"
+                                floatingLabelText="Name"
+                                errorText={name.touched && name.error ? name.error : ''}
+                                {...name}
+                            />
+                        </div>
+                      }
+                    />
                 </div>
 
-                <div>
-                    <label>age</label>
-                    <div>
-                        <input type="text" placeholder="Age" {...age} />
-                    </div>
+                <div style={STYLES.fieldContainer}>
+                    <Field name="age" component={age =>
+                        <div style={STYLES.field}>
+                          <Input
+                            type="number" {...age}
+                            floatingLabelText="Age"
+                            errorText={age.touched && age.error ? age.error : ''}
+                          />
+                        </div>
+                      }
+                    />
                 </div>
 
-                <div>
-                    <label>gender</label>
-                    <div>
-                        <input type="text" placeholder="gender" {...gender} />
-                    </div>
+                <div style={STYLES.fieldContainer}>
+                    <Field name="gender" component={gender =>
+                        <div style={STYLES.field}>
+                            <Select
+                                options={['male', 'female']}
+                                floatingLabelText="Gender"
+                                {...gender}
+                            />
+                        </div>
+                    }
+                    />
                 </div>
 
-                <div>
-                    <label>ethnicity</label>
-                    <div>
-                        <input type="text" placeholder="ethnicity" {...ethnicity} />
-                    </div>
+                <div style={STYLES.fieldContainer}>
+                    <Field name="ethnicity" component={ethnicity =>
+                        <div style={STYLES.field}>
+                            <Select
+                                options={['white', 'black', 'latino', 'asian']}
+                                floatingLabelText="Ethnicity"
+                                {...ethnicity}
+                            />
+                        </div>
+                    }
+                    />
                 </div>
 
-                <div>
-                    <button type="submit" disabled={submitting}>
-                        {submitting ? <i /> : <i />} Submit
-                    </button>
-                    <button type="button" disabled={submitting} onClick={resetForm}>
-                        Clear Values
-                    </button>
+                <div style={STYLES.buttonContainer}>
+                    <Button
+                        label="Submit"
+                        disabled={submitting}
+                        style={STYLES.submitButton}
+                    />
+                    <Button
+                        label="Clear Values"
+                        disabled={pristine || submitting}
+                        onClick={reset}
+                    />
                 </div>
             </form>
         );
     }
 }
 
-export default reduxForm({
-    form: 'simple',
-    fields
-})(SimpleForm);
+const STYLES = {
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: '0 20%'
+    },
 
-const STYLES = {};
+    buttonContainer: {
+        display: 'flex',
+        marginTop: '12px'
+    },
+
+    submitButton: {
+        marginRight: '16px'    
+    },
+
+    fieldContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: '3px'
+    },
+
+    field: {
+        width: '100%'
+    }
+};
+
+export default reduxForm({
+    form: 'SignUpForm',
+    validate
+})(SignUpForm);

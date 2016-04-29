@@ -77,10 +77,10 @@ const STYLES = {
         display: 'flex',
         overflow: 'scroll',
         overflowY: 'hidden',
-        height: '80%',
+        height: '350px',
         alignItems: 'center',
         '@media (min-width: 520px)': {
-            height: '80%'
+            height: '450px'
         },
 
     },

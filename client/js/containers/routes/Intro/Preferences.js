@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { routerActions } from 'react-router-redux';
 import { Link } from 'react-router';
+
+import * as userActions from 'modules/user';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import preferencesInfo from 'utils/preferences';
@@ -14,14 +19,14 @@ const preferencesList = ['price', 'culture', 'food', 'outdoor',
     'entertainment', 'relaxation', 'shopping', 'sports'];
 
 @Radium
-export default class Preferences extends Component {
+class Preferences extends Component {
     static defaultProps = {};
     props: {};
     state: void;
-    
+
     render() {
         const { } = this.props;
-    
+
         return (
             <div style={STYLES.container}>
                 <Header text="Set Your Preferences!" />
@@ -77,7 +82,7 @@ const STYLES = {
         flexDirection: 'column',
         alignItems: 'center',
     },
-    
+
     header: {
         fontSize: '42px',
         color: primaryColor
@@ -142,3 +147,18 @@ const STYLES = {
         justifyContent: 'center'
     }
 };
+
+function mapStateToProps(state) {
+    return {
+        user: state.get('user').toJS(),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+        routerActions : bindActionCreators(routerActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Preferences);
