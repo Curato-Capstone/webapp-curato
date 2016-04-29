@@ -17,7 +17,7 @@ export default class Home extends Component {
 
         return (
             <div style={STYLES.container}>
-                <img style={STYLES.header} src={logo} />
+                <img style={STYLES.headerImage} src={logo} />
                 <div style={STYLES.text}>
                     Welcome to Curato! Curato is a simple way to sift through all
                     the information out there to help you find things to do.
@@ -49,7 +49,7 @@ const STYLES = {
     text: {
         margin: '24px',
         textAlign: 'center',
-        fontSize: '20px'
+        fontSize: '18px'
     },
 
     buttonContainer: {
@@ -58,6 +58,10 @@ const STYLES = {
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center'
+    },
+
+    headerImage: {
+        margin: '25px'
     },
 
     signUpButton: {

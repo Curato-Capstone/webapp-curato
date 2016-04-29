@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import Input from './Input';
+import TextField from './TextField';
 
 @Radium
 export default class Example extends Component {
@@ -14,21 +14,21 @@ export default class Example extends Component {
         return (
             <div style={STYLES}>
                 <h2>Inputs</h2>
-                <Input
+                <TextField
                     id="empty-input"
                     value=""
                     hintText="Put something here!"
                     type="text"
                     floatingLabelText="text"
                 />
-                <Input
+                <TextField
                     value="This is a regular text input"
                     hintText="Put something here!"
                     id="regular-input"
                     type="text"
                     floatingLabelText="text"
                 />
-                <Input
+                <TextField
                     value="This is a password input"
                     hintText="Password tho"
                     id="password-input"

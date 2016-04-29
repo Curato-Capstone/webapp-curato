@@ -91,7 +91,6 @@ const STYLES = {
     },
 
     cardContainer: {
-        // marginRight: '24px',
         transform: 'scale(1, 1)',
         '@media (min-width: 1200px)': {
             transform: 'scale(0.8, 0.8)',

@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 
-import { primaryColor, secondaryColor } from '../../../utils/colors';
+import { primaryColor, secondaryColor } from 'utils/colors';
 
-import TextField from 'material-ui/TextField';
+import MaterialTextField from 'material-ui/TextField';
 import eye from 'images/icons/eye.svg';
 
 @Radium
-export default class Input extends Component {
+export default class TextField extends Component {
     static defaultProps = {
         disabled : false,
         hintText : '',
@@ -21,6 +21,7 @@ export default class Input extends Component {
         disabled  : boolean,
         hintText  : string,
         type      : string,
+        floatingLabelText : string
     };
 
     state = { showPassword: false };
@@ -32,8 +33,11 @@ export default class Input extends Component {
 
         return (
             <div style={STYLES.container}>
-                <TextField
-                    type={type === 'password' && !showPassword ? 'password' : 'text'}
+                <MaterialTextField
+                    type={this.getInputType(type, showPassword)}
+                    min="6"
+                    max="100"
+                    fullWidth
                     underlineStyle={{ borderColor: primaryColor }}
                     underlineFocusStyle={{ borderColor: primaryColor }}
                     floatingLabelStyle={{ color: secondaryColor }}
@@ -55,15 +59,26 @@ export default class Input extends Component {
     handleEyeClick(): void {
         this.setState({ showPassword: !this.state.showPassword });
     }
+
+    getInputType(type, showPassword): string {
+        if (type === 'password') {
+            if (showPassword) {
+                return 'text'
+            } else {
+                return 'password'
+            }
+        }
+        return type;
+    }
 }
 
 const STYLES = {
     container: {
         display: 'flex',
         alignItems: 'flex-end',
-        width: '200px'
+        width: '100%'
     },
-    
+
     eye: {
         height: '40px',
         width: '40px',
