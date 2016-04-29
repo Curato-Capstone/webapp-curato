@@ -27,3 +27,7 @@ input {
         flex-direction: row !important;
     }
 }
+
+span svg text {
+    fill: #BC4432
+}

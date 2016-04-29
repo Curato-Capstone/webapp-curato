@@ -60,14 +60,11 @@ export default class TextField extends Component {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
-    getInputType(type, showPassword): string {
-        if (type === 'password') {
-            if (showPassword) {
-                return 'text'
-            } else {
-                return 'password'
-            }
+    getInputType(type: string, showPassword: bool): string {
+        if (type === 'password' && showPassword) {
+            return 'text';
         }
+        
         return type;
     }
 }

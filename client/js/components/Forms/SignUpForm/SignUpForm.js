@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import validate from './validate';
+import asyncValidate from './asyncValidate';
 
 import Button from 'reusable/Button/Button';
 import Input from 'reusable/Input/TextField';
@@ -21,17 +22,18 @@ class SignUpForm extends Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
+
         return (
             <form onSubmit={handleSubmit} style={STYLES.form}>
-            <div style={STYLES.fieldContainer}>
+                <div style={STYLES.fieldContainer}>
                     <Field name="email" component={email =>
                         <div style={STYLES.field}>
-                          <Input
-                            type="email"
-                            floatingLabelText="Email"
-                            errorText={email.touched && email.error ? email.error : ''}
-                            {...email}
-                          />
+                            <Input
+                                type="email"
+                                floatingLabelText="Email"
+                                errorText={email.touched && email.error ? email.error : ''}
+                                {...email}
+                            />
                         </div>
                     }
                     />
@@ -40,12 +42,12 @@ class SignUpForm extends Component {
                 <div style={STYLES.fieldContainer}>
                     <Field name="password" component={password =>
                         <div style={STYLES.field}>
-                          <Input
-                            type="password"
-                            floatingLabelText="Password"
-                            errorText={password.touched && password.error ? password.error : ''}
-                            {...password}
-                          />
+                            <Input
+                                type="password"
+                                floatingLabelText="Password"
+                                errorText={password.touched && password.error ? password.error : ''}
+                                {...password}
+                            />
                         </div>
                     }
                     />
@@ -61,20 +63,20 @@ class SignUpForm extends Component {
                                 {...name}
                             />
                         </div>
-                      }
+                    }
                     />
                 </div>
 
                 <div style={STYLES.fieldContainer}>
                     <Field name="age" component={age =>
                         <div style={STYLES.field}>
-                          <Input
-                            type="number" {...age}
-                            floatingLabelText="Age"
-                            errorText={age.touched && age.error ? age.error : ''}
-                          />
+                            <Input
+                                type="number" {...age}
+                                floatingLabelText="Age"
+                                errorText={age.touched && age.error ? age.error : ''}
+                            />
                         </div>
-                      }
+                    }
                     />
                 </div>
 
@@ -108,10 +110,11 @@ class SignUpForm extends Component {
                     <Button
                         label="Submit"
                         disabled={submitting}
+                        type="submit"
                         style={STYLES.submitButton}
                     />
                     <Button
-                        label="Clear Values"
+                        label="Clear"
                         disabled={pristine || submitting}
                         onClick={reset}
                     />
@@ -135,7 +138,7 @@ const STYLES = {
     },
 
     submitButton: {
-        marginRight: '16px'    
+        marginRight: '16px'
     },
 
     fieldContainer: {
@@ -152,5 +155,6 @@ const STYLES = {
 
 export default reduxForm({
     form: 'SignUpForm',
-    validate
+    validate,
+    asyncValidate
 })(SignUpForm);

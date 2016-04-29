@@ -95,8 +95,6 @@ const STYLES = {
     },
 
     buttonContainer: {
-        position: 'absolute',
-        bottom: -45,
         width: '100%',
         display: 'flex',
         justifyContent: 'center'

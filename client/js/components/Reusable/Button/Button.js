@@ -15,7 +15,7 @@ export default class Button extends Component {
     };
     props: {
         label       : string,
-        type        : 'primary' | 'secondary',
+        type        : 'primary' | 'secondary' | 'submit',
         handleClick : (event: Object) => void,
         disabled    : boolean,
         style       : Object
@@ -33,6 +33,7 @@ export default class Button extends Component {
                     label={label}
                     labelColor="white"
                     disabled={disabled}
+                    type={type}
                     {...other}
                 />
             </div>
@@ -40,7 +41,7 @@ export default class Button extends Component {
     }
 
     getColor(type: string): string {
-        if (type === 'primary') {
+        if (type === 'primary' || 'submit') {
             return primaryColor;
         }
 

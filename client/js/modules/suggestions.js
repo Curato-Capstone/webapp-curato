@@ -112,15 +112,14 @@ export function getSuggestions() {
     return (dispatch, getState) => {
         const query = getState().getIn(['suggestion', 'searchText']);
 
-        // request.get('ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/1/favorites')
-        //     .then((res) => {
-        //         dispatch(setSuggestions(res.body));
-        //         dispatch(routerActions.push('/suggestions'));
-        //     })
-        //     .catch((e) => {
-        //         console.warn(e)
-        //     })
+        request.get('ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/suggestions?user_id=123456789')
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((e) => {
+                console.warn(e)
+            })
 
         dispatch(routerActions.push('/suggestions'));
-    };s
+    }
 }

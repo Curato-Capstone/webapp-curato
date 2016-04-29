@@ -9,7 +9,7 @@ import FontAwesome from 'react-fontawesome';
 import * as userActions from 'modules/user';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
-import preferencesInfo from 'utils/preferences';
+import { preferencesInfo } from 'utils/preferences';
 
 import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
@@ -22,12 +22,12 @@ class Preferences extends Component {
     static defaultProps = {};
     state: void;
     props: {
-        user: Object,
+        preferences: Object,
         actions: Object
     };
 
     render() {
-        const { user, actions } = this.props;
+        const { preferences, actions } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -39,7 +39,7 @@ class Preferences extends Component {
                             <div style={STYLES.slider.container} key={preferenceName}>
                                 <Slider
                                     name={preferenceName}
-                                    value={user.preferences[preferenceName]}
+                                    value={preferences[preferenceName]}
                                     handleChange={(v) => actions.changePreference(preferenceName, v)}
                                     tooltipValues={['I hate this', 'I like this', 'I love this']}
                                 />
@@ -136,7 +136,7 @@ const STYLES = {
 
 function mapStateToProps(state) {
     return {
-        user: state.get('user').toJS(),
+        preferences: state.getIn(['user', 'preferences']).toJS(),
     };
 }
 

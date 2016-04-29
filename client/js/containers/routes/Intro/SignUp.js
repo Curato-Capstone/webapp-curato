@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 import Header from 'components/Intro/Header';
-import SignUpForm from 'components/Intro/SignUpForm';
+import SignUpForm from 'components/Forms/SignUpForm/SignUpForm';
 
 @Radium
 export default class SignUp extends Component {
@@ -20,7 +20,7 @@ export default class SignUp extends Component {
                 <div style={STYLES.text}>
                     Now, create your account and start getting more curated suggestions today!
                 </div>
-                <SignUpForm />
+                <SignUpForm onSubmit={() => console.log("SUBMITTTING")}/>
             </div>
         );
     }

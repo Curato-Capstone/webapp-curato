@@ -30,7 +30,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="search"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -39,7 +39,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="heart"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -48,7 +48,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="sliders"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -129,6 +129,11 @@ const STYLES = {
         '@media (min-width: 520px)': {
             transform: 'scale(1, 1)'
         },
+    },
+
+    navIcon: {
+        color: 'white',
+        textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
     },
 
     active: (item: number) => {

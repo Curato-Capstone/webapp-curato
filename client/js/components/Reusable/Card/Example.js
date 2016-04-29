@@ -7,21 +7,21 @@ import Card from './Card';
 
 const place1 = {
     name: 'EMP',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/emp.jpg'),
     id: '123'
 };
 
 const place2 = {
     name: 'Space Needle',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/space_needle.jpg'),
     id: '124',
 };
 
 const place3 = {
     name: 'Pike Place Market',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/pike_place_market.jpg'),
     id: '125'
 };

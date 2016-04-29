@@ -25,6 +25,8 @@ export default class BreadCrumbs extends Component {
         const { location } = this.props;
         const pathname = location.pathname;
 
+        console.log(location)
+
         return (
             <div style={STYLES.container}>
                 <FlipMove

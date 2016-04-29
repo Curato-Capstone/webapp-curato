@@ -184,3 +184,11 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
             return state;
     }
 }
+
+// Thunks
+// -----------------------------------
+// export function signUpUser() {
+//     return (dispatch, getState) => {
+//         getState()
+//     }
+// }

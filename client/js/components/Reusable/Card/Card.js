@@ -27,7 +27,7 @@ export default class Card extends Component {
     state: void;
 
     render() {
-        const { place, favorite, handleDislike, handleFavorite, handleMore } = this.props;
+        const { place, favorite, handleDislike, handleFavorite } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -41,7 +41,7 @@ export default class Card extends Component {
                             <Heart active={favorite} />
                         </div>
                         <div onClick={handleDislike}>I don't like this</div>
-                        <Link to="blah">
+                        <Link to={`/place/${place.id}`}>
                             <div style={STYLES.cardActions.more}>...more</div>
                         </Link>
                     </div>

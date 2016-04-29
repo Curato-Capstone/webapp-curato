@@ -15,9 +15,9 @@ import BreadCrumbs from 'components/Navigation/BreadCrumbs';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import curatoBaseTheme from 'utils/curatoTheme';
 
-const lightMuiTheme = getMuiTheme(lightBaseTheme);
+const curatoTheme = getMuiTheme(curatoBaseTheme);
 
 class App extends Component {
     static defaultProps: void;
@@ -34,7 +34,7 @@ class App extends Component {
     render(): React.Element {
         return (
             <StyleRoot>
-                <MuiThemeProvider muiTheme={lightMuiTheme}>
+                <MuiThemeProvider muiTheme={curatoTheme}>
                     <div style={STYLES.container}>
                         {this.renderNavigation()}
                         {this.props.children}
@@ -64,6 +64,7 @@ const STYLES = {
         fontFamily: 'Montserrat, Sans-Serif',
         display: 'flex',
         backgroundColor: '#F6F6F6',
+        height: '100%'
     },
 
     navContainer: {
