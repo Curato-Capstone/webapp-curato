@@ -61,15 +61,28 @@ describe('user reducer', () => {
         ).to.deep.equal(expectedState);
     });
 
-    it('should handle SET_ETHNICITY', () => {
-        const ethnicity = 'asian';
+    it('should handle SET_AGE', () => {
+        const age = 21;
         const initialState = yesUserState;
-        const expectedState = yesUserState.set('ethnicity', ethnicity);
+        const expectedState = yesUserState.set('age', age);
 
         expect(
             reducer(initialState, {
-                type: user.SET_ETHNICITY,
-                ethnicity
+                type: user.SET_AGE,
+                age
+            })
+        ).to.deep.equal(expectedState);
+    });
+
+    it('should handle SET_GENDER', () => {
+        const gender = 'male';
+        const initialState = yesUserState;
+        const expectedState = yesUserState.set('gender', gender);
+
+        expect(
+            reducer(initialState, {
+                type: user.SET_GENDER,
+                gender
             })
         ).to.deep.equal(expectedState);
     });

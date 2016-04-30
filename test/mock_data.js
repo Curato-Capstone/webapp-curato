@@ -61,6 +61,7 @@ export const noUserState = Map({
     email       : '',
     name        : '',
     age         : null,
+    gender      : '',
     ethnicity   : '',
     favorites   : List(),
     preferences : Map()
@@ -70,6 +71,7 @@ export const yesUserState = Map({
     email       : 'mister-pie@hotmail.com',
     name        : 'Brandon Barron',
     age         : 22,
+    gender      : 'Male',
     ethnicity   : 'White',
     favorites   : List([place1, place2]),
     preferences : preferences
@@ -79,6 +81,7 @@ export const user1 = Map({
     email       : 'mister-pie@hotmail.com',
     name        : 'Brandon Barron',
     age         : 22,
+    gender      : 'Male',
     ethnicity   : 'White',
     favorites   : List([place1, place2]),
     preferences : preferences

@@ -1,6 +1,29 @@
 @font-face {
-    font-family: 'Simplifica';
-    src: url('../fonts/Simplifica.ttf') format('truetype');
+    font-family: 'Gidole';
+    src: url('../fonts/Gidole.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+input {
+    border: none
+}
+
+@media (min-width: 1200px) {
+    .suggestionsContainer {
+        flex-direction: row !important;
+    }
 }

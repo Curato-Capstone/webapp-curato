@@ -45,6 +45,17 @@ describe('user actions', () => {
         expect(user.setAge(age)).to.deep.equal(expectedAction);
     });
 
+    it('should create an action to set the user\'s gender', () => {
+        const gender = 'male';
+
+        const expectedAction = {
+            type: user.SET_GENDER,
+            gender
+        };
+
+        expect(user.setGender(gender)).to.deep.equal(expectedAction);
+    });
+
     it('should create an action to set the user\'s ethnicity', () => {
         const ethnicity = 'White';
 

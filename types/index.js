@@ -1,19 +1,50 @@
-// export type Preferences = {
-//     price         : 3,
-//     culture       : 2,
-//     food          : 5,
-//     outdoor       : 2,
-//     entertainment : 1,
-//     relaxation    : 3,
-//     shopping      : 4,
-//     sports        : 5
-// }
-//
-// export type User = {
-//     email       : string,
-//     name        : string,
-//     age         : string,
-//     ethnicity   : string,
-//     favorites   : Array<Places>,
-//     preferences : Preferences
-// };
+// @flow
+
+//Models
+//-------------------
+export type Place = {
+    name                   : string,
+    id                     : string,
+    categories : Array<Object>,
+    contact: {
+        formattedPhone: string,
+        phone: string
+    },
+    location: {
+        address: string,
+        city: string,
+        distance: number,
+        //street address, city/state/zip, country,
+        formattedAddress: Array<string>,
+        lat: number,
+        lng: number,
+        postalCode: number,
+        state: string
+    },
+};
+
+export type Preferences = {
+    price         : number,
+    culture       : number,
+    food          : number,
+    outdoor       : number,
+    entertainment : number,
+    relaxation    : number,
+    shopping      : number,
+    sports        : number
+};
+
+export type User = {
+    email       : string,
+    name        : string,
+    age         : number,
+    gender      : string,
+    ethnicity   : string,
+    favorites   : Array<Place>,
+    preferences : Preferences
+};
+
+
+//Redux
+//--------------------------
+export type Action = Object;
