@@ -12,6 +12,7 @@ import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
 import BreadCrumbs from 'components/Navigation/BreadCrumbs';
+import Spinner from 'components/Reusable/Spinner/Spinner';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,6 +25,7 @@ class App extends Component {
     props: {
         user          : Object,
         suggestions   : Object,
+        global        : Object,
         location      : Object,
         actions       : Object,
         routerActions : Object,
@@ -37,6 +39,7 @@ class App extends Component {
                 <MuiThemeProvider muiTheme={curatoTheme}>
                     <div style={STYLES.container}>
                         {this.renderNavigation()}
+                        {this.renderSpinner()}
                         {this.props.children}
                     </div>
                 </MuiThemeProvider>
@@ -55,6 +58,14 @@ class App extends Component {
                     <BreadCrumbs location={location} />
                 </div>
             );
+        }
+    }
+
+    renderSpinner() {
+        const { global } = this.props;
+
+        if (global.loading) {
+            return <Spinner />;
         }
     }
 }
@@ -79,6 +90,7 @@ function mapStateToProps(state, ownProps) {
     return {
         user: state.get('user').toJS(),
         suggestions: state.get('suggestions').toJS(),
+        global: state.get('global').toJS(),
         location: ownProps.location
     };
 }

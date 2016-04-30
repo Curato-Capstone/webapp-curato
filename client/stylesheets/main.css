@@ -5,6 +5,7 @@
     font-style: normal;
 }
 
+/*globals*/
 body {
     margin: 0;
 }
@@ -22,12 +23,14 @@ input {
     border: none
 }
 
+/*have to do this because radium doesn't work with react-flip-move*/
 @media (min-width: 1200px) {
     .suggestionsContainer {
         flex-direction: row !important;
     }
 }
 
+/*this is for the stepper*/
 span svg text {
     fill: #BC4432
 }

@@ -103,6 +103,7 @@ const STYLES = {
             height: '250px',
             width: '300px',
             margin: '10px 10px',
+            opacity: 0,
             backgroundColor: 'white',
             boxShadow: '3px 8px 12px #888888',
             animation: 'x 0.75s ease-in-out 0s 1 normal forwards',

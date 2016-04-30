@@ -10,7 +10,8 @@ const pathToCrumbs = {
     '/favorites'   : ['Favorites'],
     '/preferences' : ['Preferences'],
     '/suggestions' : ['Search', 'Suggestions'],
-    '/place'       : ['Place']
+    '/place'       : ['Place'],
+    '/account'     : ['Account']
 };
 
 @Radium
@@ -23,9 +24,9 @@ export default class BreadCrumbs extends Component {
 
     render() {
         const { location } = this.props;
-        const pathname = location.pathname;
-
-        console.log(location)
+        const pathname = location.pathname.length !== 1 ?
+            location.pathname.replace(/\/$/, '') :
+            location.pathname
 
         return (
             <div style={STYLES.container}>
@@ -54,21 +55,17 @@ const STYLES = {
     container: {
         position: 'absolute',
         top: 16,
-        left: 40,
+        left: 80,
         height: '20px',
         marginLeft: '20px',
+        opacity: 0,
         zIndex: 99,
-        fontSize: '12px',
+        fontSize: '21px',
         fontFamily: 'Roboto Mono',
         fontWeight: 'bold',
-        '@media (min-width: 300px)': {
-            fontSize: '14px'
-        },
-        '@media (min-width: 420px)': {
-            fontSize: '21px'
-        },
+        transition: 'opacity 0.5s ease-in-out',
         '@media (min-width: 520px)': {
-            left: 80,
+            opacity: 1
         },
     },
 

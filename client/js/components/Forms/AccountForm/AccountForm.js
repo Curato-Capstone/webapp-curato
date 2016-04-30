@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import validate from './validate';
-import asyncValidate from './asyncValidate';
 
 import Button from 'reusable/Button/Button';
 import Input from 'reusable/Input/TextField';
 import Select from 'reusable/Input/Select';
 
 @Radium
-class SignUpForm extends Component {
+class AccountForm extends Component {
     static defaultProps = {};
     props: {
         handleSubmit: () => void,
@@ -23,7 +23,6 @@ class SignUpForm extends Component {
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
 
-        console.log(submitting);
         return (
             <form onSubmit={handleSubmit} style={STYLES.form}>
                 <div style={STYLES.fieldContainer}>
@@ -32,22 +31,9 @@ class SignUpForm extends Component {
                             <Input
                                 type="email"
                                 floatingLabelText="Email"
+                                disabled
                                 errorText={email.touched && email.error ? email.error : ''}
                                 {...email}
-                            />
-                        </div>
-                    }
-                    />
-                </div>
-
-                <div style={STYLES.fieldContainer}>
-                    <Field name="password" component={password =>
-                        <div style={STYLES.field}>
-                            <Input
-                                type="password"
-                                floatingLabelText="Password"
-                                errorText={password.touched && password.error ? password.error : ''}
-                                {...password}
                             />
                         </div>
                     }
@@ -109,13 +95,13 @@ class SignUpForm extends Component {
 
                 <div style={STYLES.buttonContainer}>
                     <Button
-                        label="Submit"
+                        label="Update"
                         disabled={submitting}
                         type="submit"
                         style={STYLES.submitButton}
                     />
                     <Button
-                        label="Clear"
+                        label="Reset"
                         disabled={pristine || submitting}
                         onClick={reset}
                     />
@@ -130,7 +116,10 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '0 20%'
+        width: '90%',
+        padding: '0 16px',
+        maxWidth: '500px',
+        boxSizing: 'border-box'
     },
 
     buttonContainer: {
@@ -139,7 +128,7 @@ const STYLES = {
     },
 
     submitButton: {
-        marginRight: '16px'
+        marginRight: '12px'
     },
 
     fieldContainer: {
@@ -154,8 +143,11 @@ const STYLES = {
     }
 };
 
-export default reduxForm({
-    form: 'SignUpForm',
-    validate,
-    asyncValidate
-})(SignUpForm);
+AccountForm = reduxForm({
+    form: 'AccountForm',
+    validate
+})(AccountForm);
+
+AccountForm = connect((state) => ({ initialValues: state.get('user') }))(AccountForm);
+
+export default AccountForm;

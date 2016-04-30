@@ -1,18 +1,24 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as userActions from 'modules/user';
 
 import Header from 'components/Intro/Header';
 import SignUpForm from 'components/Forms/SignUpForm/SignUpForm';
 
 @Radium
-export default class SignUp extends Component {
+class SignUp extends Component {
     static defaultProps = {};
-    props: {};
+    props: {
+        actions: Object
+    };
     state: void;
 
     render() {
-        const { } = this.props;
+        const { actions } = this.props;
 
         return (
             <div>
@@ -20,7 +26,7 @@ export default class SignUp extends Component {
                 <div style={STYLES.text}>
                     Now, create your account and start getting more curated suggestions today!
                 </div>
-                <SignUpForm onSubmit={() => console.log("SUBMITTTING")}/>
+                <SignUpForm onSubmit={() => actions.signUpUser()} />
             </div>
         );
     }
@@ -32,3 +38,15 @@ const STYLES = {
         textAlign: 'center'
     },
 };
+
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

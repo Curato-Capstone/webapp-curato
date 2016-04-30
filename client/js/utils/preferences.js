@@ -45,7 +45,7 @@ export function prefsToValue(preferences: Object): Object {
     const scaledPrefs = {};
     for (const pref in preferences) {
         if (preferences.hasOwnProperty(pref)) {
-            scaledPrefs[pref] = preferences(pref) / (200 / 5);
+            scaledPrefs[pref] = Math.round(preferences[pref] / (200 / 5));
         }
     }
     return scaledPrefs;
@@ -55,7 +55,7 @@ export function prefsToPx(preferences: Object): Object {
     const scaledPrefs = {};
     for (const pref in preferences) {
         if (preferences.hasOwnProperty(pref)) {
-            scaledPrefs[pref] = preferences(pref) * (200 / 5);
+            scaledPrefs[pref] = preferences[pref] * (200 / 5);
         }
     }
     return scaledPrefs;

@@ -74,7 +74,7 @@ const place3 = {
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    suggestions : List([place1, place2, place3]),
+    suggestions : List(),
     searchText: ''
 });
 
@@ -108,18 +108,14 @@ export default function reducer(state: State = initialState, action: Action): St
 
 // Thunks
 // -----------------------------------
+const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000'
 export function getSuggestions() {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const query = getState().getIn(['suggestion', 'searchText']);
+        // const res = await request.get(`${baseURL}/suggestions?user_id=${123456789}`)
 
-        request.get('ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/suggestions?user_id=123456789')
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((e) => {
-                console.warn(e)
-            })
-
+        // dispatch(setSuggestions(res.body));
+        await dispatch(setSuggestions([place1, place2, place3]));
         dispatch(routerActions.push('/suggestions'));
     }
 }

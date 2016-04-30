@@ -1,5 +1,7 @@
 import { fromJS, Map, List } from 'immutable';
-import type { Place, Preferences, User, Action } from '../../../types/index';
+import type { Place, Preferences, User, Action } from 'types/index';
+import request from 'superagent-bluebird-promise';
+import { routerActions } from 'react-router-redux';
 
 // Actions
 // -----------------------------------
@@ -110,14 +112,14 @@ const initialState = Map({
     favorites   : List(),
     id          : '1',
     preferences : Map({
-        price         : 123,
-        culture       : 104,
-        food          : 55,
-        outdoor       : 77,
-        entertainment : 90,
-        relaxation    : 33,
-        shopping      : 20,
-        sports        : 22
+        price         : 100,
+        culture       : 100,
+        food          : 100,
+        outdoor       : 100,
+        entertainment : 100,
+        relaxation    : 100,
+        shopping      : 100,
+        sports        : 100
     })
 });
 
@@ -187,8 +189,47 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
 
 // Thunks
 // -----------------------------------
-// export function signUpUser() {
-//     return (dispatch, getState) => {
-//         getState()
-//     }
-// }
+import { prefsToValue } from 'utils/preferences';
+import { SubmissionError } from 'redux-form';
+
+export function signUpUser() {
+    return async (dispatch, getState) => {
+        try {
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
+            const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
+
+            const user = Object.assign({}, formValues, { preferences: prefsToValue(preferences) });
+
+            const res = await request
+                .post('http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/signup')
+                .send(user);
+
+            dispatch(setUser(res.body));
+            // set auth here too
+            dispatch(routerActions.push('/'))
+        } catch (error) {
+            // set some error tho
+        }
+    }
+}
+
+export function signUpUser() {
+    return async (dispatch, getState) => {
+        try {
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
+            const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
+
+            const user = Object.assign({}, formValues, { preferences: prefsToValue(preferences) });
+
+            const res = await request
+                .post('http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000/user/signup')
+                .send(user);
+
+            dispatch(setUser(res.body));
+            // set auth here too
+            dispatch(routerActions.push('/'))
+        } catch (error) {
+            // set some error tho
+        }
+    }
+}

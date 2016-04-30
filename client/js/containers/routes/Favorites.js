@@ -4,6 +4,9 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
+import { Link } from 'react-router';
+
+import { primaryColor } from 'utils/colors';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
@@ -45,8 +48,23 @@ class Favorites extends Component {
                         />
                     );
                 })}
+                {this.renderEmptyState()}
             </div>
         );
+    }
+
+    renderEmptyState(): React.Element | void {
+        const { favorites } = this.props;
+
+        if (!favorites.length) {
+            return (
+                <div style={STYLES.empty}>
+                    You don't have any favorites! Get some
+                    <Link to="/" style={STYLES.suggestionsLink}> suggestions </Link>
+                    to add some!
+                </div>
+            );
+        }
     }
 }
 
@@ -57,7 +75,26 @@ const STYLES = {
         alignItems: 'center',
         width: '100%',
         marginTop: '64px',
-        minHeight: '100vh'
+        marginLeft: '16px',
+        marginRight: '16px',
+        minHeight: '100vh',
+    },
+
+    empty: {
+        fontSize: '18px',
+        color: 'grey',
+        textAlign: 'center',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        paddingBottom: '120px',
+        '@media (min-width: 520px)': {
+            fontSize: '24px',
+        },
+    },
+
+    suggestionsLink: {
+        color: primaryColor,
+        fontWeight: 'bold'
     }
 };
 
