@@ -51,6 +51,7 @@ class Suggestions extends Component {
                         );
                     })}
                 </FlipMove>
+                <img style={{float: "right"}} src="../../images/foursquare.png" />
             </div>
         );
     }
