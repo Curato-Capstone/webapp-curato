@@ -10,6 +10,7 @@ import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
 import Card from 'reusable/Card/Card';
+import fourSquareImage from 'images/foursquare.png';
 
 @Radium
 class Suggestions extends Component {
@@ -51,7 +52,7 @@ class Suggestions extends Component {
                         );
                     })}
                 </FlipMove>
-                <img style={{float: "right"}} src="../../images/foursquare.png" />
+                <img style={{ float: 'right' }} src={fourSquareImage} />
             </div>
         );
     }
