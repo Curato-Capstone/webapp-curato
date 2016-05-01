@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-
+import Tag from './tag'
 import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
@@ -52,6 +52,7 @@ export default class Card extends Component {
                 <div style={STYLES.cardImage.container}>
                     <img style={STYLES.cardImage.main} src={Placeholder} />
                 </div>
+                <Tag text={place.categories[0].name} />
             </div>
         );
     }
@@ -176,5 +177,27 @@ const STYLES = {
             color: 'blue',
             cursor: 'pointer'
         }
+    },
+
+    tag: {
+      container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        width: '380px',
+        height: '25px',
+        paddingBottom: '1em',
+        marginLeft: "-15px",
+        zIndex: 99,
+        animationName: raiseImageKeyframes,
+        '@media (min-width: 520px)': {
+
+        },
+      },
+
+      text: {
+        textAlign: 'center'
+      }
+
     }
 };
