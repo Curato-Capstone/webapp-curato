@@ -13,7 +13,6 @@ export const REMOVE_SUGGESTION = 'REMOVE_SUGGESTION';
 export const CLEAR_SUGGESTIONS = 'CLEAR_SUGGESTIONS';
 export const CHANGE_SEARCH_TEXT = 'CHANGE_SEARCH_TEXT';
 
-
 // Action Creators
 // -----------------------------------
 export function setSuggestions(suggestions: Array<Place>): Action {
@@ -146,11 +145,10 @@ export function getSuggestionsNoAccount() {
 
             dispatch(setSuggestions(res.body));
         } catch (error) {
-            console.log(error)
             dispatch(globalActions.setFailureMessage('Something went wrong :( '));
             setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
         }
 
         dispatch(globalActions.setLoading(false));
-    }
+    };
 }

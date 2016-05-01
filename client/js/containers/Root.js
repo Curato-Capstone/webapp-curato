@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import { isDevelopment } from '../utils/utils';
+import { isDevelopment } from 'utils/utils';
 
 import DevTools from './DevTools';
 import App from 'containers/App';
@@ -23,6 +23,8 @@ import Preferences from 'routes/Preferences';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
 
+import requireAuth from 'components/AuthenticatedComponent';
+
 type Props = { store: Object };
 export default class Root extends Component {
     state: void;
@@ -38,7 +40,7 @@ export default class Root extends Component {
                 <div>
                     <Router history={history}>
                         <Route path="/" component={App}>
-                            <IndexRoute component={Search} />
+                            <IndexRoute component={requireAuth(Search)} />
                             <Route path="intro" component={Intro}>
                                 <IndexRoute component={HomeIntro} />
                                 <Route path="1" component={PreferencesIntro} />
@@ -46,11 +48,11 @@ export default class Root extends Component {
                                 <Route path="3" component={SignUpIntro} />
                             </Route>
                             <Route path="place" component={Place} />
-                            <Route path="signIn" component={SignIn} />
-                            <Route path="suggestions" component={Suggestions} />
-                            <Route path="preferences" component={Preferences} />
-                            <Route path="account" component={Account} />
-                            <Route path="favorites" component={Favorites} />
+                            <Route path="signIn" component={requireAuth(SignIn)} />
+                            <Route path="suggestions" component={requireAuth(Suggestions)} />
+                            <Route path="preferences" component={requireAuth(Preferences)} />
+                            <Route path="account" component={requireAuth(Account)} />
+                            <Route path="favorites" component={requireAuth(Favorites)} />
                         </Route>
                     </Router>
                     { isDevelopment ? <DevTools /> : null }

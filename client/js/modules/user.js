@@ -253,6 +253,28 @@ export function signInUser() {
     }
 }
 
+export function getUserData() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+            const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
+
+            // const res = await request
+            //     .put(`${serverBaseURL}/user`)
+            //     .send(accountValues);
+
+            // dispatch(setUser(res.body));
+            dispatch(globalActions.setSuccessMessage('Successfully Updated Account!'));
+            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
 export function updateAccount() {
     return async (dispatch, getState) => {
         try {
