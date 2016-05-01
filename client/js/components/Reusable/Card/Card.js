@@ -50,11 +50,7 @@ export default class Card extends Component {
                 <div style={STYLES.cardImage.container}>
                     <img style={STYLES.cardImage.main} src={place.image} />
                 </div>
-                <div style={STYLES.tag.container}>
-                  <div style={STYLES.tag.text}>
-                    <Tag text={place.categories[0].name} />
-                  </div>
-                </div>
+                <Tag text={place.categories[0].name} />
             </div>
         );
     }
@@ -183,24 +179,17 @@ const STYLES = {
 
     tag: {
       container: {
-        position: 'relative',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        top: '145px',
         width: '380px',
         height: '25px',
         paddingBottom: '1em',
-        boxShadow: '3px 8px 12px #888888',
-        background: 'white',
         marginLeft: "-15px",
-        /* revisit do I want this even */
-        transition: 'all 1s ease-out',
-        animation: 'x 1s ease-in-out 0.2s 1 normal forwards',
+        zIndex: 99,
         animationName: raiseImageKeyframes,
         '@media (min-width: 520px)': {
-            width: '380px',
-            height: '25px'
+
         },
       },
 
