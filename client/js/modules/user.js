@@ -1,5 +1,9 @@
 import { fromJS, Map, List } from 'immutable';
-import type { Place, Preferences, User, Action } from '../../../types/index';
+import type { Place, Preferences, User, Action } from 'types/index';
+import request from 'superagent-bluebird-promise';
+import { routerActions } from 'react-router-redux';
+import * as globalActions from './global';
+import { prefsToValue, prefsToPx } from 'utils/preferences';
 
 // Actions
 // -----------------------------------
@@ -108,16 +112,16 @@ const initialState = Map({
     gender      : 'male',
     ethnicity   : 'white',
     favorites   : List(),
-    id          : '1',
+    id          : '123456789',
     preferences : Map({
-        price         : 123,
-        culture       : 104,
-        food          : 55,
-        outdoor       : 77,
-        entertainment : 90,
-        relaxation    : 33,
-        shopping      : 20,
-        sports        : 22
+        price         : 100,
+        culture       : 100,
+        food          : 100,
+        outdoor       : 100,
+        entertainment : 100,
+        relaxation    : 100,
+        shopping      : 100,
+        sports        : 100
     })
 });
 
@@ -125,7 +129,12 @@ type State = Map<string, any>
 export default function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
         case SET_USER:
-            return fromJS(action.user);
+            const user = Object.assign(
+                {},
+                action.user,
+                { preferences: prefsToPx(action.user.preferences) }
+            );
+            return fromJS(user);
 
         case SET_EMAIL:
             return state.set('email', action.email);
@@ -183,4 +192,153 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
         default:
             return state;
     }
+}
+
+// Thunks
+// -----------------------------------
+import { SubmissionError } from 'redux-form';
+
+const serverBaseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
+
+export function signUpUser() {
+    return async (dispatch, getState) => {
+        try {
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
+            const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
+            const favorites = getState().getIn(['user', 'favorites']).toJS();
+
+            const user = Object.assign(
+                {},
+                formValues,
+                { favorites },
+                { preferences: prefsToValue(preferences) }
+            );
+
+            const res = await request
+                .post(`${serverBaseURL}/user/signup`)
+                .send(user);
+
+            dispatch(setUser(res.body));
+            // set auth here too
+            dispatch(routerActions.push('/'));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Sign Up Failed bruh'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            return SubmissionError({ _error: 'You dun goofed' });
+        }
+    }
+}
+
+export function signInUser() {
+    return async (dispatch, getState) => {
+        try {
+            const loginCredentials = getState().getIn(['form', 'SignInForm', 'values']).toJS();
+
+            const res = await request
+                .post(`${serverBaseURL}/user/signin`)
+                .send(loginCredentials);
+
+            dispatch(setUser(res.body));
+            // set auth here too
+            dispatch(routerActions.push('/'))
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Sign In Failed bruh'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            return SubmissionError({ _error: 'You dun goofed' });
+        }
+    }
+}
+
+export function updateAccount() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+            const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
+
+            // const res = await request
+            //     .put(`${serverBaseURL}/user`)
+            //     .send(accountValues);
+
+            // dispatch(setUser(res.body));
+            dispatch(globalActions.setSuccessMessage('Successfully Updated Account!'));
+            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+export function updatePreferences() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
+
+            // const res = await request
+            //     .put(`${serverBaseURL}/user/`)
+            //     .send({ preferences: prefsToValue(preferences) });
+
+            dispatch(globalActions.setSuccessMessage('Successfully Updated Preferences!'));
+            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+export function addFavoriteThunk(place) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+
+            // await request
+            //     .post(`${serverBaseURL}/place/favorites/add`)
+            //     .send({ id: place.id });
+
+            dispatch(addFavorite(place));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+export function removeFavoriteThunk(place, index) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+
+            // await request
+            //     .post(`${serverBaseURL}/place/favorites/remove`)
+            //     .send({  id: place.id });
+
+            dispatch(removeFavorite(index));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+export function dislikePlace(id) {
+    return async (dispatch, getState) => {
+        try {
+            await request
+                .post(`${serverBaseURL}/place/dislike`)
+                .send({  id });
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Update failed'));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+    };
 }

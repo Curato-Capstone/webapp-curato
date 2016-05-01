@@ -1,4 +1,4 @@
-const preferencesInfo = {
+export const preferencesInfo = {
     price         : {
         name: 'Price',
         icon: 'money',
@@ -41,4 +41,22 @@ const preferencesInfo = {
     }
 };
 
-export default preferencesInfo;
+export function prefsToValue(preferences: Object): Object {
+    const scaledPrefs = {};
+    for (const pref in preferences) {
+        if (preferences.hasOwnProperty(pref)) {
+            scaledPrefs[pref] = Math.round(preferences[pref] / (200 / 5));
+        }
+    }
+    return scaledPrefs;
+}
+
+export function prefsToPx(preferences: Object): Object {
+    const scaledPrefs = {};
+    for (const pref in preferences) {
+        if (preferences.hasOwnProperty(pref)) {
+            scaledPrefs[pref] = preferences[pref] * (200 / 5);
+        }
+    }
+    return scaledPrefs;
+}

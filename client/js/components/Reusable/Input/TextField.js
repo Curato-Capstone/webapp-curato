@@ -7,6 +7,7 @@ import { primaryColor, secondaryColor } from 'utils/colors';
 
 import MaterialTextField from 'material-ui/TextField';
 import eye from 'images/icons/eye.svg';
+import closedEye from 'images/icons/closed-eye.svg';
 
 @Radium
 export default class TextField extends Component {
@@ -46,7 +47,7 @@ export default class TextField extends Component {
                 {type === 'password' ?
                     <img
                         style={STYLES.eye}
-                        src={eye}
+                        src={showPassword ? eye : closedEye}
                         onClick={this.handleEyeClick}
                     />
                     : null
@@ -60,14 +61,11 @@ export default class TextField extends Component {
         this.setState({ showPassword: !this.state.showPassword });
     }
 
-    getInputType(type, showPassword): string {
-        if (type === 'password') {
-            if (showPassword) {
-                return 'text'
-            } else {
-                return 'password'
-            }
+    getInputType(type: string, showPassword: bool): string {
+        if (type === 'password' && showPassword) {
+            return 'text';
         }
+
         return type;
     }
 }

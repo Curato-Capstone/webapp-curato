@@ -49,19 +49,20 @@ const STYLES = {
     text: {
         margin: '24px',
         textAlign: 'center',
-        fontSize: '18px'
+        fontSize: '14px',
+        '@media (min-width: 520px)': {
+            fontSize: '18px'
+        }
     },
 
     buttonContainer: {
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
         alignItems: 'center'
     },
 
     headerImage: {
-        margin: '25px'
+        margin: '0 35px 20px 35px'
     },
 
     signUpButton: {

@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
+import Placeholder from 'images/places/emp.jpg';
 
 @Radium
 export default class Card extends Component {
@@ -27,8 +28,9 @@ export default class Card extends Component {
     state: void;
 
     render() {
-        const { place, favorite, handleDislike, handleFavorite, handleMore } = this.props;
+        const { place, favorite, handleDislike, handleFavorite } = this.props;
 
+        console.log()
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.cardText.container}>
@@ -41,14 +43,14 @@ export default class Card extends Component {
                             <Heart active={favorite} />
                         </div>
                         <div onClick={handleDislike}>I don't like this</div>
-                        <Link to="blah">
+                        <Link to={`/place/${place.id}`}>
                             <div style={STYLES.cardActions.more}>...more</div>
                         </Link>
                     </div>
                 </div>
 
                 <div style={STYLES.cardImage.container}>
-                    <img style={STYLES.cardImage.main} src={place.image} />
+                    <img style={STYLES.cardImage.main} src={Placeholder} />
                 </div>
             </div>
         );

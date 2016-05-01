@@ -1,56 +1,47 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+
+import * as userActions from 'modules/user';
+import * as suggestionsActions from 'modules/suggestions';
 
 import Header from 'components/Intro/Header';
 import Card from 'reusable/Card/Card';
 import Button from 'reusable/Button/Button';
 
-const place1 = {
-    name: 'EMP',
-    location: {address: '3495 James St., Seattle, WA'},
-    image: require('images/places/emp.jpg'),
-    id: '123'
-};
-
-const place2 = {
-    name: 'Space Needle',
-    location: {address: '3495 James St., Seattle, WA'},
-    image: require('images/places/space_needle.jpg'),
-    id: '124',
-};
-
-const place3 = {
-    name: 'Pike Place Market',
-    location: {address: '3495 James St., Seattle, WA'},
-    image: require('images/places/pike_place_market.jpg'),
-    id: '125'
-};
-
 @Radium
-export default class Suggestions extends Component {
+class Suggestions extends Component {
     static defaultProps = {};
-    props: {};
-    state = { suggestions: [place1, place2, place3] };
-    state: { suggestions: Array<Object> };
+    props: {
+        actions: Object,
+        favorites: Array<Object>,
+        suggestions: Array<Object>
+     };
+    state: void;
+
+    componentWillMount() {
+        // this.props.actions.getSuggestionsNoAccount();
+    }
 
     render() {
-        const { } = this.props;
+        const { actions, suggestions } = this.props;
 
         return (
             <div style={STYLES.container}>
                 <Header text="Your Suggestions!" />
                 <div style={STYLES.text}>These are the suggestions we came up with!</div>
                 <div style={STYLES.cardContainer}>
-                    {this.state.suggestions.map((place, index) => {
+                    {suggestions.slice(0, 3).map((place, index) => {
                         return (
                             <div style={STYLES.card} key={place.id}>
                                 <Card
                                     place={place}
-                                    favorite
-                                    handleFavorite={() => {}}
-                                    handleDislike={() => {}}
+                                    favorite={this.checkFavorited(place)}
+                                    handleFavorite={() => this.handleFavorite(place, index)}
+                                    handleDislike={() => actions.removeSuggestion(index)}
                                     handleMore={() => {}}
                                 />
                             </div>
@@ -64,6 +55,26 @@ export default class Suggestions extends Component {
                 </div>
             </div>
         );
+    }
+
+    checkFavorited(place) {
+        const { favorites } = this.props;
+
+        for (let i = 0; i < favorites.length; i ++) {
+            if (favorites[i].id === place.id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    handleFavorite(place, index) {
+        if (this.checkFavorited(place)) {
+            this.props.actions.removeFavorite(index);
+        } else {
+            this.props.actions.addFavorite(place);
+        }
     }
 }
 
@@ -95,10 +106,23 @@ const STYLES = {
     },
 
     buttonContainer: {
-        position: 'absolute',
-        bottom: -45,
         width: '100%',
         display: 'flex',
         justifyContent: 'center'
     }
 };
+
+function mapStateToProps(state) {
+    return {
+        favorites: state.getIn(['user', 'favorites']).toJS(),
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(Object.assign({}, userActions, suggestionsActions), dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);

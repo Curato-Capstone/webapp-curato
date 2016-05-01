@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 
+import { primaryColor } from 'utils/colors';
+
 class Slider extends Component {
     static defaultProps = {
         tooltipValues : [],
@@ -141,7 +143,7 @@ const STYLES = {
             width: `${value + 5}px`,
             marginTop: '6px',
             cursor: 'pointer',
-            backgroundColor: '#BC4432',
+            backgroundColor: primaryColor,
             zIndex: 5,
             borderRadius: '5px',
             transition: 'width .55s ease-out'
@@ -156,7 +158,7 @@ const STYLES = {
             width: '16px',
             cursor: 'pointer',
             borderRadius: '50%',
-            backgroundColor: '#BC4432',
+            backgroundColor: primaryColor,
             zIndex: 10
         };
     },
@@ -202,18 +204,16 @@ const STYLES = {
 
     triangle: (value: number, dragging: boolean) => {
         return {
-            borderLeft: 'solid transparent 10px',
-            borderRight: 'solid transparent 10px',
-            borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
-            transition: 'all .3s ease-out',
-            opacity: dragging ? 1 : 0,
-            transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
-            height: 0,
+            position: 'absolute',
             top: 55,
             left: `${value + 80}px`,
             marginLeft: '-13px',
-            position: 'absolute',
-            width: 0
+            borderLeft: 'solid transparent 10px',
+            borderRight: 'solid transparent 10px',
+            borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
+            opacity: dragging ? 1 : 0,
+            transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
+            transition: 'all .3s ease-out',
         };
     },
 

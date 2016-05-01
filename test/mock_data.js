@@ -10,7 +10,7 @@ export const place1 = {
         'Friday: 10:00 AM - 5:00 PM',
         'Saturday: 10:00 AM - 5:00 PM',
         'Sunday: 10:00 AM - 5:00 PM'
-    ]},
+    ] },
     website: 'www.website.com',
     tags: ['cool', 'fun', 'gay'],
     name: 'Test',
@@ -74,7 +74,7 @@ export const yesUserState = Map({
     gender      : 'Male',
     ethnicity   : 'White',
     favorites   : List([place1, place2]),
-    preferences : preferences
+    preferences
 });
 
 export const user1 = Map({
@@ -84,5 +84,5 @@ export const user1 = Map({
     gender      : 'Male',
     ethnicity   : 'White',
     favorites   : List([place1, place2]),
-    preferences : preferences
+    preferences
 });

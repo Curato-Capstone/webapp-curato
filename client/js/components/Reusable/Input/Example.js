@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 import TextField from './TextField';
+import Select from './Select';
 
 @Radium
 export default class Example extends Component {
@@ -35,6 +36,12 @@ export default class Example extends Component {
                     type="password"
                     floatingLabelText="Password"
                 />
+
+                <Select
+                    options={['What', 'is', 'good?']}
+                    floatingLabelText="Gender"
+                />
+
             </div>
         );
     }
