@@ -2,70 +2,55 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
-
 @Radium
 export default class MessageBar extends Component {
-  static defaultProps;
+    static defaultProps = {};
+    props: {
+        message: string,
+        type: "warning" | "success" | "failure"
+    };
 
-  props: {
-    message: string,
-    type: "warning" | "success" | "failure"
-  };
+    render() {
+        const { message, type } = this.props;
 
-  render() {
-    const { message, type } = this.props;
-
-    return (
-      <span style={STYLES.form(type)}>
-        <p>{message}</p>
-      </span>
-    );
-  }
+        return (
+            <span style={[STYLES.messageBar, STYLES.messageType(type)]}>
+                <p>{message}</p>
+            </span>
+        );
+    }
 }
 
 const STYLES = {
-  form: (type) =>  {
-    if (type === "warning") {
-      return STYLES.warning;
-    } else if (type === "success") {
-      return STYLES.success;
-    } else {
-      return STYLES.failure;
+    messageBar: {
+        width: '100%',
+        height: '50px',
+        display: 'inline',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 3,
+        textAlign: 'center'
+    },
+
+    messageType: (type) => {
+        if (type === 'warning') {
+            return STYLES.warning;
+        } else if (type === 'success') {
+            return STYLES.success;
+        }
+        return STYLES.failure;
+    },
+
+    warning: {
+        backgroundColor: '#FFF176',
+    },
+
+    success: {
+        backgroundColor: '#81C784',
+    },
+
+    failure: {
+        backgroundColor: '#E57373',
     }
-  },
-
-
-  warning: {
-    backgroundColor: "#FFF176",
-    width: "100%",
-    height: "5%",
-    display: "inline",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    textAlign: "center"
-  },
-
-  success: {
-    backgroundColor: "#81C784",
-    width: "100%",
-    height: "5%",
-    display: "inline",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    textAlign: "center"
-  },
-
-  failure: {
-    backgroundColor: "#E57373",
-    width: "100%",
-    height: "5%",
-    display: "inline",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    textAlign: "center"
-  }
-}
+};

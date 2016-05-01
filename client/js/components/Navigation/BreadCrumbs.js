@@ -55,7 +55,7 @@ const STYLES = {
         left: 40,
         height: '20px',
         marginLeft: '20px',
-        zIndex: 99,
+        zIndex: 2,
         fontSize: '12px',
         fontFamily: 'Roboto Mono',
         fontWeight: 'bold',

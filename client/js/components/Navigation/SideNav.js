@@ -82,6 +82,7 @@ const STYLES = {
         height: '100vh',
         minHeight: '600px',
         width: '50px',
+        zIndex: '5',
         backgroundColor: primaryColor,
         transition: 'width 1s ease-in-out, opacity .5s ease-in-out',
         '@media (min-width: 520px)': {
