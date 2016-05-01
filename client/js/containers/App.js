@@ -13,18 +13,20 @@ import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
 import BreadCrumbs from 'components/Navigation/BreadCrumbs';
 import MessageBar from 'components/Reusable/MessageBar/MessageBar'
+import Spinner from 'components/Reusable/Spinner/Spinner';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import curatoBaseTheme from 'utils/curatoTheme';
 
-const lightMuiTheme = getMuiTheme(lightBaseTheme);
+const curatoTheme = getMuiTheme(curatoBaseTheme);
 
 class App extends Component {
     static defaultProps: void;
     props: {
         user          : Object,
         suggestions   : Object,
+        global        : Object,
         location      : Object,
         actions       : Object,
         routerActions : Object,
@@ -35,9 +37,10 @@ class App extends Component {
     render(): React.Element {
         return (
             <StyleRoot>
-                <MuiThemeProvider muiTheme={lightMuiTheme}>
+                <MuiThemeProvider muiTheme={curatoTheme}>
                     <div style={STYLES.container}>
                         {this.renderNavigation()}
+                        {this.renderSpinner()}
                         {this.props.children}
                     </div>
                 </MuiThemeProvider>
@@ -59,6 +62,14 @@ class App extends Component {
             );
         }
     }
+
+    renderSpinner() {
+        const { global } = this.props;
+
+        if (global.loading) {
+            return <Spinner />;
+        }
+    }
 }
 
 const STYLES = {
@@ -66,6 +77,7 @@ const STYLES = {
         fontFamily: 'Montserrat, Sans-Serif',
         display: 'flex',
         backgroundColor: '#F6F6F6',
+        height: '100%'
     },
 
     navContainer: {
@@ -80,6 +92,7 @@ function mapStateToProps(state, ownProps) {
     return {
         user: state.get('user').toJS(),
         suggestions: state.get('suggestions').toJS(),
+        global: state.get('global').toJS(),
         location: ownProps.location
     };
 }

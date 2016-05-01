@@ -10,15 +10,15 @@ import logo from 'images/logo/logo.svg';
 
 @Radium
 export default class SideNav extends Component {
-    static defaultProps = { hide: false };
-    props: { hide: boolean, location: Object };
+    static defaultProps = { };
+    props: { location: Object };
     state: void;
 
     render() {
-        const { hide, location } = this.props;
+        const { location } = this.props;
 
         return (
-            <div style={[STYLES.container, STYLES.hide(hide)]}>
+            <div style={STYLES.container}>
                 <div>
                     <Link to="/">
                         <img src={logo} style={STYLES.logo} type="image/svg+xml" />
@@ -30,7 +30,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="search"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -39,7 +39,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="heart"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -48,7 +48,7 @@ export default class SideNav extends Component {
                             <FontAwesome
                                 name="sliders"
                                 size="3x"
-                                style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                                style={STYLES.navIcon}
                             />
                         </Link>
                     </div>
@@ -84,18 +84,9 @@ const STYLES = {
         width: '50px',
         zIndex: '5',
         backgroundColor: primaryColor,
-        transition: 'width 1s ease-in-out, opacity .5s ease-in-out',
+        transition: 'width 0.7s ease-in-out',
         '@media (min-width: 520px)': {
             width: '80px',
-        }
-    },
-
-    hide: (hide: boolean) => {
-        if (hide) {
-            return {
-                width: 0,
-                opacity: 0
-            };
         }
     },
 
@@ -103,8 +94,7 @@ const STYLES = {
         height: '70px',
         width: '70px',
         margin: '20px 0 60px 0',
-        /* revist */
-        transition: 'all 1s ease-in-out',
+        transition: 'transform 1s ease-in-out',
         transform: 'scale(0.7,0.7)',
         '@media (min-width: 520px)': {
             transform: 'scale(1, 1)'
@@ -122,7 +112,7 @@ const STYLES = {
     navItem: {
         height: '45px',
         margin: '40px 0',
-        transition: 'all 0.5s ease-in-out',
+        transition: 'transform 0.5s ease-in-out, opacity 0.25s ease-in-out',
         transform: 'scale(0.72,0.72)',
         ':hover': {
             opacity: 0.6
@@ -130,6 +120,11 @@ const STYLES = {
         '@media (min-width: 520px)': {
             transform: 'scale(1, 1)'
         },
+    },
+
+    navIcon: {
+        color: 'white',
+        textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
     },
 
     active: (item: number) => {
@@ -140,8 +135,7 @@ const STYLES = {
             height: '55px',
             width: '3px',
             backgroundColor: 'white',
-            /* revist */
-            transition: 'all 0.5s ease-in-out',
+            transition: 'top 0.4s ease-in-out',
             '@media (min-width: 520px)': {
                 left: 4
             }

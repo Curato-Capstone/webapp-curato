@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 
 import Avatar from 'material-ui/Avatar';
 
@@ -13,10 +14,10 @@ export default class UserAvatar extends Component {
         const { name } = this.props;
 
         return (
-            <div style={STYLES.container}>
+            <Link to="/account" style={STYLES.container}>
                 <Avatar className="fa fa-paper-plane" style={STYLES.avatarIcon} />
                 <div>{name}</div>
-            </div>
+            </Link>
         );
     }
 }
@@ -30,7 +31,7 @@ const STYLES = {
         height: '50px',
         marginRight: '20px',
         marginTop: '5px',
-        cursor: 'pointer'
+        zIndex: 5
     },
 
     avatarIcon: {

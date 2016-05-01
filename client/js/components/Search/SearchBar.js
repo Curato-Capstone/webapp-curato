@@ -20,11 +20,11 @@ export default class SearchBar extends Component {
     };
 
     state = { clicking: false, enter: false };
-    state : { clicking: boolean, enter: boolean };
+    state : { clicking: boolean };
 
     render() {
-        const { value, handleChange, handleSubmit } = this.props;
-        const { clicking, enter } = this.state;
+        const { value, handleChange } = this.props;
+        const { clicking } = this.state;
 
         return (
             <div style={STYLES.container}>
@@ -37,10 +37,8 @@ export default class SearchBar extends Component {
                     onKeyDown={this.handleKeyPress}
                 />
                 <div
-                    style={STYLES.icon(clicking || enter)}
-                    onClick={() => handleSubmit()}
-                    onMouseDown={() => this.setState({ clicking: true })}
-                    onMouseUp={() => this.setState({ clicking: false })}
+                    style={STYLES.icon(clicking)}
+                    onClick={this.search}
                 >
                     <FontAwesome
                         name="search"
@@ -55,15 +53,19 @@ export default class SearchBar extends Component {
     @autobind
     handleKeyPress(e: Object): void {
         if (e.key === 'Enter') {
-            this.setState({ enter: true });
-
-            // wait 250ms for cool animation
-            setTimeout(() => {
-                this.setState({ enter: false });
-                // probably should wait another x seconds for button to go up lol
-                this.props.handleSubmit();
-            }, 250);
+            this.search();
         }
+    }
+
+    @autobind
+    search() {
+        this.setState({ clicking: true });
+
+        // wait 250ms for cool animation
+        setTimeout(() => {
+            this.setState({ clicking: false });
+            setTimeout(() => this.props.handleSubmit(), 300);
+        }, 300);
     }
 }
 
@@ -80,7 +82,7 @@ const STYLES = {
         paddingLeft: '18px',
         fontSize: '16px',
         boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
-        transition: 'all 0.5s ease-in',
+        transition: 'height 0.4s ease-in, width 0.4s ease-in',
         '@media (min-width: 520px)': {
             height: '70px',
             fontSize: '23px',
@@ -97,8 +99,7 @@ const STYLES = {
             boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
             backgroundColor: primaryColor,
             transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
-            /* revisit */
-            transition: 'all 0.2s ease-in',
+            transition: 'height 0.4s ease-in, width 0.4s ease-in, transform 0.3s ease-in',
             '@media (min-width: 520px)': {
                 width: '80px',
                 height: '72px',

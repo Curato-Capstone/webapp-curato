@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import { Link } from 'react-router';
 
 import * as userActions from 'modules/user';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
-import preferencesInfo from 'utils/preferences';
+import { preferencesInfo } from 'utils/preferences';
 import FontAwesome from 'react-fontawesome';
 
 import Header from 'components/Intro/Header';
@@ -21,11 +20,14 @@ const preferencesList = ['price', 'culture', 'food', 'outdoor',
 @Radium
 class Preferences extends Component {
     static defaultProps = {};
-    props: {};
+    props: {
+        preferences: Object,
+        actions: Object
+    };
     state: void;
 
     render() {
-        const { } = this.props;
+        const { preferences, actions } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -43,8 +45,8 @@ class Preferences extends Component {
                             <div style={STYLES.slider.container} key={preferenceName}>
                                 <Slider
                                     name={preferenceName}
-                                    value={0}
-                                    handleChange={(v) => {}}
+                                    value={preferences[preferenceName]}
+                                    handleChange={(v) => actions.changePreference(preferenceName, v)}
                                     tooltipValues={
                                     ['I hate this shit', 'I like this shit', 'I love this shit']
                                     }
@@ -135,13 +137,11 @@ const STYLES = {
     arrow: {
         color: 'grey',
         textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)',
-        marginTop: '12px',
+        margin: '20px',
         opacity: '0.75'
     },
 
     buttonContainer: {
-        position: 'absolute',
-        bottom: -50,
         width: '100%',
         display: 'flex',
         justifyContent: 'center'
@@ -150,14 +150,13 @@ const STYLES = {
 
 function mapStateToProps(state) {
     return {
-        user: state.get('user').toJS(),
+        preferences: state.getIn(['user', 'preferences']).toJS(),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actions : bindActionCreators(Object.assign({}, userActions), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
 

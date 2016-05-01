@@ -5,24 +5,26 @@ var ROOT_DIR = __dirname;
 module.exports = {
     context: ROOT_DIR,
 
-    entry: [
-        'webpack-hot-middleware/client',
-        path.resolve(ROOT_DIR, 'client', 'js', 'index.js')
-    ],
+    entry: path.resolve(ROOT_DIR, 'client', 'js', 'index.js'),
 
     resolve: {
         extensions: ['', '.js', '.jsx'],
         alias: {
-            react: path.join(ROOT_DIR, 'node_modules', 'react'),
             components: path.join(ROOT_DIR, 'client', 'js', 'components'),
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
-            flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
-            js: path.join(ROOT_DIR, 'client', 'js')
+            routes: path.join(ROOT_DIR, 'client', 'js', 'containers', 'routes'),
+            reusable: path.join(ROOT_DIR, 'client', 'js', 'components', 'Reusable'),
+            modules: path.join(ROOT_DIR, 'client', 'js', 'modules'),
+            utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),
+            types: path.join(ROOT_DIR, 'types'),
+            images: path.join(ROOT_DIR, 'client', 'images'),
+            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
         }
     },
 
     output: {
-        path: path.join(ROOT_DIR,'build'),
+        publicPath: '/',
+        path: path.join(ROOT_DIR, 'build'),
         filename: 'bundle.js'
     },
 
@@ -30,13 +32,17 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+                NODE_ENV: JSON.stringify('production')
             }
         }),
+        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
+            compress: {
+                warnings: false,
+                screw_ie8: true
+            },
+            comments: false,
+            sourceMap: false
         })
     ],
 
@@ -47,7 +53,13 @@ module.exports = {
                 loader: 'babel',
                 exclude: path.join(ROOT_DIR, 'node_modules'),
                 query: {
-                    "presets": ["es2015", "react", "stage-1"],
+                    presets: ['es2015', 'react', 'stage-1'],
+                    plugins: ['transform-decorators-legacy'],
+                    env: {
+                        development: {
+                            presets: ['react-hmre']
+                        }
+                    }
                 }
             },
 
@@ -58,7 +70,7 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: 'style-loader!css-loader'
             },
 
             {

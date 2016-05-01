@@ -5,7 +5,7 @@ import Radium from 'radium';
 @Radium
 export default class Heart extends Component {
     static defaultProps = {};
-    
+
     props: { active: boolean };
 
     state = { changed: false };

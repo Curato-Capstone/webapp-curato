@@ -10,7 +10,8 @@ const pathToCrumbs = {
     '/favorites'   : ['Favorites'],
     '/preferences' : ['Preferences'],
     '/suggestions' : ['Search', 'Suggestions'],
-    '/place'       : ['Place']
+    '/place'       : ['Place'],
+    '/account'     : ['Account']
 };
 
 @Radium
@@ -23,7 +24,9 @@ export default class BreadCrumbs extends Component {
 
     render() {
         const { location } = this.props;
-        const pathname = location.pathname;
+        const pathname = location.pathname.length !== 1 ?
+            location.pathname.replace(/\/$/, '') :
+            location.pathname;
 
         return (
             <div style={STYLES.container}>
@@ -34,10 +37,12 @@ export default class BreadCrumbs extends Component {
                     staggerDelayBy={70}
                 >
                     <div key="Curato">Curato</div>
-                    { pathToCrumbs[pathname].map((crumb, index) => (
+                    {pathToCrumbs[pathname].map((crumb, index) => (
                         <div style={STYLES.crumb} key={crumb + index}>
                             <div style={STYLES.divider}>//</div>
-                            <div style={STYLES.active(pathToCrumbs[pathname].length === index + 1)}>
+                            <div
+                                style={[STYLES.crumbText, STYLES.active(pathToCrumbs[pathname].length === index + 1)]}
+                            >
                                 {crumb}
                             </div>
                         </div>
@@ -52,21 +57,17 @@ const STYLES = {
     container: {
         position: 'absolute',
         top: 16,
-        left: 40,
+        left: 80,
         height: '20px',
         marginLeft: '20px',
-        zIndex: 2,
-        fontSize: '12px',
+        opacity: 0,
+        zIndex: 99,
+        fontSize: '21px',
         fontFamily: 'Roboto Mono',
         fontWeight: 'bold',
-        '@media (min-width: 300px)': {
-            fontSize: '14px'
-        },
-        '@media (min-width: 420px)': {
-            fontSize: '21px'
-        },
+        transition: 'opacity 0.5s ease-in-out',
         '@media (min-width: 520px)': {
-            left: 80,
+            opacity: 1
         },
     },
 
@@ -81,6 +82,10 @@ const STYLES = {
     divider: {
         margin: '0 10px',
         letterSpacing: '0px'
+    },
+
+    crumbText: {
+        transition: 'color 1.5s ease-in'
     },
 
     active: (active) => {
