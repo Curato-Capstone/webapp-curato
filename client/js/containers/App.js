@@ -12,6 +12,7 @@ import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
 import BreadCrumbs from 'components/Navigation/BreadCrumbs';
+import MessageBar from 'components/Reusable/MessageBar/MessageBar'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
