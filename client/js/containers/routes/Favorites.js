@@ -74,7 +74,7 @@ const STYLES = {
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-        marginTop: '64px',
+        marginTop: '72px',
         marginLeft: '16px',
         marginRight: '16px',
         minHeight: '100vh',

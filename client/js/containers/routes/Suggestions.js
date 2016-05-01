@@ -31,7 +31,7 @@ class Suggestions extends Component {
     state: void;
 
     render() {
-        const { actions, suggestions } = this.props;
+        const { suggestions } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -44,7 +44,7 @@ class Suggestions extends Component {
                                     place={place}
                                     favorite={this.checkFavorited(place)}
                                     handleFavorite={() => this.handleFavorite(place, index)}
-                                    handleDislike={() => actions.removeSuggestion(index)}
+                                    handleDislike={() => this.handleDislike(place, index)}
                                     handleMore={() => {}}
                                 />
                             </div>
@@ -68,10 +68,15 @@ class Suggestions extends Component {
 
     handleFavorite(place, index) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavorite(index);
+            this.props.actions.removeFavoriteThunk(place, index);
         } else {
-            this.props.actions.addFavorite(place);
+            this.props.actions.addFavoriteThunk(place);
         }
+    }
+
+    handleDislike(place, index) {
+        this.props.actions.dislikePlace(place.id);
+        this.props.actions.removeSuggestion(index);
     }
 }
 

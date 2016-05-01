@@ -26,7 +26,7 @@ export default class BreadCrumbs extends Component {
         const { location } = this.props;
         const pathname = location.pathname.length !== 1 ?
             location.pathname.replace(/\/$/, '') :
-            location.pathname
+            location.pathname;
 
         return (
             <div style={STYLES.container}>
@@ -37,10 +37,12 @@ export default class BreadCrumbs extends Component {
                     staggerDelayBy={70}
                 >
                     <div key="Curato">Curato</div>
-                    { pathToCrumbs[pathname].map((crumb, index) => (
+                    {pathToCrumbs[pathname].map((crumb, index) => (
                         <div style={STYLES.crumb} key={crumb + index}>
                             <div style={STYLES.divider}>//</div>
-                            <div style={STYLES.active(pathToCrumbs[pathname].length === index + 1)}>
+                            <div
+                                style={[STYLES.crumbText, STYLES.active(pathToCrumbs[pathname].length === index + 1)]}
+                            >
                                 {crumb}
                             </div>
                         </div>
@@ -80,6 +82,10 @@ const STYLES = {
     divider: {
         margin: '0 10px',
         letterSpacing: '0px'
+    },
+
+    crumbText: {
+        transition: 'color 1.5s ease-in'
     },
 
     active: (active) => {

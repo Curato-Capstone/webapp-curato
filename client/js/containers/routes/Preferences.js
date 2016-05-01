@@ -56,6 +56,7 @@ class Preferences extends Component {
                 <Button
                     label="Update your Preferences!"
                     type="primary"
+                    handleClick={() => actions.updatePreferences()}
                     style={STYLES.updateButton}
                 />
             </div>
@@ -143,10 +144,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions
-        ), dispatch),
+        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }

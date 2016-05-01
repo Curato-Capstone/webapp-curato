@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as userActions from 'modules/user';
 
 import AccountForm from 'components/Forms/AccountForm/AccountForm';
 import Avatar from 'material-ui/Avatar';
@@ -8,15 +12,15 @@ import Avatar from 'material-ui/Avatar';
 class Account extends Component {
     static defaultProps = {};
     state: void;
-    props: {};
+    props: { actions: Object};
 
     render() {
-        const { } = this.props;
+        const { actions } = this.props;
 
         return (
             <div style={STYLES.container}>
                 <Avatar className="fa fa-paper-plane" size={250} style={STYLES.avatar} />
-                <AccountForm />
+                <AccountForm onSubmit={() => actions.updateAccount()} />
             </div>
         );
     }
@@ -39,4 +43,14 @@ const STYLES = {
     }
 };
 
-export default Account;
+function mapStateToProps(state) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account);

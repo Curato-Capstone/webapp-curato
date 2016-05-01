@@ -2,7 +2,8 @@ import { fromJS, Map, List } from 'immutable';
 import type { Place, Action } from '../../../types/index';
 import request from 'superagent-bluebird-promise';
 import { routerActions } from 'react-router-redux';
-
+import * as globalActions from './global';
+import { prefsToValue } from 'utils/preferences';
 
 // Actions
 // -----------------------------------
@@ -74,7 +75,7 @@ const place3 = {
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    suggestions : List(),
+    suggestions : List([place1, place2, place3]),
     searchText: ''
 });
 
@@ -108,14 +109,48 @@ export default function reducer(state: State = initialState, action: Action): St
 
 // Thunks
 // -----------------------------------
-const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000'
-export function getSuggestions() {
-    return async (dispatch, getState) => {
-        const query = getState().getIn(['suggestion', 'searchText']);
-        // const res = await request.get(`${baseURL}/suggestions?user_id=${123456789}`)
+const suggestionBaseURL = 'http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000';
 
-        // dispatch(setSuggestions(res.body));
-        await dispatch(setSuggestions([place1, place2, place3]));
-        dispatch(routerActions.push('/suggestions'));
+export function getSuggestions(random = false) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+
+            const query = random ? '' : getState().getIn(['suggestion', 'searchText']);
+            const userID = getState().getIn(['user', 'id']);
+
+            const res = await request
+                .get(`${suggestionBaseURL}/suggestions?user_id=${userID}&q=${'restaurant'}`);
+
+            dispatch(setSuggestions(res.body));
+            dispatch(routerActions.push('/suggestions'));
+        } catch (error) {
+            dispatch(globalActions.setFailureMessage('Something went wrong :( '));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    }
+}
+
+export function getSuggestionsNoAccount() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
+
+            const res = await request
+            .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
+                // .post(`${suggestionBaseURL}/suggestions`)
+                // .send(prefsToValue(preferences));
+
+            dispatch(setSuggestions(res.body));
+        } catch (error) {
+            console.log(error)
+            dispatch(globalActions.setFailureMessage('Something went wrong :( '));
+            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+        }
+
+        dispatch(globalActions.setLoading(false));
     }
 }
