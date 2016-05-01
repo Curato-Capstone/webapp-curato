@@ -17,8 +17,6 @@ module.name_mapper='^types\/\(.*\)$' -> '<PROJECT_ROOT>/types/\1'
 module.name_mapper='^images\/\(.*\)$' -> '<PROJECT_ROOT>/client/images/\1'
 module.name_mapper='^stylesheets\/\(.*\)$' -> '<PROJECT_ROOT>/client/stylesheets/\1'
 
-module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/stubs/FlowStub.js.flow'
-module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/stubs/FlowStub.js.flow'
-module.name_mapper.extension='png' -> '<PROJECT_ROOT>/stubs/FlowStub.js.flow'
-
-
+module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/flow/stub.js.flow'
+module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/flow/stub.js.flow'
+module.name_mapper.extension='png' -> '<PROJECT_ROOT>/flow/stub.js.flow'
