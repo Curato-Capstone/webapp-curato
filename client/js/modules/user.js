@@ -117,7 +117,7 @@ const initialState = Map({
         price         : 100,
         culture       : 100,
         food          : 100,
-        outdoor       : 100,
+        outdoors       : 100,
         entertainment : 100,
         relaxation    : 100,
         shopping      : 100,
@@ -214,13 +214,17 @@ export function signUpUser() {
                 { preferences: prefsToValue(preferences) }
             );
 
+            console.log(user);
+
             const res = await request
                 .post(`${serverBaseURL}/user/signup`)
                 .send(user);
 
-            dispatch(setUser(res.body));
+            console.log(res);
+
+            // dispatch(setUser(res.body));
             // set auth here too
-            dispatch(routerActions.push('/'));
+            // dispatch(routerActions.push('/'));
         } catch (error) {
             dispatch(globalActions.setFailureMessage('Sign Up Failed bruh'));
             setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));

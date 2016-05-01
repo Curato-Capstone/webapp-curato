@@ -14,8 +14,8 @@ export const preferencesInfo = {
         icon: 'cutlery',
         tooltipValues: [],
     },
-    outdoor       : {
-        name: 'Outdoor',
+    outdoors       : {
+        name: 'Outdoors',
         icon: 'tree',
         tooltipValues: [],
     },
