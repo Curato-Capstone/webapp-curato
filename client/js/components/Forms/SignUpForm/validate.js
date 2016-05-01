@@ -25,7 +25,9 @@ function validate(values: Map<string, any>): Object {
     }
 
     const age = values.get('age');
-    if (age && isNaN(Number(age))) {
+    if (!age) {
+        errors.age = 'Age is required!'
+    } else if (isNaN(Number(age))) {
         errors.age = 'Must be a number!';
     } else if (age <= 0) {
         errors.age = 'Are you really that young?';
