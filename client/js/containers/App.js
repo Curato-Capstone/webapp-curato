@@ -48,6 +48,7 @@ class App extends Component {
     renderNavigation() {
         const { location, user } = this.props;
 
+
         if (!location.pathname.includes('intro')) {
             return (
                 <div style={STYLES.navContainer}>

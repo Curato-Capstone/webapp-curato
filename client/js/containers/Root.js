@@ -23,10 +23,11 @@ import Preferences from 'routes/Preferences';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
 
-type Props = { store: Object };
+import PageNotFound from 'routes/PageNotFound';
+
 export default class Root extends Component {
     state: void;
-    props: Props;
+    props: { store: Object };
 
     render() {
         const store = this.props.store;
@@ -51,6 +52,7 @@ export default class Root extends Component {
                             <Route path="preferences" component={Preferences} />
                             <Route path="account" component={Account} />
                             <Route path="favorites" component={Favorites} />
+                            <Route path="*" component={PageNotFound} />
                         </Route>
                     </Router>
                     { !isDevelopment ? <DevTools /> : null }
