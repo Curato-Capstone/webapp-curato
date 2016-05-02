@@ -11,7 +11,7 @@ export default class Slider extends Component {
     state : void
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = { value: this.props.value * (200 / 5)}
     }
