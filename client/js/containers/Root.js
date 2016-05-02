@@ -23,6 +23,7 @@ import Preferences from 'routes/Preferences';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
 
+<<<<<<< HEAD
 import requireAuth from 'components/AuthenticatedComponent';
 
 function fetchInitialData(nextState, replace, callback) {
@@ -31,9 +32,13 @@ function fetchInitialData(nextState, replace, callback) {
 }
 
 type Props = { store: Object };
+=======
+import PageNotFound from 'routes/PageNotFound';
+
+>>>>>>> 80722efc56c191a88280938ebdbea2fbb4d39754
 export default class Root extends Component {
     state: void;
-    props: Props;
+    props: { store: Object };
 
     render() {
         const store = this.props.store;
@@ -60,7 +65,7 @@ export default class Root extends Component {
                             <Route path="favorites" component={requireAuth(Favorites)} />
                         </Route>
                     </Router>
-                    { isDevelopment ? <DevTools /> : null }
+                    { !isDevelopment ? <DevTools /> : null }
                 </div>
             </Provider>
         );
