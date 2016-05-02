@@ -25,6 +25,11 @@ import Place from 'routes/Place';
 
 import requireAuth from 'components/AuthenticatedComponent';
 
+function fetchInitialData(nextState, replace, callback) {
+    console.log(nextState, replace, callback)
+    callback()
+}
+
 type Props = { store: Object };
 export default class Root extends Component {
     state: void;
@@ -38,8 +43,8 @@ export default class Root extends Component {
         return (
             <Provider store={store} >
                 <div>
-                    <Router history={history}>
-                        <Route path="/" component={App}>
+                    <Router history={history} onEnter={() => console.log('hereereeeee')}>
+                        <Route path="/" component={App} onEnter={test}>
                             <IndexRoute component={requireAuth(Search)} />
                             <Route path="intro" component={Intro}>
                                 <IndexRoute component={HomeIntro} />
