@@ -23,19 +23,8 @@ import Preferences from 'routes/Preferences';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
 
-<<<<<<< HEAD
 import requireAuth from 'components/AuthenticatedComponent';
 
-function fetchInitialData(nextState, replace, callback) {
-    console.log(nextState, replace, callback)
-    callback()
-}
-
-type Props = { store: Object };
-=======
-import PageNotFound from 'routes/PageNotFound';
-
->>>>>>> 80722efc56c191a88280938ebdbea2fbb4d39754
 export default class Root extends Component {
     state: void;
     props: { store: Object };
@@ -48,8 +37,8 @@ export default class Root extends Component {
         return (
             <Provider store={store} >
                 <div>
-                    <Router history={history} onEnter={() => console.log('hereereeeee')}>
-                        <Route path="/" component={App} onEnter={test}>
+                    <Router history={history}>
+                        <Route path="/" component={App}>
                             <IndexRoute component={requireAuth(Search)} />
                             <Route path="intro" component={Intro}>
                                 <IndexRoute component={HomeIntro} />
