@@ -183,7 +183,7 @@ const STYLES = {
     tooltip: (value: number, dragging: boolean) => {
         return {
             position: 'absolute',
-            left: `${value - 5}px`,
+            // left: `${value - 5}px`,
             bottom: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -196,9 +196,9 @@ const STYLES = {
             width: '40%',
             zIndex: 100,
             boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
-            transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
+            transform: dragging ? `translate(${value - 70}px, 20px)` : `translate(${value - 70}px, 40px)`,
             /* revisit */
-            transition: 'all .3s ease-out',
+            transition: 'transform .3s ease-out',
         };
     },
 
@@ -206,14 +206,14 @@ const STYLES = {
         return {
             position: 'absolute',
             top: 55,
-            left: `${value + 80}px`,
+            // left: `${value + 80}px`,
             marginLeft: '-13px',
             borderLeft: 'solid transparent 10px',
             borderRight: 'solid transparent 10px',
             borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
             opacity: dragging ? 1 : 0,
-            transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
-            transition: 'all .3s ease-out',
+            transform: dragging ? `translate(${value + 20}px, 10px)` : `translate(${value + 20}px, 30px)`,
+            transition: 'transform .3s ease-out',
         };
     },
 
