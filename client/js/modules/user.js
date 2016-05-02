@@ -114,14 +114,14 @@ const initialState = Map({
     favorites   : List(),
     id          : '123456789',
     preferences : Map({
-        price         : 100,
-        culture       : 100,
-        food          : 100,
-        outdoor       : 100,
-        entertainment : 100,
-        relaxation    : 100,
-        shopping      : 100,
-        sports        : 100
+        price         : 3,
+        culture       : 1,
+        food          : 4,
+        outdoor       : 3,
+        entertainment : 2,
+        relaxation    : 5,
+        shopping      : 3,
+        sports        : 2
     })
 });
 
