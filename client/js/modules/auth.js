@@ -58,7 +58,7 @@ const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
 import { SubmissionError } from 'redux-form';
 
 export function signUpUser() {
-    return async (dispatch, getState) => {
+    return async (dispatch: () => void, getState: () => Object) => {
         try {
             const preferences = getState().getIn(['user', 'preferences']).toJS();
             const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
@@ -78,11 +78,11 @@ export function signUpUser() {
             dispatch(globalActions.setMessage('error', 'Sign Up Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
-    }
+    };
 }
 
 export function signInUser() {
-    return async (dispatch, getState) => {
+    return async (dispatch: () => void, getState: () => Object) => {
         try {
             const loginCredentials = getState().getIn(['form', 'SignInForm', 'values']).toJS();
 
@@ -98,5 +98,5 @@ export function signInUser() {
             dispatch(globalActions.setMessage('error', 'Sign In Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
-    }
+    };
 }

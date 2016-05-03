@@ -11,17 +11,15 @@ import Account from 'routes/Account';
 import Search from 'routes/Search';
 import Favorites from 'routes/Favorites';
 import Suggestions from 'routes/Suggestions';
+import Preferences from 'routes/Preferences';
+import SignIn from 'routes/SignIn';
+import Place from 'routes/Place';
 
 import Intro from 'routes/Intro';
-
 import HomeIntro from 'routes/Intro/Home';
 import PreferencesIntro from 'routes/Intro/Preferences';
 import SuggestionsIntro from 'routes/Intro/Suggestions';
 import SignUpIntro from 'routes/Intro/SignUp';
-
-import Preferences from 'routes/Preferences';
-import SignIn from 'routes/SignIn';
-import Place from 'routes/Place';
 
 import requireAuth from 'components/AuthenticatedComponent';
 
