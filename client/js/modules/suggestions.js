@@ -1,9 +1,9 @@
 import { fromJS, Map, List } from 'immutable';
-import type { Place, Action } from '../../../types/index';
+import type { Place, Action } from 'flow/types';
 import request from 'superagent-bluebird-promise';
+
 import { routerActions } from 'react-router-redux';
 import * as globalActions from './global';
-import { prefsToValue } from 'utils/preferences';
 
 // Actions
 // -----------------------------------
@@ -113,22 +113,20 @@ export default function reducer(state: State = initialState, action: Action): St
 // -----------------------------------
 const suggestionBaseURL = 'http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000';
 
-export function getSuggestions(random = false) {
+export function getSuggestions({ random = false } = {}) {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
             const query = random ? '' : getState().getIn(['suggestion', 'searchText']);
-            const userID = getState().getIn(['user', 'id']);
 
             const res = await request
-                .get(`${suggestionBaseURL}/suggestions?user_id=${userID}&q=${'restaurant'}`);
+                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Something went wrong :( '));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Something went wrong :( '));
         }
 
         dispatch(globalActions.setLoading(false));
@@ -147,9 +145,9 @@ export function getSuggestionsNoAccount() {
                 // .send(prefsToValue(preferences));
 
             dispatch(setSuggestions(res.body));
+            dispatch(routerActions.push('/intro/2'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Something went wrong :( '));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Something went wrong :( '));
         }
 
         dispatch(globalActions.setLoading(false));

@@ -27,7 +27,7 @@ export type Preferences = {
     price         : number,
     culture       : number,
     food          : number,
-    outdoors       : number,
+    outdoors      : number,
     entertainment : number,
     relaxation    : number,
     shopping      : number,

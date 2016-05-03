@@ -1,9 +1,10 @@
 import { fromJS, Map, List } from 'immutable';
 import type { Place, Preferences, User, Action } from 'types/index';
 import request from 'superagent-bluebird-promise';
+
 import { routerActions } from 'react-router-redux';
 import * as globalActions from './global';
-import { prefsToValue, prefsToPx } from 'utils/preferences';
+import * as authActions from './auth';
 
 // Actions
 // -----------------------------------
@@ -117,7 +118,7 @@ const initialState = Map({
         price         : 3,
         culture       : 1,
         food          : 4,
-        outdoor       : 3,
+        outdoors      : 3,
         entertainment : 2,
         relaxation    : 5,
         shopping      : 3,
@@ -129,12 +130,7 @@ type State = Map<string, any>
 export default function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
         case SET_USER:
-            const user = Object.assign(
-                {},
-                action.user,
-                { preferences: prefsToPx(action.user.preferences) }
-            );
-            return fromJS(user);
+            return fromJS(action.user);
 
         case SET_EMAIL:
             return state.set('email', action.email);
@@ -196,107 +192,121 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
 
 // Thunks
 // -----------------------------------
-import { SubmissionError } from 'redux-form';
+const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
 
-const serverBaseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
-
+const user = {
+    email       : 'mister-pie@hotmail.com',
+    name        : 'Mister Pie',
+    age         : 25,
+    gender      : 'male',
+    ethnicity   : 'white',
+    favorites   : [],
+    id          : '123456789',
+    preferences : {
+        price         : 3,
+        culture       : 1,
+        food          : 4,
+        outdoors      : 3,
+        entertainment : 2,
+        relaxation    : 5,
+        shopping      : 3,
+        sports        : 2
+    }
+};
+// called when page is first loaded
 export function getUserData() {
     return async (dispatch, getState) => {
         try {
-            dispatch(globalActions.setLoading(true));
-            const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
+            dispatch(authActions.setIsAuthenticating(true));
 
-            // const res = await request
-            //     .put(`${serverBaseURL}/user`)
-            //     .send(accountValues);
+            const res = await request.get(`${baseURL}/user`);
+            // const res = {};
+            // res.body = await new Promise((resolve) => {
+            //     setTimeout(() => resolve(user), 2000)
+            // });
 
-            // dispatch(setUser(res.body));
-            dispatch(globalActions.setSuccessMessage('Successfully Updated Account!'));
-            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+            dispatch(setUser(res.body));
+            dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Update failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            console.log(error)
         }
-
-        dispatch(globalActions.setLoading(false));
+        dispatch(authActions.setIsAuthenticating(false));
     };
 }
 
+// called when user is updating account on /account
 export function updateAccount() {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
             const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
 
-            // const res = await request
-            //     .put(`${serverBaseURL}/user`)
-            //     .send(accountValues);
+            console.log(accountValues);
+            await request
+                .put(`${baseURL}/user`)
+                .send(accountValues);
 
-            // dispatch(setUser(res.body));
-            dispatch(globalActions.setSuccessMessage('Successfully Updated Account!'));
-            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+            dispatch(globalActions.setMessage('success', 'Successfully Updated Account!'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Update failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Update failed'));
         }
 
         dispatch(globalActions.setLoading(false));
     };
 }
 
+// called when user is updating preferences on /preferences
 export function updatePreferences() {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
-            // const res = await request
-            //     .put(`${serverBaseURL}/user/`)
-            //     .send({ preferences: prefsToValue(preferences) });
+            await request
+                .put(`${baseURL}/user/`)
+                .send({ preferences });
 
-            dispatch(globalActions.setSuccessMessage('Successfully Updated Preferences!'));
-            setTimeout(() => dispatch(globalActions.setSuccessMessage(''), 2000));
+            dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Update failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Update failed'));
         }
 
         dispatch(globalActions.setLoading(false));
     };
 }
 
+// called on /favorites and /suggestions
 export function addFavoriteThunk(place) {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            // await request
-            //     .post(`${serverBaseURL}/place/favorites/add`)
-            //     .send({ id: place.id });
+            await request
+                .post(`${baseURL}/place/favorites/add`)
+                .send({ id: place.id });
 
             dispatch(addFavorite(place));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Update failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Unable to add favorite'));
         }
 
         dispatch(globalActions.setLoading(false));
     };
 }
 
+// called on /favorites and /suggestions
 export function removeFavoriteThunk(place, index) {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            // await request
-            //     .post(`${serverBaseURL}/place/favorites/remove`)
-            //     .send({  id: place.id });
+            await request
+                .post(`${baseURL}/place/favorites/remove`)
+                .send({ id: place.id });
 
             dispatch(removeFavorite(index));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Update failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
         }
 
         dispatch(globalActions.setLoading(false));
@@ -304,14 +314,13 @@ export function removeFavoriteThunk(place, index) {
 }
 
 export function dislikePlace(id) {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             await request
-                .post(`${serverBaseURL}/place/dislike`)
-                .send({  id });
+                .post(`${baseURL}/place/dislike`)
+                .send({ id });
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Disliked Failed'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Something went wrong :/'));
         }
     };
 }

@@ -11,6 +11,7 @@
         "consistent-return": 0,
         "no-console": ["error", { allow: ["info"] }],
         "indent": ["error", 4, {"SwitchCase": 1}],
+        no-unused-expressions: ["error", { "allowTernary": true }],
         "comma-dangle": 0,
         "react/jsx-indent-props": 0,
         "react/prefer-stateless-function": 0,

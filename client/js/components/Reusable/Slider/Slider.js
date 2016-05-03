@@ -13,7 +13,7 @@ export default class Slider extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { value: this.props.value * (200 / 5)}
+        this.state = { value: (this.props.value - 1) * (200 / 4)}
     }
 
     render() {
@@ -32,6 +32,6 @@ export default class Slider extends Component {
 
     @autobind
     updateValue() {
-        this.props.handleChange(Math.round(this.state.value / (200 / 5)))
+        this.props.handleChange(Math.round(this.state.value / (200 / 4)) + 1)
     }
 }

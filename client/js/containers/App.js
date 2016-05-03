@@ -27,6 +27,7 @@ class App extends Component {
         user          : Object,
         suggestions   : Object,
         global        : Object,
+        auth          : Object,
         location      : Object,
         actions       : Object,
         routerActions : Object,
@@ -34,23 +35,52 @@ class App extends Component {
     };
     state: void;
 
+    componentWillMount() {
+        this.props.actions.getUserData()
+    }
+
     render(): React.Element {
         return (
             <StyleRoot>
                 <MuiThemeProvider muiTheme={curatoTheme}>
-                    <div style={STYLES.container}>
-                        {this.renderNavigation()}
-                        {this.renderSpinner()}
-                        {this.props.children}
-                    </div>
+                    {this.renderComponents()}
                 </MuiThemeProvider>
             </StyleRoot>
         );
     }
 
+    renderComponents() {
+        if (this.props.auth.isAuthenticating) {
+            return (
+                <div style={STYLES.container}>
+                    {this.renderSpinner()}
+                </div>
+            )
+        } else {
+            return (
+                <div style={STYLES.container}>
+                    {this.renderMessageBar()}
+                    {this.renderNavigation()}
+                    {this.renderSpinner()}
+                    {this.props.children}
+                </div>
+            )
+        }
+    }
+
+    renderMessageBar() {
+        const { global } = this.props;
+        const { errorMessage, successMessage } = global;
+
+        if (errorMessage) {
+            return <MessageBar type="error" message={errorMessage} />;
+        } else if (successMessage) {
+            return <MessageBar type="success" message={successMessage} />;
+        }
+    }
+
     renderNavigation() {
         const { location, user } = this.props;
-
 
         if (!location.pathname.includes('intro')) {
             return (
@@ -64,9 +94,9 @@ class App extends Component {
     }
 
     renderSpinner() {
-        const { global } = this.props;
+        const { global, auth } = this.props;
 
-        if (global.loading) {
+        if (global.loading || auth.isAuthenticating) {
             return <Spinner />;
         }
     }
@@ -93,6 +123,7 @@ function mapStateToProps(state, ownProps) {
         user: state.get('user').toJS(),
         suggestions: state.get('suggestions').toJS(),
         global: state.get('global').toJS(),
+        auth: state.get('auth').toJS(),
         location: ownProps.location
     };
 }

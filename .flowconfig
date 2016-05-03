@@ -13,7 +13,7 @@ module.name_mapper='^routes\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/ro
 module.name_mapper='^reusable\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/reusable/\1'
 module.name_mapper='^modules\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/modules/\1'
 module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/utils/\1'
-module.name_mapper='^types\/\(.*\)$' -> '<PROJECT_ROOT>/types/\1'
+module.name_mapper='^flow\/\(.*\)$' -> '<PROJECT_ROOT>/flow/\1'
 module.name_mapper='^images\/\(.*\)$' -> '<PROJECT_ROOT>/client/images/\1'
 module.name_mapper='^stylesheets\/\(.*\)$' -> '<PROJECT_ROOT>/client/stylesheets/\1'
 

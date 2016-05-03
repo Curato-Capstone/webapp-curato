@@ -5,11 +5,14 @@ import { reducer as formReducer } from 'redux-form/immutable';
 import userReducer from './user';
 import suggestionsReducer from './suggestions';
 import globalReducer from './global';
+import authReducer from './auth';
+
 
 const rootReducer = combineReducers({
     user        : userReducer,
     suggestions : suggestionsReducer,
     global      : globalReducer,
+    auth        : authReducer,
     form        : formReducer,
     routing     : routerReducer
 });

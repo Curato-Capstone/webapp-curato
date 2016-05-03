@@ -7,7 +7,7 @@ export default class MessageBar extends Component {
     static defaultProps = {};
     props: {
         message: string,
-        type: "warning" | "success" | "failure"
+        type: "warning" | "success" | "error"
     };
 
     render() {

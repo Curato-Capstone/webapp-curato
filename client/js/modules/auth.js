@@ -1,28 +1,32 @@
+// @flow
+import { Map } from 'immutable';
+import type { Action } from 'flow/types';
 import request from 'superagent-bluebird-promise';
+
 import { routerActions } from 'react-router-redux';
 import * as globalActions from './global';
 import * as userActions from './user';
 
 // Actions
 // -----------------------------------
-export const SET_IS_AUTHENTICATING = 'SET_USER';
-export const SET_AUTHENTICATED = 'SET_EMAIL';
+export const SET_IS_AUTHENTICATING = 'SET_IS_AUTHENTICATING';
+export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED';
 
 
 // Action Creators
 // -----------------------------------
-export function setIsAuthenticating(authenticating) {
+export function setIsAuthenticating(authenticating: bool): Action {
     return {
         type: SET_IS_AUTHENTICATING,
         authenticating
     };
 }
 
-export function setAuthenticated(authenticated) {
+export function setIsAuthenticated(authenticated: bool) {
     return {
-        type: SET_AUTHENTICATED,
+        type: SET_IS_AUTHENTICATED,
         authenticated
-    }
+    };
 }
 
 
@@ -30,18 +34,28 @@ export function setAuthenticated(authenticated) {
 // -----------------------------------
 const initialState = Map({
     isAuthenticating: false,
-    authenticated: false
+    isAuthenticated: false
 });
 
 type State = Map<string, any>
 export default function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
+        case SET_IS_AUTHENTICATING:
+            return state.set('isAuthenticating', action.authenticating);
 
+        case SET_IS_AUTHENTICATED:
+            return state.set('isAuthenticated', action.authenticated);
 
         default:
             return state;
     }
 }
+
+
+// Reducers
+// -----------------------------------
+const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
+import { SubmissionError } from 'redux-form';
 
 export function signUpUser() {
     return async (dispatch, getState) => {
@@ -50,27 +64,18 @@ export function signUpUser() {
             const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
             const favorites = getState().getIn(['user', 'favorites']).toJS();
 
-            const user = Object.assign(
-                {},
-                formValues,
-                { favorites },
-                { preferences: prefsToValue(preferences) }
-            );
-
-            console.log(user);
+            const user = { ...formValues, favorites, preferences };
 
             const res = await request
-                .post(`${serverBaseURL}/user/signup`)
+                .post(`${baseURL}/user/signup`)
                 .send(user);
 
-            console.log(res);
+            dispatch(userActions.setUser(res.body));
+            dispatch(setIsAuthenticated(true));
 
-            // dispatch(setUser(res.body));
-            // set auth here too
-            // dispatch(routerActions.push('/'));
+            dispatch(routerActions.push('/'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Sign Up Failed bruh'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Sign Up Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
     }
@@ -82,36 +87,16 @@ export function signInUser() {
             const loginCredentials = getState().getIn(['form', 'SignInForm', 'values']).toJS();
 
             const res = await request
-                .post(`${serverBaseURL}/user/signin`)
+                .post(`${baseURL}/user/signin`)
                 .send(loginCredentials);
 
-            dispatch(setUser(res.body));
-            // set auth here too
-            dispatch(routerActions.push('/'))
+            dispatch(userActions.setUser(res.body));
+            dispatch(setIsAuthenticated(true));
+
+            dispatch(routerActions.push('/'));
         } catch (error) {
-            dispatch(globalActions.setFailureMessage('Sign In Failed bruh'));
-            setTimeout(() => dispatch(globalActions.setFailureMessage(''), 2000));
+            dispatch(globalActions.setMessage('error', 'Sign In Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
     }
-}
-
-export function checkAuth() {
-    return async (dispatch, getState) => {
-        try {
-            const user = getState().get('user');
-
-            console.log(user);
-
-            await setTimeout(() => console.log('done checking'), 2000)
-            // if (user.get('id')) {
-            //     //only check if they are authenticated
-            // } else {
-            //     //getUserData();
-            // }
-        } catch (error) {
-            // send dat noob to the intro
-            dispatch(routerActions.push('/intro'));
-        }
-    };
 }

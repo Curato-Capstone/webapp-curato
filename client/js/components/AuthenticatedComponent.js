@@ -5,35 +5,35 @@ import { routerActions } from 'react-router-redux';
 
 import * as authActions from 'modules/auth';
 
-export default function requireAuthentication(Component) {
-
-     class AuthenticatedComponent extends Component {
+export default function requireAuthentication(MyComponent) {
+    class AuthenticatedComponent extends Component {
         static defaultProps = {};
-        props:{ actions: Object, routerActions: Object, user: Object };
+        props:{ actions: Object, routerActions: Object, auth: Object };
         state:void;
 
         componentWillMount() {
             this.checkAuth();
         }
 
-        componentWillReceiveProps(nextProps) {
+        componentWillReceiveProps() {
             this.checkAuth();
         }
 
         checkAuth() {
-            if (!this.props.user.get('id')) {
-
+            // if user isn't authenticated and we aren't in the process of authenticating
+            if (!this.props.auth.get('authenticated') && !this.props.auth.get('isAuthenticating')) {
+                this.props.routerActions.push('/intro');
             }
         }
 
         render() {
-            return <Component {...this.props} />;
+            return <MyComponent {...this.props} />;
         }
     }
 
     function mapStateToProps(state, ownProps) {
         return {
-            user: state.get('user')
+            auth: state.get('auth')
         };
     }
 

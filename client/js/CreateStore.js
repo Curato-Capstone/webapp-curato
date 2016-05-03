@@ -7,6 +7,8 @@ import { routerMiddleware } from 'react-router-redux';
 import DevTools from 'containers/DevTools';
 import Reducer from './modules/index';
 
+import * as userActions from 'modules/user';
+
 export default function composeStore() {
     const middleware = [
         applyMiddleware(thunk),
