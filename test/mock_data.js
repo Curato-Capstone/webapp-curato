@@ -50,7 +50,7 @@ export const preferences = Map({
     price         : 3,
     culture       : 2,
     food          : 5,
-    outdoor       : 2,
+    outdoors       : 2,
     entertainment : 1,
     relaxation    : 3,
     shopping      : 4,

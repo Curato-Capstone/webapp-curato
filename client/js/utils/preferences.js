@@ -19,8 +19,8 @@ export const preferencesInfo = {
         tooltipValues: ["I only eat if necessary", "I guess I'll eat...", "I like to mix it up.",
                         "I like eating more often than not.", "What else is there in life but food?"]
     },
-    outdoor       : {
-        name: 'Outdoor',
+    outdoors       : {
+        name: 'Outdoors',
         icon: 'tree',
         tooltipValues: ["I definitely prefer the indoors", "I don't really spend time outdoors",
                         "I'll hike every once in a while", "You'll find me outside most of the time!",
@@ -54,23 +54,3 @@ export const preferencesInfo = {
                         "I know the fight song by heart and I own my own face paint."],
     }
 };
-
-export function prefsToValue(preferences: Object): Object {
-    const scaledPrefs = {};
-    for (const pref in preferences) {
-        if (preferences.hasOwnProperty(pref)) {
-            scaledPrefs[pref] = Math.round(preferences[pref] / (200 / 5));
-        }
-    }
-    return scaledPrefs;
-}
-
-export function prefsToPx(preferences: Object): Object {
-    const scaledPrefs = {};
-    for (const pref in preferences) {
-        if (preferences.hasOwnProperty(pref)) {
-            scaledPrefs[pref] = preferences[pref] * (200 / 5);
-        }
-    }
-    return scaledPrefs;
-}

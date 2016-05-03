@@ -4,7 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as userActions from 'modules/user';
+import * as authActions from 'modules/auth';
 
 import Header from 'components/Intro/Header';
 import SignUpForm from 'components/Forms/SignUpForm/SignUpForm';
@@ -45,7 +45,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+        actions : bindActionCreators(Object.assign({}, authActions), dispatch),
     };
 }
 

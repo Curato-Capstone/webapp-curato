@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
 
 import * as userActions from 'modules/user';
+import * as suggestionsActions from 'modules/suggestions';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';
@@ -14,7 +14,7 @@ import Header from 'components/Intro/Header';
 import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
 
-const preferencesList = ['price', 'culture', 'food', 'outdoor',
+const preferencesList = ['price', 'culture', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
 
 @Radium
@@ -47,9 +47,7 @@ class Preferences extends Component {
                                     name={preferenceName}
                                     value={preferences[preferenceName]}
                                     handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    tooltipValues={
-                                    ['I hate this shit', 'I like this shit', 'I love this shit']
-                                    }
+                                    tooltipValues={preferenceInfo.tooltipValues}
                                 />
                                 <div style={STYLES.slider.name}>{preferenceInfo.name}</div>
                                 <FontAwesome
@@ -67,9 +65,7 @@ class Preferences extends Component {
                     style={STYLES.arrow}
                 />
                 <div style={STYLES.buttonContainer}>
-                    <Link to="/intro/2">
-                        <Button label="Get Your Suggestions!"/>
-                    </Link>
+                    <Button label="Get Your Suggestions!" onClick={() => actions.getSuggestionsNoAccount()}/>
                 </div>
             </div>
         );
@@ -156,7 +152,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+        actions : bindActionCreators(Object.assign({}, userActions, suggestionsActions), dispatch),
     };
 }
 

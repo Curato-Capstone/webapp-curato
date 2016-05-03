@@ -32,7 +32,7 @@ class Search extends Component {
                         <Button
                             label="Random Suggestions!"
                             type="primary"
-                            handleClick={() => actions.getSuggestions(true)}
+                            handleClick={() => actions.getSuggestions({ random: true })}
                             style={STYLES.randomButton}
                         />
                     </div>

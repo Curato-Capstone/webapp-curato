@@ -14,7 +14,7 @@ function validate(values: Map<string, any>): Object {
     const password = values.get('password');
     if (!password) {
         errors.password = 'Password is required!';
-    } else if (password.length <= 8) {
+    } else if (password.length < 8) {
         errors.password = 'Password must be at least 8 characters!';
     }
     // TODO integrate password strength checking
@@ -25,7 +25,9 @@ function validate(values: Map<string, any>): Object {
     }
 
     const age = values.get('age');
-    if (age && isNaN(Number(age))) {
+    if (!age) {
+        errors.age = 'Age is required!'
+    } else if (isNaN(Number(age))) {
         errors.age = 'Must be a number!';
     } else if (age <= 0) {
         errors.age = 'Are you really that young?';
