@@ -23,7 +23,9 @@ export default class Tag extends Component {
 
 const STYLE = {
     container: {
-        position: 'relative',
+        position: 'absolute',
+        bottom: 10,
+        left: 12,
         display: 'inline-flex'
     },
 

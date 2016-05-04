@@ -113,10 +113,7 @@ const STYLES = {
     },
 
     navContainer: {
-        marginRight: '50px',
-        '@media (min-width: 520px)': {
-            width: '80px',
-        }
+        width: '80px',
     },
 
     messageBar: {
