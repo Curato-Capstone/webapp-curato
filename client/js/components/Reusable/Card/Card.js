@@ -6,7 +6,7 @@ import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
 import Placeholder from 'images/places/emp.jpg';
-import Tag from './tag';
+import Tag from './Tag';
 
 @Radium
 export default class Card extends Component {
@@ -50,7 +50,7 @@ export default class Card extends Component {
                 </div>
 
                 <div style={STYLES.cardImage.container}>
-                    <img style={STYLES.cardImage.main} src={Placeholder} />
+                    <img style={STYLES.cardImage.main} src={place.image} />
                     <Tag text={place.categories[0].name} />
                 </div>
             </div>

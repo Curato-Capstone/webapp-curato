@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 import Heart from 'components/Reusable/Icons/Heart';
+import Tag from './Tag';
 
 @Radium
 export default class FullCard extends Component {
@@ -38,7 +39,6 @@ export default class FullCard extends Component {
                     <div style={STYLES.cardActions.container}>
                         <Heart handleClick={handleFavorite} active={favorite} />
                         <div onClick={handleDislike}>I don't like this</div>
-                        <div style={STYLES.cardActions.more}>...more</div>
                     </div>
                 </div>
 

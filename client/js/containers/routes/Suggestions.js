@@ -53,9 +53,22 @@ class Suggestions extends Component {
                         );
                     })}
                 </FlipMove>
-                <img style={{ float: 'right' }} src={fourSquareImage} />
+                {this.renderEmptyState()}
+                <img style={STYLES.fourSquare} src={fourSquareImage} />
             </div>
         );
+    }
+
+    renderEmptyState() {
+        if (!this.props.suggestions.length) {
+            return (
+                <div>
+                    Didn't like any of our suggestions? We'll try
+                    harder next time! Maybe try changing your
+                    preferences!
+                </div>
+            );
+        }
     }
 
     checkFavorited(place) {
@@ -85,6 +98,8 @@ class Suggestions extends Component {
 
 const STYLES = {
     container: {
+        display: 'flex',
+        position: 'relative',
         width: '100%',
     },
 
@@ -94,7 +109,8 @@ const STYLES = {
         alignItems: 'center',
         justifyContent: 'space-around',
         width: '100%',
-        marginTop: '64px'
+        marginTop: '72px',
+        marginBottom: '30px'
     },
 
     cardContainer: {
@@ -102,6 +118,12 @@ const STYLES = {
         '@media (min-width: 1200px)': {
             transform: 'scale(0.8, 0.8)',
         }
+    },
+
+    fourSquare: {
+        position: 'absolute',
+        bottom: 10,
+        right: 10
     }
 };
 
