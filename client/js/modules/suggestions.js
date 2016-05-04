@@ -118,10 +118,10 @@ export function getSuggestions({ random = false } = {}) {
         try {
             dispatch(globalActions.setLoading(true));
 
-            const query = random ? '' : getState().getIn(['suggestion', 'searchText']);
+            const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
+                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
@@ -140,9 +140,8 @@ export function getSuggestionsNoAccount() {
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
             const res = await request
-            .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
-                // .post(`${suggestionBaseURL}/suggestions`)
-                // .send(prefsToValue(preferences));
+                .post(`${suggestionBaseURL}/suggestions`)
+                .send(preferences);
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/intro/2'));

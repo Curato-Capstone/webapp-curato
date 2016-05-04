@@ -28,6 +28,10 @@ export default class BreadCrumbs extends Component {
             location.pathname.replace(/\/$/, '') :
             location.pathname;
 
+        if (!pathToCrumbs.hasOwnProperty(pathname)) {
+            return null;
+        }
+
         return (
             <div style={STYLES.container}>
                 <FlipMove

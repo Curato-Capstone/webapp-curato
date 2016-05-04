@@ -28,6 +28,7 @@ export default class PageNotFound extends Component {
 
 const STYLES = {
     container: {
+        fontFamily: 'Montserrat, Sans-Serif',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

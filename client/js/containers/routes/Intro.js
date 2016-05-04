@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
+
 import Radium from 'radium';
 
 import * as userActions from 'modules/user';
@@ -11,6 +11,12 @@ import * as suggestionsActions from 'modules/suggestions';
 import { primaryColor } from 'utils/colors';
 
 import Stepper from 'reusable/Stepper/Stepper';
+
+const stepperIndex = {
+    preferences: 1,
+    suggestions: 2,
+    signup: 3
+};
 
 @Radium
 class Intro extends Component {
@@ -21,15 +27,17 @@ class Intro extends Component {
     };
     state: void;
 
-
     render() {
         const { location } = this.props;
-        const pathname = location.pathname.replace(/\/$/, '').slice(-1);
+        const pathname = location.pathname.split('/').pop()
 
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.background} />
-                {!isNaN(pathname) ? <Stepper activeStep={pathname} /> : null}
+                {stepperIndex.hasOwnProperty(pathname) ?
+                    <Stepper activeStep={stepperIndex[pathname]} /> :
+                     null
+                 }
                 <div style={STYLES.card}>
                     {this.props.children}
                 </div>
@@ -82,11 +90,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions : bindActionCreators(Object.assign({}, userActions, suggestionsActions), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Intro);
+export default connect(mapStateToProps)(Intro);
