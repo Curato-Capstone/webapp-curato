@@ -84,7 +84,6 @@ const STYLES = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh'
     },
 
     slidersContainer: {

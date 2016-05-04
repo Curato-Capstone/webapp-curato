@@ -14,22 +14,20 @@ export default class MessageBar extends Component {
         const { message, type } = this.props;
 
         return (
-            <span style={[STYLES.messageBar, STYLES.messageType(type)]}>
-                <p>{message}</p>
-            </span>
+            <div style={[STYLES.messageBar, STYLES.messageType(type)]}>
+                <div>{message}</div>
+            </div>
         );
     }
 }
 
 const STYLES = {
     messageBar: {
-        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '50px',
-        display: 'inline',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 3,
+        zIndex: 99,
         textAlign: 'center'
     },
 
