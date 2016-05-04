@@ -27,6 +27,10 @@ export default class Card extends Component {
     };
     state: void;
 
+    truncateName(name) {
+      return name.length >= 30 ? name.substring(0,25) + '...' : name;
+    }
+
     render() {
         const { place, favorite, handleDislike, handleFavorite } = this.props;
 
@@ -35,7 +39,7 @@ export default class Card extends Component {
             <div style={STYLES.container}>
                 <div style={STYLES.cardText.container}>
                     <div style={STYLES.cardText.text}>
-                        <div style={STYLES.cardText.placeName}>{place.name}</div>
+                        <div style={STYLES.cardText.placeName}>{this.truncateName(place.name)}</div>
                         <div style={STYLES.cardText.address}>{place.location.address}</div>
                     </div>
                     <div style={STYLES.cardActions.container}>
