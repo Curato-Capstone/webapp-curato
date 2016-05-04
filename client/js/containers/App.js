@@ -36,7 +36,7 @@ class App extends Component {
     state: void;
 
     componentWillMount() {
-        this.props.actions.getUserData()
+        // this.props.actions.getUserData()
     }
 
     render(): React.Element {

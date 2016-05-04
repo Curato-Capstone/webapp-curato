@@ -28,5 +28,4 @@ function validate(values: Map<string, any>): Object {
     return errors;
 }
 
-
 export default validate;

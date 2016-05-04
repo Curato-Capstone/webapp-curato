@@ -8,6 +8,7 @@ import asyncValidate from './asyncValidate';
 import Button from 'reusable/Button/Button';
 import Input from 'reusable/Input/TextField';
 import Select from 'reusable/Input/Select';
+import CheckMark from 'reusable/Icons/CheckMark';
 
 @Radium
 class SignUpForm extends Component {
@@ -23,7 +24,6 @@ class SignUpForm extends Component {
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
 
-        console.log(submitting);
         return (
             <form onSubmit={handleSubmit} style={STYLES.form}>
                 <div style={STYLES.fieldContainer}>
@@ -35,6 +35,7 @@ class SignUpForm extends Component {
                                 errorText={email.touched && email.error ? email.error : ''}
                                 {...email}
                             />
+                            { email.value && email.touched && !email.error ? <CheckMark /> : null }
                         </div>
                     }
                     />
@@ -83,7 +84,7 @@ class SignUpForm extends Component {
 
                 <div style={STYLES.fieldContainer}>
                     <Field name="gender" component={gender =>
-                        <div style={STYLES.field}>
+                        <div style={STYLES.selectField}>
                             <Select
                                 options={['male', 'female']}
                                 floatingLabelText="Gender"
@@ -96,7 +97,7 @@ class SignUpForm extends Component {
 
                 <div style={STYLES.fieldContainer}>
                     <Field name="ethnicity" component={ethnicity =>
-                        <div style={STYLES.field}>
+                        <div style={STYLES.selectField}>
                             <Select
                                 options={['white', 'black', 'latino', 'asian']}
                                 floatingLabelText="Ethnicity"
@@ -150,6 +151,12 @@ const STYLES = {
     },
 
     field: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center'
+    },
+
+    selectField: {
         width: '100%'
     }
 };
