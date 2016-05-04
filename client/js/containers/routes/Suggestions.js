@@ -86,7 +86,6 @@ class Suggestions extends Component {
 const STYLES = {
     container: {
         width: '100%',
-        minHeight: '100vh'
     },
 
     cardsContainer: {

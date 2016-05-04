@@ -33,8 +33,6 @@ const STYLES = {
         alignItems: 'center',
         width: '100%',
         paddingTop: '30px',
-        height: '100%',
-        minHeight: '100vh'
     },
 
     avatar: {

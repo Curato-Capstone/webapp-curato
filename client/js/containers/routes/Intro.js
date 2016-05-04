@@ -2,11 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import Radium from 'radium';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
 
 import { primaryColor } from 'utils/colors';
 
@@ -52,7 +48,6 @@ const STYLES = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh',
         width: '100%',
     },
 
@@ -61,12 +56,13 @@ const STYLES = {
         maxWidth: '600px',
         minHeight: '450px',
         margin: '20px',
+        boxSizing: 'border-box',
         padding: '12px',
         boxShadow: '3px 8px 12px #888888',
         backgroundColor: 'white',
         zIndex: 5,
         '@media (min-width: 520px)': {
-            margin: '0 40px 40px 40px',
+            margin: '10px 40px 40px 40px',
             padding: '24px',
             minHeight: '550px'
         },

@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
-
-import validate from './validate';
-import asyncValidate from './asyncValidate';
 
 import Button from 'reusable/Button/Button';
 import Input from 'reusable/Input/TextField';
 import Select from 'reusable/Input/Select';
-import CheckMark from 'reusable/Icons/CheckMark';
 
 @Radium
-class SignUpForm extends Component {
+class SignInForm extends Component {
     static defaultProps = {};
     props: {
         handleSubmit: () => void,
@@ -35,7 +32,6 @@ class SignUpForm extends Component {
                                 errorText={email.touched && email.error ? email.error : ''}
                                 {...email}
                             />
-                            { email.value && email.touched && !email.error ? <CheckMark /> : null }
                         </div>
                     }
                     />
@@ -55,57 +51,12 @@ class SignUpForm extends Component {
                     />
                 </div>
 
-                <div style={STYLES.fieldContainer}>
-                    <Field name="name" component={name =>
-                        <div style={STYLES.field}>
-                            <Input
-                                type="text"
-                                floatingLabelText="Name"
-                                errorText={name.touched && name.error ? name.error : ''}
-                                {...name}
-                            />
-                        </div>
-                    }
-                    />
-                </div>
-
-                <div style={STYLES.fieldContainer}>
-                    <Field name="age" component={age =>
-                        <div style={STYLES.field}>
-                            <Input
-                                type="number" {...age}
-                                floatingLabelText="Age"
-                                errorText={age.touched && age.error ? age.error : ''}
-                            />
-                        </div>
-                    }
-                    />
-                </div>
-
-                <div style={STYLES.fieldContainer}>
-                    <Field name="gender" component={gender =>
-                        <div style={STYLES.selectField}>
-                            <Select
-                                options={['male', 'female']}
-                                floatingLabelText="Gender"
-                                {...gender}
-                            />
-                        </div>
-                    }
-                    />
-                </div>
-
                 <div style={STYLES.buttonContainer}>
                     <Button
-                        label="Submit"
+                        label="Login"
                         disabled={submitting}
                         type="submit"
                         style={STYLES.submitButton}
-                    />
-                    <Button
-                        label="Clear"
-                        disabled={pristine || submitting}
-                        onClick={reset}
                     />
                 </div>
             </form>
@@ -117,17 +68,22 @@ const STYLES = {
     form: {
         display: 'flex',
         flexDirection: 'column',
+        flexGrow: 1,
+        
         alignItems: 'center',
-        margin: '0 20%'
+        width: '90%',
+        padding: '0 16px',
+        maxWidth: '500px',
+        boxSizing: 'border-box'
     },
 
     buttonContainer: {
-        display: 'flex',
-        marginTop: '12px'
+        marginTop: 'auto',
+        marginBottom: '12px'
     },
 
     submitButton: {
-        marginRight: '16px'
+        marginRight: '12px'
     },
 
     fieldContainer: {
@@ -138,18 +94,12 @@ const STYLES = {
     },
 
     field: {
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center'
-    },
-
-    selectField: {
         width: '100%'
     }
 };
 
-export default reduxForm({
-    form: 'SignUpForm',
-    validate,
-    asyncValidate
-})(SignUpForm);
+SignInForm = reduxForm({
+    form: 'SignInForm',
+})(SignInForm);
+
+export default SignInForm;
