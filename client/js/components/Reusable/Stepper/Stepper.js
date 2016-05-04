@@ -8,8 +8,6 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 
-import { primaryColor, secondaryColor } from 'utils/colors'
-
 @Radium
 export default class MyStepper extends Component {
     static defaultProps = {};

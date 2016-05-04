@@ -215,7 +215,7 @@ const user = {
 };
 // called when page is first loaded
 export function getUserData() {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             dispatch(authActions.setIsAuthenticating(true));
 
@@ -228,7 +228,7 @@ export function getUserData() {
             dispatch(setUser(res.body));
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
         dispatch(authActions.setIsAuthenticating(false));
     };

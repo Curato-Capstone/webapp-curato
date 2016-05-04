@@ -12,7 +12,7 @@ export default class Example extends Component {
 
     state = { heartActive: false };
     state : { heartActive: boolean };
-    
+
     render() {
         const { heartActive } = this.state;
         return (

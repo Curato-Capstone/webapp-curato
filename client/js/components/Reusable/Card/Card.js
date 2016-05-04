@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-import Tag from './tag'
 import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
 import Placeholder from 'images/places/emp.jpg';
+import Tag from './tag';
 
 @Radium
 export default class Card extends Component {
@@ -18,6 +18,7 @@ export default class Card extends Component {
             location: {
                 address: string
             },
+            categories: Array<Object>,
             image: string
         },
         favorite: boolean,
@@ -34,7 +35,6 @@ export default class Card extends Component {
     render() {
         const { place, favorite, handleDislike, handleFavorite } = this.props;
 
-        console.log()
         return (
             <div style={STYLES.container}>
                 <div style={STYLES.cardText.container}>
@@ -181,27 +181,5 @@ const STYLES = {
             color: 'blue',
             cursor: 'pointer'
         }
-    },
-
-    tag: {
-      container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        width: '380px',
-        height: '25px',
-        paddingBottom: '1em',
-        marginLeft: "-15px",
-        zIndex: 99,
-        animationName: raiseImageKeyframes,
-        '@media (min-width: 520px)': {
-
-        },
-      },
-
-      text: {
-        textAlign: 'center'
-      }
-
     }
 };

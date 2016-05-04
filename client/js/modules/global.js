@@ -23,20 +23,20 @@ export function setErrorMessage(errorMessage: string): Action {
     return {
         type: SET_ERROR_MESSAGE,
         errorMessage
-    }
+    };
 }
 
 export function setSuccessMessage(successMessage: string): Action {
     return {
         type: SET_SUCCESS_MESSAGE,
         successMessage
-    }
+    };
 }
 
 export function clearMessages(): Action {
     return {
         type: CLEAR_MESSAGES
-    }
+    };
 }
 
 

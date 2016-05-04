@@ -12,7 +12,7 @@ import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
 import BreadCrumbs from 'components/Navigation/BreadCrumbs';
-import MessageBar from 'components/Reusable/MessageBar/MessageBar'
+import MessageBar from 'components/Reusable/MessageBar/MessageBar';
 import Spinner from 'components/Reusable/Spinner/Spinner';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -36,7 +36,7 @@ class App extends Component {
     state: void;
 
     componentWillMount() {
-        this.props.actions.getUserData()
+        // this.props.actions.getUserData()
     }
 
     render(): React.Element {
@@ -55,17 +55,16 @@ class App extends Component {
                 <div style={STYLES.container}>
                     {this.renderSpinner()}
                 </div>
-            )
-        } else {
-            return (
-                <div style={STYLES.container}>
-                    {this.renderMessageBar()}
-                    {this.renderNavigation()}
-                    {this.renderSpinner()}
-                    {this.props.children}
-                </div>
-            )
+            );
         }
+        return (
+            <div style={STYLES.container}>
+                {this.renderMessageBar()}
+                {this.renderNavigation()}
+                {this.renderSpinner()}
+                {this.props.children}
+            </div>
+        );
     }
 
     renderMessageBar() {

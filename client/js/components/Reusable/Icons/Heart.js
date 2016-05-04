@@ -46,7 +46,7 @@ const STYLES = {
         height: '35px',
         width: '60px',
         cursor: 'pointer',
-        backgroundImage: `url(${require('images/animated-icons/heart.png')})`,
+        backgroundImage: `url(${require('images/icons/heart.png')})`,
         backgroundPosition: 'left',
         backgroundRepeat: 'no-repeat',
         backgroundSize: '2900%'

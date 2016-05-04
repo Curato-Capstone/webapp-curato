@@ -25,7 +25,7 @@ export default class Home extends Component {
                     you through how to use Curato.
                 </div>
                 <div style={STYLES.buttonContainer}>
-                    <Link to="/intro/1">
+                    <Link to="/intro/preferences">
                         <Button label="Sign Up!" style={STYLES.signUpButton} />
                     </Link>
                     <Link to="/signin" style={STYLES.haveAccount}>

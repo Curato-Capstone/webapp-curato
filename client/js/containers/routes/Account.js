@@ -11,8 +11,8 @@ import Avatar from 'material-ui/Avatar';
 @Radium
 class Account extends Component {
     static defaultProps = {};
-    state: void;
     props: { actions: Object};
+    state: void;
 
     render() {
         const { actions } = this.props;
@@ -43,7 +43,7 @@ const STYLES = {
     }
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {};
 }
 

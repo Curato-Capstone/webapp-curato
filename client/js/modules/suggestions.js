@@ -52,26 +52,26 @@ export function changeSearchText(text: string): Action {
 
 const place1 = {
     name: 'EMP',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/emp.jpg'),
     id: '123',
-    categories: [{'name': "Art Museum"}, {'name': "History Museum"}]
+    categories: [{ name: 'Art Museum' }, { name: 'History Museum' }]
 };
 
 const place2 = {
     name: 'Space Needle',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/space_needle.jpg'),
     id: '124',
-    categories: [{'name': "Landmark"}],
+    categories: [{ name: 'Landmark' }],
 };
 
 const place3 = {
     name: 'Pike Place Market',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/pike_place_market.jpg'),
     id: '125',
-    categories: [{'name': "short"}],
+    categories: [{ name: 'Shop' }],
 };
 
 // Reducers
@@ -118,10 +118,10 @@ export function getSuggestions({ random = false } = {}) {
         try {
             dispatch(globalActions.setLoading(true));
 
-            const query = random ? '' : getState().getIn(['suggestion', 'searchText']);
+            const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
+                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
@@ -130,7 +130,7 @@ export function getSuggestions({ random = false } = {}) {
         }
 
         dispatch(globalActions.setLoading(false));
-    }
+    };
 }
 
 export function getSuggestionsNoAccount() {
@@ -140,9 +140,8 @@ export function getSuggestionsNoAccount() {
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
             const res = await request
-            .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${'restaurant'}`);
-                // .post(`${suggestionBaseURL}/suggestions`)
-                // .send(prefsToValue(preferences));
+                .post(`${suggestionBaseURL}/suggestions`)
+                .send(preferences);
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/intro/2'));
