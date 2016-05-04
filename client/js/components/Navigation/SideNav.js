@@ -130,7 +130,7 @@ const STYLES = {
     active: (item: number) => {
         return {
             position: 'absolute',
-            top: 40 + 125 * item,
+            top: 38 + 125 * item,
             left: 2,
             height: '55px',
             width: '3px',

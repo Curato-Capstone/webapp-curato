@@ -91,7 +91,9 @@ const STYLES = {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         width: '100%',
-        marginTop: '60px'
+        marginTop: '60px',
+        marginLeft: '44px',
+        boxSizing: 'border-box'
     },
 
     slider: {

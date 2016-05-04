@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
@@ -8,6 +9,8 @@ import FlipMove from 'react-flip-move';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
+
+import { primaryColor } from 'utils/colors';
 
 import Card from 'reusable/Card/Card';
 import fourSquareImage from 'images/foursquare.png';
@@ -37,7 +40,7 @@ class Suggestions extends Component {
 
         return (
             <div style={STYLES.container}>
-                <FlipMove className="suggestionsContainer" style={STYLES.cardsContainer}>
+                {suggestions.length ? <FlipMove className="suggestionsContainer" style={STYLES.cardsContainer}>
                     {suggestions.slice(0, 3).map((place, index) => {
                         return (
                             <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
@@ -52,7 +55,7 @@ class Suggestions extends Component {
                             </div>
                         );
                     })}
-                </FlipMove>
+                </FlipMove> : null}
                 {this.renderEmptyState()}
                 <img style={STYLES.fourSquare} src={fourSquareImage} />
             </div>
@@ -62,10 +65,16 @@ class Suggestions extends Component {
     renderEmptyState() {
         if (!this.props.suggestions.length) {
             return (
-                <div>
-                    Didn't like any of our suggestions? We'll try
-                    harder next time! Maybe try changing your
-                    preferences!
+                <div style={STYLES.empty.text}>
+                    <p>
+                        Didn't like any of our
+                        <Link to="/" style={STYLES.empty.link}> suggestions</Link>?
+                        We'll try harder next time!
+                    </p>
+                    <p>
+                        Maybe try changing your
+                        <Link to="/preferences" style={STYLES.empty.link}> preferences</Link>!
+                    </p>
                 </div>
             );
         }
@@ -99,6 +108,8 @@ class Suggestions extends Component {
 const STYLES = {
     container: {
         display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         position: 'relative',
         width: '100%',
     },
@@ -124,6 +135,26 @@ const STYLES = {
         position: 'absolute',
         bottom: 10,
         right: 10
+    },
+
+    empty: {
+        text: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            fontSize: '16px',
+            textAlign: 'center',
+            margin: '0 16px',
+            color: 'grey',
+            '@media (min-width: 520px)': {
+                fontSize: '20px',
+            }
+        },
+
+        link: {
+            color: primaryColor,
+            fontWeight: 'bold'
+        }
     }
 };
 
