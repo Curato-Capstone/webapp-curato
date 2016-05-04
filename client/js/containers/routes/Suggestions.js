@@ -22,6 +22,7 @@ class Suggestions extends Component {
             location: {
                 address: string
             },
+            categories: Array<Object>,
             image: string
         }>,
         favorites: Array<{

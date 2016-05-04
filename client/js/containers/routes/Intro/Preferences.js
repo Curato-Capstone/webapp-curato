@@ -65,7 +65,10 @@ class Preferences extends Component {
                     style={STYLES.arrow}
                 />
                 <div style={STYLES.buttonContainer}>
-                    <Button label="Get Your Suggestions!" onClick={() => actions.getSuggestionsNoAccount()}/>
+                    <Button
+                        label="Get Your Suggestions!"
+                        onClick={() => actions.getSuggestionsNoAccount()}
+                    />
                 </div>
             </div>
         );

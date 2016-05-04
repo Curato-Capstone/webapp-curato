@@ -126,7 +126,7 @@ const STYLES = {
         icon: {
             marginTop: '12px',
             opacity: '0.75',
-            color: '#BC4432',
+            color: primaryColor,
             textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
         }
     },

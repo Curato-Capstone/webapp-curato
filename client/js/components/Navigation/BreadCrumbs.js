@@ -36,12 +36,14 @@ export default class BreadCrumbs extends Component {
                     leaveAnimation="accordianHorizontal"
                     staggerDelayBy={70}
                 >
-                    <div key="Curato">Curato</div>
+                    <div style={STYLES.crumbText} key="Curato">Curato</div>
                     {pathToCrumbs[pathname].map((crumb, index) => (
                         <div style={STYLES.crumb} key={crumb + index}>
                             <div style={STYLES.divider}>//</div>
-                            <div
-                                style={[STYLES.crumbText, STYLES.active(pathToCrumbs[pathname].length === index + 1)]}
+                            <div style={[
+                                STYLES.crumbText,
+                                STYLES.active(pathToCrumbs[pathname].length === index + 1)
+                            ]}
                             >
                                 {crumb}
                             </div>
@@ -85,7 +87,7 @@ const STYLES = {
     },
 
     crumbText: {
-        transition: 'color 1.5s ease-in'
+        transition: 'color 1.25s ease-in',
     },
 
     active: (active) => {

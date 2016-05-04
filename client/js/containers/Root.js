@@ -14,6 +14,7 @@ import Suggestions from 'routes/Suggestions';
 import Preferences from 'routes/Preferences';
 import SignIn from 'routes/SignIn';
 import Place from 'routes/Place';
+import PageNotFound from 'routes/PageNotFound';
 
 import Intro from 'routes/Intro';
 import HomeIntro from 'routes/Intro/Home';
@@ -50,6 +51,7 @@ export default class Root extends Component {
                             <Route path="preferences" component={requireAuth(Preferences)} />
                             <Route path="account" component={requireAuth(Account)} />
                             <Route path="favorites" component={requireAuth(Favorites)} />
+                            <Route path="*" component={PageNotFound} />
                         </Route>
                     </Router>
                     { !isDevelopment ? <DevTools /> : null }

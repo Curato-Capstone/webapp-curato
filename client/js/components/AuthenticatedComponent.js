@@ -20,8 +20,10 @@ export default function requireAuthentication(MyComponent) {
         }
 
         checkAuth() {
+            // const { auth } = this.props;
+
             // if user isn't authenticated and we aren't in the process of authenticating
-            // if (!this.props.auth.get('authenticated') && !this.props.auth.get('isAuthenticating')) {
+            // if (!auth.get('authenticated') && !auth.get('isAuthenticating')) {
             //     this.props.routerActions.push('/intro');
             // }
         }
@@ -31,7 +33,7 @@ export default function requireAuthentication(MyComponent) {
         }
     }
 
-    function mapStateToProps(state, ownProps) {
+    function mapStateToProps(state) {
         return {
             auth: state.get('auth')
         };

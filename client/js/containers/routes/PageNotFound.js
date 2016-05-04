@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
 
-import { primaryColor, secondaryColor } from 'utils/colors'
+import { primaryColor } from 'utils/colors';
 import logo from 'images/logo/full-logo-color.svg';
 
 @Radium
@@ -14,8 +14,10 @@ export default class PageNotFound extends Component {
     render() {
         return (
             <div style={STYLES.container}>
-                <img src={logo} alt="curato logo" style={STYLES.image}/>
-                <p style={STYLES.text}>Uh-oh, you went somewhere that doesn't exist. Sorry about that.</p>
+                <img src={logo} alt="curato logo" style={STYLES.image} />
+                <p style={STYLES.text}>
+                    Uh-oh, you went somewhere that doesn't exist. Sorry about that.
+                </p>
                 <Link to="/" style={STYLES.link}>
                     <p style={STYLES.text}>Click here to go to our home page!</p>
                 </Link>

@@ -10,7 +10,7 @@ import {
     fullBlack,
 } from 'material-ui/styles/colors';
 import * as ColorManipulator from 'material-ui/utils/colorManipulator';
-import { primaryColor, secondaryColor } from './colors';
+import { primaryColor } from './colors';
 
 const curatoTheme = {
     spacing: {

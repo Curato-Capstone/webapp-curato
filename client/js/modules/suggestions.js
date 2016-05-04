@@ -52,26 +52,26 @@ export function changeSearchText(text: string): Action {
 
 const place1 = {
     name: 'EMP',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/emp.jpg'),
     id: '123',
-    categories: [{'name': "Art Museum"}, {'name': "History Museum"}]
+    categories: [{ name: 'Art Museum' }, { name: 'History Museum' }]
 };
 
 const place2 = {
     name: 'Space Needle',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/space_needle.jpg'),
     id: '124',
-    categories: [{'name': "Landmark"}],
+    categories: [{ name: 'Landmark' }],
 };
 
 const place3 = {
     name: 'Pike Place Market',
-    location: {address: '1234 Street Ave., Seattle, WA'},
+    location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/pike_place_market.jpg'),
     id: '125',
-    categories: [{'name': "short"}],
+    categories: [{ name: 'Shop' }],
 };
 
 // Reducers
@@ -130,7 +130,7 @@ export function getSuggestions({ random = false } = {}) {
         }
 
         dispatch(globalActions.setLoading(false));
-    }
+    };
 }
 
 export function getSuggestionsNoAccount() {

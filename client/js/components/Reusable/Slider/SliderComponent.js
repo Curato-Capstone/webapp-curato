@@ -9,7 +9,6 @@ import { primaryColor } from 'utils/colors';
 export default class SliderComponent extends Component {
     static defaultProps = {
         tooltipValues : [],
-        handleChange  : () => {},
         updateValue   : () => {}
     };
 
@@ -22,8 +21,8 @@ export default class SliderComponent extends Component {
         updateValue   : () => void
     };
 
-    state : { dragging : boolean };
     state = { dragging: false };
+    state : { dragging : boolean };
 
     render() : React.Element {
         const { name, value } = this.props;
@@ -62,7 +61,7 @@ export default class SliderComponent extends Component {
     }
 
     @autobind
-    handleDrag(e): void {
+    handleDrag(e: Object): void {
         if (this.state.dragging) {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
             const location = e.clientX - left;
@@ -82,7 +81,7 @@ export default class SliderComponent extends Component {
     }
 
     @autobind
-    handleClick(e): void {
+    handleClick(e: Object): void {
         const left = document.getElementById(this.props.name).getBoundingClientRect().left;
         const location = e.clientX - left;
 
@@ -96,7 +95,7 @@ export default class SliderComponent extends Component {
     @autobind
     handleDragDone(): void {
         this.setState({ dragging: false });
-        this.props.updateValue()
+        this.props.updateValue();
     }
 
     getTooltipText(): React.Element | void {

@@ -21,6 +21,7 @@ class Favorites extends Component {
             {
                 name : string,
                 id : string,
+                categories: Array<Object>,
                 location: {
                     address: string
                 },

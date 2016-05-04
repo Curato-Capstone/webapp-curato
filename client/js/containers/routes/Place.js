@@ -16,16 +16,16 @@ export default class Place extends Component {
     static defaultProps = {};
     props: {};
     state: void;
-    
+
     render() {
         const {  } = this.props;
-    
+
         return (
             <div style={STYLES.container}>
                 <FullCard
                     key={place.id}
                     place={place}
-                    favorite={true}
+                    favorite
                     handleFavorite={() => {}}
                     handleDislike={() => {}}
                     handleMore={() => {}}

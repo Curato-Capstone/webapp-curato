@@ -14,7 +14,10 @@ export default class Heart extends Component {
                 <svg xmlns="http://www.w3.org/2000/svg" style={STYLES.svg}>
                     <g style={STYLES.group}>
                         <circle cx="36" cy="36" r="30" style={STYLES.circle} />
-                        <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style={STYLES.checkMark} />
+                        <path
+                            d="M17.417,37.778l9.93,9.909l25.444-25.393"
+                            style={STYLES.checkMark}
+                        />
                     </g>
                 </svg>
             </div>
