@@ -28,7 +28,7 @@ export default class Card extends Component {
     state: void;
 
     truncateName(name) {
-      return name.length >= 30 ? name.substring(0,25) + '...' : name;
+        return name.length >= 30 ? name.substring(0,25) + '...' : name;
     }
 
     render() {
