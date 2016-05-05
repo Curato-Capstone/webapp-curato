@@ -33,10 +33,10 @@ export default class Button extends Component {
             }
         } else if (size == 'lg') {
             return {
-              borderRadius: '2em',
-              fontSize: '16px',
-              lineHeight: '1.5em',
-              padding: '10px 30px'
+                borderRadius: '2em',
+                fontSize: '16px',
+                lineHeight: '1.5em',
+                padding: '10px 30px'
             }
         }
 
