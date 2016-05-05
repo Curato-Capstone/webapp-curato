@@ -123,6 +123,7 @@ export function getSuggestions({ random = false } = {}) {
             const res = await request
                 .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
 
+            console.log(res);
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
         } catch (error) {
