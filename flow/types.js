@@ -1,20 +1,22 @@
 // @flow
 
-//Models
+// Models
 //-------------------
 export type Place = {
     name                   : string,
     id                     : string,
     categories : Array<Object>,
-    contact: {
+    url: string,
+    image: string,
+    contact?: {
         formattedPhone: string,
         phone: string
     },
-    location: {
+    location?: {
         address: string,
         city: string,
         distance: number,
-        //street address, city/state/zip, country,
+        // street address, city/state/zip, country,
         formattedAddress: Array<string>,
         lat: number,
         lng: number,
@@ -45,6 +47,6 @@ export type User = {
 };
 
 
-//Redux
+// Redux
 //--------------------------
 export type Action = Object;

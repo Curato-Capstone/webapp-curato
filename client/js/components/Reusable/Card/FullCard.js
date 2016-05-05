@@ -10,10 +10,13 @@ export default class FullCard extends Component {
     static defaultProps = {};
     props: {
         place: {
-            address : string,
-            name    : string,
-            image   : string,
-            id      : string
+            name : string,
+            id : string,
+            location: {
+                address: string
+            },
+            categories: Array<Object>,
+            image: string
         },
         favorite: boolean,
         handleDislike: () => void,
@@ -27,26 +30,30 @@ export default class FullCard extends Component {
 
         return (
             <div style={STYLES.container}>
-
                 <div style={STYLES.cardText.container}>
                     <div style={STYLES.cardText.text}>
-                        <div style={STYLES.cardText.placeName}>{place.name}</div>
-                        <div style={STYLES.cardText.address}>{place.address}</div>
-                        <div style={STYLES.hiddenInfo}>
-                            <div>Here is other information</div>
-                        </div>
+                        <div style={STYLES.cardText.placeName}>{this.truncateName(place.name)}</div>
+                        <div style={STYLES.cardText.address}>{place.location.address}</div>
                     </div>
                     <div style={STYLES.cardActions.container}>
-                        <Heart handleClick={handleFavorite} active={favorite} />
+                        <div onClick={handleFavorite}>
+                            <Heart active={favorite} />
+                        </div>
                         <div onClick={handleDislike}>I don't like this</div>
+                        <div style={STYLES.cardActions.more}>...more</div>
                     </div>
                 </div>
 
                 <div style={STYLES.cardImage.container}>
                     <img style={STYLES.cardImage.main} src={place.image} />
+                    <Tag text={place.categories[0].name} />
                 </div>
             </div>
         );
+    }
+
+    truncateName(name: string) {
+        return name.length >= 50 ? `${name.substring(0, 48)}...` : name;
     }
 }
 

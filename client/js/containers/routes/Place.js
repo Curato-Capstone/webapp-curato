@@ -5,10 +5,11 @@ import Radium from 'radium';
 import FullCard from 'components/Reusable/Card/FullCard';
 
 const place = {
-    name: 'EMP',
-    address: '1234 Street Ave., Seattle, WA',
-    image: require('images/places/emp.jpg'),
-    id: '123'
+    name: 'Pike Place Market',
+    location: { address: '1234 Street Ave., Seattle, WA' },
+    image: require('images/places/pike_place_market.jpg'),
+    id: '125',
+    categories: [{ name: 'Shop' }],
 };
 
 @Radium

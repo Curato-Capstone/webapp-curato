@@ -27,7 +27,7 @@ export default class BreadCrumbs extends Component {
         const pathname = location.pathname.length !== 1 ?
             location.pathname.replace(/\/$/, '') :
             location.pathname;
-
+        console.log(pathToCrumbs[pathname])
         if (!pathToCrumbs.hasOwnProperty(pathname)) {
             return null;
         }
