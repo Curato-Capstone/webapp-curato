@@ -51,7 +51,7 @@ export default class Button extends Component {
                           disabled ? {'opacity': '.6'} : {}
                         );
         return (
-            <div onClick={disabled ? () => {return null} : handleClick}>
+            <div onClick={disabled ? () => {} : handleClick}>
                 <button style={newStyle} {...other}>
                     <span style={{color:'white'}}>{label}</span>
                 </button>
@@ -81,8 +81,4 @@ const BUTTON_STYLE = {
     textTransform: 'uppercase',
     transition: 'opacity .2s ease-in-out',
     whiteSpace: 'nowrap'
-};
-
-const STYLES = {
-    color: 'white'
 };
