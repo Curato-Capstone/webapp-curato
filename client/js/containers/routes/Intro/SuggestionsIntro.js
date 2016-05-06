@@ -4,6 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import FlipMove from 'react-flip-move';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';

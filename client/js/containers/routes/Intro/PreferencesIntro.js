@@ -92,9 +92,10 @@ const STYLES = {
     slidersContainer: {
         display: 'flex',
         alignItems: 'center',
-        overflow: 'scroll',
+        overflowY: 'scroll',
         width: '100%',
-        marginTop: '24px'
+        height: '300px',
+        // marginTop: '24px'
     },
 
     slider: {

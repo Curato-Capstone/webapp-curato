@@ -68,9 +68,7 @@ class App extends Component {
                 </FlipMove>
                 {this.renderNavigation()}
                 {this.renderSpinner()}
-                <FlipMove enterAnimation="fade" leaveAnimation="fade" style={{width: '100%', height: '100%'}}>
-                    {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
-                </FlipMove>
+                {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
             </div>
         );
     }
