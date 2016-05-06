@@ -84,7 +84,9 @@ class App extends Component {
     renderNavigation() {
         const { location, user } = this.props;
 
-        if (!location.pathname.includes('intro') && !location.pathname.includes('signin')) {
+        if (!location.pathname.includes('intro')
+            && !location.pathname.includes('signin')
+            && !location.pathname.includes('place')) {
             return (
                 <div style={STYLES.navContainer}>
                     <SideNav location={location} />
@@ -113,9 +115,9 @@ const STYLES = {
     },
 
     navContainer: {
-        marginRight: '50px',
+        width: '80px',
         '@media (min-width: 520px)': {
-            width: '80px',
+            marginRight: '12px'
         }
     },
 

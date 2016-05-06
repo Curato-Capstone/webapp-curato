@@ -2,87 +2,103 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
+import autobind from 'autobind-decorator';
+
+import type { Place } from 'flow/types';
 import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
-import Placeholder from 'images/places/emp.jpg';
-import Tag from './tag';
+import Tag from './Tag';
 
 @Radium
 export default class Card extends Component {
-    static defaultProps = {};
-    props: {
-        place: {
-            name : string,
-            id : string,
-            location: {
-                address: string
-            },
-            categories: Array<Object>,
-            image: string
-        },
+    static defaultProps = {
+        hideDislike: false
+    };
+
+    props : {
+        place: Place,
         favorite: boolean,
+        hideDislike: bool,
         handleDislike: () => void,
         handleFavorite: () => void,
         handleMore: () => void
     };
-    state: void;
 
-    truncateName(name) {
-        return name.length >= 30 ? name.substring(0,25) + '...' : name;
-    }
+    state = { loaded: false };
+    state : { loaded: bool };
 
     render() {
-        const { place, favorite, handleDislike, handleFavorite } = this.props;
+        const { place, favorite, hideDislike, handleDislike, handleFavorite } = this.props;
+        const { loaded } = this.state;
 
         return (
             <div style={STYLES.container}>
-                <div style={STYLES.cardText.container}>
+                <div style={STYLES.cardText.container(loaded)}>
+
                     <div style={STYLES.cardText.text}>
-                        <div style={STYLES.cardText.placeName}>{this.truncateName(place.name)}</div>
+                        <div style={STYLES.cardText.placeName}>
+                            {this.truncateName(place.name)}
+                        </div>
                         <div style={STYLES.cardText.address}>{place.location.address}</div>
                     </div>
+
                     <div style={STYLES.cardActions.container}>
                         <div onClick={handleFavorite}>
                             <Heart active={favorite} />
                         </div>
-                        <div onClick={handleDislike}>I don't like this</div>
+
+                        {this.renderDislike()}
+
                         <Link to={`/place/${place.id}`}>
                             <div style={STYLES.cardActions.more}>...more</div>
                         </Link>
                     </div>
                 </div>
 
-                <div style={STYLES.cardImage.container}>
-                    <img style={STYLES.cardImage.main} src={Placeholder} />
+                <div style={STYLES.cardImage.container(loaded)}>
+                    <img
+                        style={STYLES.cardImage.main}
+                        src={place.image}
+                        onLoad={this.handleImageLoad}
+                    />
+                    {this.renderTag()}
                 </div>
-                <Tag text={place.categories[0].name} />
             </div>
         );
     }
-}
 
-const lowerTextKeyframes = Radium.keyframes({
-    '0%': {
-        transform: 'translateY(0)',
-        opacity: 0
-    },
-
-    '50%': {
-        opacity: 0.3
-    },
-
-    '100%': {
-        transform: 'translateY(75px)',
-        opacity: 1
+    truncateName(name: string) {
+        return name.length >= 50 ? `${name.substring(0, 48)}...` : name;
     }
-}, 'lowerText');
 
-const raiseImageKeyframes = Radium.keyframes({
-    '0%': { transform: 'translateY(0)' },
+    @autobind
+    handleImageLoad() {
+        this.setState({ loaded: true });
+    }
 
-    '100%': { transform: 'translateY(-75px)' }
-}, 'raiseImage');
+    renderDislike() {
+        if (!this.props.hideDislike) {
+            return (
+                <div style={STYLES.cardActions.dislike} onClick={this.props.handleDislike}>
+                    I don't like this
+                </div>
+            );
+        }
+    }
+
+    renderTag() {
+        const { place } = this.props;
+
+        if (place.categories.length) {
+            return (
+                <div style={STYLES.tag.main(this.state.loaded)}>
+                    <Tag text={place.categories[0].name} />
+                </div>
+            );
+        }
+    }
+}
 
 const STYLES = {
     container: {
@@ -90,35 +106,47 @@ const STYLES = {
         height: '350px',
         marginTop: '75px',
         marginBottom: '80px',
-        marginLeft: '15px',
-        /* revisit */
-        transition: 'all 1s ease-out',
+        transition: 'height 1s ease-out',
         '@media (min-width: 520px)': {
             height: '450px',
         },
     },
 
     cardImage: {
-        container: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-            width: '250px',
-            height: '300px',
-            /* revisit do I want this even */
-            transition: 'all 1s ease-out',
-            animation: 'x 1s ease-in-out 0.2s 1 normal forwards',
-            animationName: raiseImageKeyframes,
-            '@media (min-width: 520px)': {
-                width: '350px',
-                height: '400px'
-            },
+        container: (loaded) => {
+            return {
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                width: '250px',
+                height: '325px',
+                backgroundColor: 'white',
+                transition: 'height 1s ease-out, width 1s ease-out',
+                animation: 'x 1s ease-in-out 0s 1 normal forwards',
+                animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
+                '@media (min-width: 520px)': {
+                    width: '320px',
+                    height: '380px'
+                },
+            };
         },
 
+        raiseImageAnimation: Radium.keyframes({
+            '0%': {
+                transform: 'translateY(0)',
+                boxShadow: '0 0 0 0 rgba(0,0,0,0.5)',
+            },
+
+            '100%': {
+                transform: 'translateY(-70px)',
+                boxShadow: '0px 13px 20px -4px rgba(0,0,0,0.5)',
+            }
+        }),
+
         main: {
-            /* revisit do I want this even */
-            transition: 'all 1s ease-out',
+            transition: 'width 1s ease-out',
             width: '700px',
             '@media (min-width: 520px)': {
                 width: '900px',
@@ -127,59 +155,112 @@ const STYLES = {
     },
 
     cardText: {
-        container: {
-            position: 'absolute',
-            top: 0,
-            height: '300px',
-            width: '280px',
-            boxShadow: '3px 8px 12px #888888',
-            marginLeft: '-15px',
-            background: 'white',
-            opacity: 0,
-            /* revisit */
-            transition: 'all 1s ease-out',
-            animation: 'x 1s ease-in-out 0.2s 1 normal forwards',
-            animationName: lowerTextKeyframes,
-            '@media (min-width: 520px)': {
-                height: '400px',
-                width: '380px',
-            },
+        container: (loaded) => {
+            return {
+                position: 'absolute',
+                top: -40,
+                left: -7.5,
+                height: '370px',
+                width: '275px',
+                boxShadow: '3px 8px 12px #888888',
+                background: 'white',
+                opacity: 0,
+                transition: 'all 1s ease-out',
+                animation: 'x 0.7s ease-in-out 0.3s 1 normal forwards',
+                animationName: loaded ? STYLES.cardText.lowerTextAnimation : null,
+                '@media (min-width: 520px)': {
+                    top: -55,
+                    left: -7.5,
+                    height: '450px',
+                    width: '335px',
+                },
+            };
         },
+
+        lowerTextAnimation: Radium.keyframes({
+            '0%': {
+                transform: 'translateY(0)',
+                opacity: 0
+            },
+
+            '50%': {
+                opacity: 0.3
+            },
+
+            '100%': {
+                transform: 'translateY(45px)',
+                opacity: 1
+            }
+        }),
 
         text: {
             position: 'absolute',
-            top: 185,
+            top: 0,
             left: 20,
             color: 'grey',
+            transform: 'translateY(265px)',
             /* revisit */
-            transition: 'all 1s ease-out',
+            transition: 'transform 1s ease-out',
             '@media (min-width: 520px)': {
-                top: 270,
+                transform: 'translateY(335px)',
             }
         },
 
         placeName: {
-            fontSize: '24px'
+            fontSize: '17px',
+            '@media (min-width: 520px)': {
+                fontSize: '20px'
+            }
         },
 
         address: {
-            color: primaryColor
+            color: primaryColor,
+            fontSize: '15px',
+            '@media (min-width: 520px)': {
+                fontSize: '17px',
+            }
         }
     },
 
     cardActions: {
         container: {
             position: 'absolute',
-            bottom: 10,
+            bottom: 7.5,
+            left: -10,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-around',
-            width: '100%'
+            width: '100%',
+            fontSize: '14px'
+        },
+
+        dislike: {
+            cursor: 'pointer'
         },
 
         more: {
             color: 'blue',
             cursor: 'pointer'
         }
+    },
+
+    tag: {
+        main: (loaded) => {
+            return {
+                opacity: 0,
+                animation: 'x .75s ease-in-out .75s 1 normal forwards',
+                animationName: loaded ? STYLES.tag.fadeTagIn : null
+            };
+        },
+
+        fadeTagIn: Radium.keyframes({
+            '0%': {
+                opacity: 0
+            },
+
+            '100%': {
+                opacity: 1
+            }
+        }, 'fadeTagIn')
     }
 };

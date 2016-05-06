@@ -49,7 +49,7 @@ class Suggestions extends Component {
                     })}
                 </div>
                 <div style={STYLES.buttonContainer}>
-                    <Link to="/intro/3">
+                    <Link to="/intro/signup">
                         <Button label="I'm ready to sign up!" type="primary" />
                     </Link>
                 </div>
