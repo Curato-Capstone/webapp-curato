@@ -42,6 +42,7 @@ export default class TextField extends Component {
                     underlineStyle={{ borderColor: primaryColor }}
                     underlineFocusStyle={{ borderColor: primaryColor }}
                     floatingLabelStyle={{ color: secondaryColor }}
+                    style={{ fontFamily: 'montserrat' }}
                     {...other}
                 />
                 {type === 'password' ?
