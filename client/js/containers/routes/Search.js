@@ -91,10 +91,6 @@ const STYLES = {
         opacity: 0,
         animation: 'x 1s ease-in-out 0.5s 1 normal forwards',
         animationName: revealButtonKeyframes,
-    },
-
-    randomButton: {
-        marginTop: '36px',
     }
 };
 

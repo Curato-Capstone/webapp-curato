@@ -18,24 +18,43 @@ export default class Button extends Component {
         type        : 'primary' | 'secondary' | 'submit',
         handleClick : (event: Object) => void,
         disabled    : boolean,
-        style       : Object
+        style       : Object,
+        size        : 'sm' | 'md' | 'lg'
     };
     state: void;
 
-    render() {
-        const { label, type, handleClick, disabled, style, ...other } = this.props;
+    getDimensions(size) {
+        if (size === 'sm') {
+            return {
+                borderRadius: '2em',
+                fontSize: '11px',
+                lineHeight: '1.273em',
+                padding: '6px 20px'
+            }
+        } else if (size == 'lg') {
+            return {
+                borderRadius: '2em',
+                fontSize: '16px',
+                lineHeight: '1.5em',
+                padding: '10px 30px'
+            }
+        }
 
+        return null;
+    };
+
+    render() {
+        const { label, type, handleClick, disabled, style, size, ...other } = this.props;
+
+        let newStyle = Object.assign(BUTTON_STYLE, this.getDimensions(size),
+                          {backgroundColor: this.getColor(type)}, style,
+                          disabled ? {'opacity': '.6'} : {}
+                        );
         return (
-            <div onClick={handleClick}>
-                <RaisedButton
-                    style={Object.assign(STYLES, style)}
-                    backgroundColor={this.getColor(type)}
-                    label={label}
-                    labelColor="white"
-                    disabled={disabled}
-                    type={type}
-                    {...other}
-                />
+            <div onClick={disabled ? () => {} : handleClick}>
+                <button style={newStyle} {...other}>
+                    <span style={{color:'white'}}>{label}</span>
+                </button>
             </div>
         );
     }
@@ -49,6 +68,17 @@ export default class Button extends Component {
     }
 }
 
-const STYLES = {
-    color: 'white'
+const BUTTON_STYLE = {
+    border: '1px solid transparent',
+    boxShadow: '1px 1px 2px #888888',
+    borderRadius: '2em',
+    display: 'inline-block',
+    lineHeight: '1.5em',
+    margin: '10px',
+    padding: '10px 20px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    transition: 'opacity .2s ease-in-out',
+    whiteSpace: 'nowrap'
 };
