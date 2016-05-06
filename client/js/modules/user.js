@@ -193,6 +193,11 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
 // Thunks
 // -----------------------------------
 const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
+const sleep = (ms) => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), ms)
+    });
+}
 
 const user = {
     email       : 'mister-pie@hotmail.com',
@@ -241,14 +246,12 @@ export function updateAccount() {
             dispatch(globalActions.setLoading(true));
             const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
 
-            console.log(accountValues);
-            await request
-                .put(`${baseURL}/user`)
-                .send(accountValues);
+            // console.log(accountValues);
+            await sleep(1200);
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Account!'));
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Update failed'));
+            dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
 
         dispatch(globalActions.setLoading(false));
@@ -262,13 +265,15 @@ export function updatePreferences() {
             dispatch(globalActions.setLoading(true));
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
-            await request
-                .put(`${baseURL}/user/`)
-                .send({ preferences });
+            // await request
+            //     .put(`${baseURL}/user/`)
+            //     .send({ preferences });
+
+            await sleep(1200);
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Update failed'));
+            dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
 
         dispatch(globalActions.setLoading(false));
@@ -281,13 +286,14 @@ export function addFavoriteThunk(place) {
         try {
             dispatch(globalActions.setLoading(true));
 
-            await request
-                .post(`${baseURL}/place/favorites/add`)
-                .send({ id: place.id });
+            // await request
+            //     .post(`${baseURL}/place/favorites/add`)
+            //     .send({ id: place.id });
+            await sleep(300);
 
             dispatch(addFavorite(place));
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Unable to add favorite'));
+            dispatch(globalActions.setMessage('error', 'Unable to add favorite, blame Brandon'));
         }
 
         dispatch(globalActions.setLoading(false));
@@ -295,17 +301,29 @@ export function addFavoriteThunk(place) {
 }
 
 // called on /favorites and /suggestions
-export function removeFavoriteThunk(place, index) {
-    return async (dispatch) => {
+export function removeFavoriteThunk(place) {
+    return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            await request
-                .post(`${baseURL}/place/favorites/remove`)
-                .send({ id: place.id });
+            // await request
+            //     .post(`${baseURL}/place/favorites/remove`)
+            //     .send({ id: place.id });
+
+            await sleep(300);
+
+            const favorites = getState().getIn(['user', 'favorites']).toJS();
+
+            let index;
+            for (let i = 0; i < favorites.length; i++) {
+                if (favorites[i].id === place.id) {
+                    index = i;
+                }
+            }
 
             dispatch(removeFavorite(index));
         } catch (error) {
+
             dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
         }
 
@@ -320,7 +338,7 @@ export function dislikePlace(id) {
                 .post(`${baseURL}/place/dislike`)
                 .send({ id });
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Something went wrong :/'));
+            // dispatch(globalActions.setMessage('error', 'Something went wrong :/'));
         }
     };
 }

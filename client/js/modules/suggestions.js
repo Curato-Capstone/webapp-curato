@@ -118,10 +118,12 @@ export function getSuggestions({ random = false } = {}) {
         try {
             dispatch(globalActions.setLoading(true));
 
+            const preferences = getState().getIn(['user', 'preferences']).toJS();
             const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .post(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
+                .post(`${baseURL}/suggestions`)
+                .send({preferences, q: query});
 
             console.log(res);
             dispatch(setSuggestions(res.body));

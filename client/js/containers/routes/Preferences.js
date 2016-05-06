@@ -41,7 +41,7 @@ class Preferences extends Component {
                                     name={preferenceName}
                                     value={preferences[preferenceName]}
                                     handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    tooltipValues={['I hate this', 'I like this', 'I love this']}
+                                    tooltipValues={preferenceInfo.tooltipValues}
                                 />
                                 <div style={STYLES.slider.name}>{preferenceInfo.name}</div>
                                 <FontAwesome

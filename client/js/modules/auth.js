@@ -64,12 +64,12 @@ export function signUpUser() {
             const formValues = getState().getIn(['form', 'SignUpForm', 'values']).toJS();
             const favorites = getState().getIn(['user', 'favorites']).toJS();
 
-            const user = { ...formValues, favorites, preferences };
+            const user = { ...formValues, preferences };
 
             const res = await request
                 .post(`${baseURL}/user/signup`)
                 .send(user);
-
+            res.body.favorites = favorites;
             dispatch(userActions.setUser(res.body));
             dispatch(setIsAuthenticated(true));
 

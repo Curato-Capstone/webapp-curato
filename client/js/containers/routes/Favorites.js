@@ -43,6 +43,7 @@ class Favorites extends Component {
                             key={place.id}
                             place={place}
                             favorite
+                            hideDislike
                             handleFavorite={() => {}}
                             handleDislike={() => {}}
                             handleMore={() => {}}

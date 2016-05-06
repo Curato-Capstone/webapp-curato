@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import request from 'superagent-bluebird-promise';
 
+import * as userActions from 'modules/user';
 import * as globalActions from 'modules/global';
 import { routerActions } from 'react-router-redux';
 
@@ -65,12 +66,33 @@ class Place extends Component {
                 {place ? <FullCard
                     key={place.id}
                     place={place}
-                    favorite
-                    handleFavorite={() => {}}
+                    favorite={this.checkFavorited(place)}
+                    handleFavorite={() => this.handleFavorite(place, 0)}
                     handleBack={() => actions.goBack()}
                 /> : null}
             </div>
         );
+    }
+
+    handleFavorite(place, index) {
+        console.log(this.props.actions)
+        if (this.checkFavorited(place)) {
+            console.log('remove')
+            this.props.actions.removeFavoriteThunk(place);
+        } else {
+            this.props.actions.addFavoriteThunk(place);
+        }
+    }
+
+    checkFavorited(place) {
+        const { favorites } = this.props;
+        for (let i = 0; i < favorites.length; i ++) {
+            if (favorites[i].id === place.id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
@@ -87,6 +109,7 @@ const STYLES = {
 function mapStateToProps(state, ownProps) {
     return {
         suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+        favorites: state.getIn(['user', 'favorites']).toJS(),
     };
 }
 
@@ -94,6 +117,7 @@ function mapDispatchToProps(dispatch) {
     return {
         actions : bindActionCreators(Object.assign(
             {},
+            userActions,
             globalActions,
             routerActions
         ), dispatch)

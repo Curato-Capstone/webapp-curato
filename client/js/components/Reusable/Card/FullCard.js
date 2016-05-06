@@ -48,7 +48,7 @@ export default class FullCard extends Component {
                             {this.renderHours()}
                             {this.renderDescription()}
                             {<div style={STYLES.map}>
-                                <Map lat={place.location.lat} lng={place.location.lng} />
+                                <Map name={place.name} lat={place.location.lat} lng={place.location.lng} />
                                 </div>
                             }
                         </div>
@@ -85,7 +85,7 @@ export default class FullCard extends Component {
                     </div>
 
                     <div style={STYLES.cardImage.favoriteButton(loaded)}>
-                        <FloatingActionButton>
+                        <FloatingActionButton onClick={handleFavorite}>
                             <Heart active={favorite} styles={STYLES.cardImage.heart} />
                         </FloatingActionButton>
                     </div>
@@ -254,9 +254,9 @@ const STYLES = {
                 top: 10,
                 left: 10,
                 opacity: 0,
-                color: 'black',
+                color: 'gray',
                 cursor: 'pointer',
-                transform: 'scale(1.2, 1.75)',
+                transform: 'scale(1.5, 2.25)',
                 animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
                 animationName: loaded ? STYLES.cardImage.fadeArrowIn : null
             };
@@ -343,7 +343,7 @@ const STYLES = {
                 marginRight: '12px',
                 marginBottom: '30px',
                 color: 'grey',
-                width: '100%',
+                width: 'calc(100% - 20px)',
                 transform: 'translateY(335px)',
                 transition: 'transform 1s ease-out',
                 animation: 'x 1s ease-in-out 1s 1 normal forwards',
@@ -449,7 +449,7 @@ const STYLES = {
 
         header: {
             color: primaryColor,
-            fontWeight: 300
+            fontWeight: 400
         },
 
         body: {
@@ -492,6 +492,7 @@ const STYLES = {
     map: {
         width: '100%',
         display: 'flex',
+        marginTop: '20px'
         // justifyContent: 'center'
     }
 };

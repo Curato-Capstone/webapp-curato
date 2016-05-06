@@ -81,6 +81,8 @@ const STYLES = {
         width: '100%',
         paddingLeft: '18px',
         fontSize: '16px',
+        fontFamily: 'Montserrat',
+        fontWeight: '300',
         boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
         transition: 'height 0.4s ease-in, width 0.4s ease-in',
         '@media (min-width: 520px)': {
