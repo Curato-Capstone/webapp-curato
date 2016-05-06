@@ -62,9 +62,7 @@ export default class Card extends Component {
                         src={place.image}
                         onLoad={this.handleImageLoad}
                     />
-                    <div style={STYLES.tag.main(loaded)}>
-                        <Tag text={place.categories[0].name} />
-                    </div>
+                    {this.renderTag()}
                 </div>
             </div>
         );
@@ -84,6 +82,18 @@ export default class Card extends Component {
             return (
                 <div style={STYLES.cardActions.dislike} onClick={this.props.handleDislike}>
                     I don't like this
+                </div>
+            );
+        }
+    }
+
+    renderTag() {
+        const { place } = this.props;
+
+        if (place.categories.length) {
+            return (
+                <div style={STYLES.tag.main(this.state.loaded)}>
+                    <Tag text={place.categories[0].name} />
                 </div>
             );
         }

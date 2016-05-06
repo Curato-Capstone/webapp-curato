@@ -46,7 +46,7 @@
     "redux-form": "^6.0.0-alpha.6",
     "redux-immutablejs": "0.0.8",
     "redux-thunk": "^2.0.1",
-    "superagent": "^1.6.1",
+    "superagent": "^1.8.2",
     "superagent-bluebird-promise": "^3.0.0"
   },
   "devDependencies": {

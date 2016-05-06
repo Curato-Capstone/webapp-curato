@@ -37,13 +37,15 @@ export default class FullCard extends Component {
                         </div>
                         <div style={STYLES.cardText.address(loaded)}>{place.location.address}</div>
                         <div style={STYLES.info.container(loaded)}>
-                            <div>
-                                <h3>Contact Info</h3>
-                                <div>Phone: {place.contact.formattedPhone}</div>
+                            <div style={[STYLES.info.contact, STYLES.info.body]}>
+                                <h2 style={STYLES.info.header}>Contact Info</h2>
+                                {this.renderPhoneNumber(place.contact.formattedPhone)}
                                 {this.renderTwitter(place.contact.twitter)}
                                 {this.renderFourSquare(place.id)}
+                                {this.renderWebsite(place.url)}
                             </div>
                             {this.renderHours()}
+                            {this.renderDescription()}
                         </div>
                     </div>
 
@@ -87,34 +89,81 @@ export default class FullCard extends Component {
         );
     }
 
+    renderPhoneNumber(phoneNumber: string) {
+        if (phoneNumber) {
+            return (
+                <div>
+                    <div style={STYLES.info.link.container}>
+                        <FontAwesome name="phone" size="2x" style={STYLES.info.link.phone} />
+                        <div>{phoneNumber}</div>
+                    </div>
+                </div>
+            );
+        }
+    }
+
     renderTwitter(twitterLink: string) {
-        return (
-            <a href={`http://www.twitter.com/${twitterLink}`} style={STYLES.info.twitter.container}>
-                <FontAwesome name="twitter" size="2x" style={STYLES.info.twitter.icon} />
-                <div>{twitterLink}</div>
-            </a>
-        );
+        if (twitterLink) {
+            return (
+                <div>
+                    <a href={`http://www.twitter.com/${twitterLink}`} style={STYLES.info.link.container}>
+                        <FontAwesome name="twitter" size="2x" style={STYLES.info.link.twitter} />
+                        <div>{twitterLink}</div>
+                    </a>
+                </div>
+            );
+        }
     }
 
     renderFourSquare(venueID: string) {
         return (
             <div>
-                <a href={`http://www.foursquare.com/${venueID}`} style={STYLES.info.foursquare.container}>
-                    <FontAwesome name="foursquare" size="2x" style={STYLES.info.foursquare.icon} />
+                <a href={`http://www.foursquare.com/${venueID}`} style={STYLES.info.link.container}>
+                    <FontAwesome name="foursquare" size="2x" style={STYLES.info.link.foursquare} />
                     <div>Venue Page</div>
                 </a>
             </div>
-        )
+        );
+    }
+
+    renderWebsite(website: string) {
+        return (
+            <div>
+                <a href={website} style={STYLES.info.link.container}>
+                    <FontAwesome name="globe" size="2x" style={STYLES.info.link.website} />
+                    <div>Website</div>
+                </a>
+            </div>
+        );
     }
 
     renderHours() {
-        const { place } = this.props;
+        const { hours } = this.props.place;
 
-        if (place.hours) {
+        if (hours) {
             return (
-                <div>
-                    <h3>Hours</h3>
-                    <div></div>
+                <div style={STYLES.info.body}>
+                    <h2 style={STYLES.info.header}>Hours</h2>
+                    <div>{`Monday:    ${hours.Mon}`}</div>
+                    <div>{`Tuesday:   ${hours.Tue}`}</div>
+                    <div>{`Wednesday: ${hours.Wed}`}</div>
+                    <div>{`Thursday:  ${hours.Thu}`}</div>
+                    <div>{`Friday:    ${hours.Fri}`}</div>
+                    <div>{`Saturday:  ${hours.Sat}`}</div>
+                    <div>{`Sunday:    ${hours.Sun}`}</div>
+                </div>
+            );
+        }
+    }
+
+    renderDescription() {
+        const { description } = this.props.place;
+
+        if (description) {
+            return (
+                <div style={STYLES.info.body}>
+                    <h2 style={STYLES.info.header}>Description</h2>
+                    <div>{description}</div>
                 </div>
             );
         }
@@ -200,7 +249,7 @@ const STYLES = {
                 top: 10,
                 left: 10,
                 opacity: 0,
-                color: '#d3d3d3',
+                color: 'black',
                 cursor: 'pointer',
                 transform: 'scale(1.2, 1.75)',
                 animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
@@ -210,27 +259,28 @@ const STYLES = {
 
         fadeArrowIn: Radium.keyframes({
             '0%': { opacity: 0 },
-            '100%': { opacity: 0.65 }
+            '100%': { opacity: 0.75 }
         }),
 
         favoriteButton: (loaded) => {
             return {
-                transform: 'scale(0.75, 0.75)',
                 position: 'absolute',
-                bottom: 10,
-                right: 10,
+                bottom: 0,
+                transform: 'scale(0.6, 0.6) translateY(20px)',
+                right: 15,
                 opacity: 0,
-                animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.fadeFavoriteButton : null
+                animation: 'x 1s ease-in-out 2.75s 1 normal forwards',
+                animationName: loaded ? STYLES.cardImage.fadeFavoriteButton : null,
             };
         },
 
         fadeFavoriteButton: Radium.keyframes({
             '0%': {
-                opacity: 0
+
             },
             '100%': {
-                opacity: 1
+                opacity: 1,
+                transform: 'scale(0.85, 0.85) translateY(-10px)',
             }
         }),
 
@@ -285,6 +335,8 @@ const STYLES = {
                 position: 'absolute',
                 top: 0,
                 left: 20,
+                marginRight: '12px',
+                marginBottom: '30px',
                 color: 'grey',
                 transform: 'translateY(335px)',
                 transition: 'transform 1s ease-out',
@@ -376,6 +428,8 @@ const STYLES = {
     info: {
         container: (loaded) => {
             return {
+                display: 'flex',
+                flexWrap: 'wrap',
                 opacity: 0,
                 animation: 'x 1s ease-in-out 1.75s 1 normal forwards',
                 animationName: loaded ? STYLES.info.fadeInfoIn : null
@@ -387,27 +441,44 @@ const STYLES = {
             '100%': { opacity: 1 }
         }),
 
-        twitter: {
-            container: {
-                display: 'inline-flex',
-                alignItems: 'center'
-            },
-
-            icon: {
-                color: '#019FE9',
-                width: '32px'
-            }
+        header: {
+            color: primaryColor,
+            fontWeight: 300
         },
 
-        foursquare: {
+        body: {
+            marginBottom: '16px'
+        },
+
+        contact: {
+            marginRight: '10%'
+        },
+
+        link: {
             container: {
                 display: 'inline-flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                // transform: 'scale(0.9, 0.9)'
             },
 
-            icon: {
+            phone: {
+                color: '',
+                width: '36px'
+            },
+
+            twitter: {
+                color: '#019FE9',
+                width: '36px'
+            },
+
+            foursquare: {
                 color: '#F94876',
-                width: '32px'
+                width: '36px'
+            },
+
+            website: {
+                color: 'green',
+                width: '36px'
             }
         }
     },

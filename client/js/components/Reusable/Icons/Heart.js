@@ -21,7 +21,6 @@ export default class Heart extends Component {
         const { active, styles } = this.props;
         const { changed } = this.state;
 
-        console.log(styles)
         return (
             <section
                 style={[

@@ -55,8 +55,8 @@ class Suggestions extends Component {
                             </div>
                         );
                     })}
+                    {this.renderEmptyState()}
                 </FlipMove> : null}
-                {this.renderEmptyState()}
                 <img style={STYLES.fourSquare} src={fourSquareImage} />
             </div>
         );
@@ -65,7 +65,7 @@ class Suggestions extends Component {
     renderEmptyState() {
         if (!this.props.suggestions.length) {
             return (
-                <div style={STYLES.empty.text}>
+                <div style={STYLES.empty.text} key="empty">
                     <p>
                         Didn't like any of our
                         <Link to="/" style={STYLES.empty.link}> suggestions</Link>?

@@ -11,22 +11,22 @@ import { routerActions } from 'react-router-redux';
 
 import FullCard from 'components/Reusable/Card/FullCard';
 
-const place = {
-    name: 'Pike Place Market',
-    location: { address: '1234 Street Ave., Seattle, WA', formattedAddress: ["719 S King St", "Seattle, WA 98104",
-"United States"] },
-    image: require('images/places/pike_place_market.jpg'),
-    id: '125',
-    categories: [{ name: 'Shop' }],
-    hours: {
-        isOpen: false,
-        status: 'Closed until 10:00 AM'
-    },
-    contact: {
-        formattedPhone: '(206) 623-5124',
-        twitter: 'wingluke'
-    }
-};
+// const place = {
+//     name: 'Pike Place Market',
+//     location: { address: '1234 Street Ave., Seattle, WA', formattedAddress: ["719 S King St", "Seattle, WA 98104",
+// "United States"] },
+//     image: require('images/places/pike_place_market.jpg'),
+//     id: '125',
+//     categories: [{ name: 'Shop' }],
+//     hours: {
+//         isOpen: false,
+//         status: 'Closed until 10:00 AM'
+//     },
+//     contact: {
+//         formattedPhone: '(206) 623-5124',
+//         twitter: 'wingluke'
+//     }
+// };
 
 @Radium
 class Place extends Component {
@@ -34,37 +34,41 @@ class Place extends Component {
     props: {};
 
     state = { place: null };
-    state : {};
+    state : { place: Object };
 
     componentWillMount() {
-        // const { actions, params } = this.props;
-        // const id = params.id;
-        //
-        // actions.setLoading(true);
-        //
-        // console.log({ favorites: [id] })
-        // request
-        //     .post('http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/business-info')
-        //     .send({ favorites: [id] })
-        //     .then((res) => {
-        //         actions.setLoading(false);
-        //         console.log(res)
-        //     })
+        const { actions, params, suggestions } = this.props;
+        const id = params.id;
+
+        actions.setLoading(true);
+        for (let i = 0; i < suggestions.length; i++) {
+            if (suggestions[i].id === id) {
+                this.setState({ place: suggestions[i] });
+                actions.setLoading(false);
+                return;
+            }
+        }
+        request
+            .get(`http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/place/${id}`)
+            .then((res) => {
+                actions.setLoading(false);
+                this.setState({ place: res.body });
+            });
     }
 
     render() {
-        const { actions, routerActions } = this.props;
+        const { actions, routerActions, suggestions } = this.props;
+        const { place } = this.state;
 
-        console.log(actions)
         return (
             <div style={STYLES.container}>
-                <FullCard
+                {place ? <FullCard
                     key={place.id}
                     place={place}
                     favorite
                     handleFavorite={() => {}}
                     handleBack={() => actions.goBack()}
-                />
+                /> : null}
             </div>
         );
     }
@@ -82,6 +86,7 @@ const STYLES = {
 
 function mapStateToProps(state, ownProps) {
     return {
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
     };
 }
 
