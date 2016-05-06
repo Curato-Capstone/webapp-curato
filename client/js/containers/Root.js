@@ -46,7 +46,7 @@ export default class Root extends Component {
                                 <Route path="suggestions" component={SuggestionsIntro} />
                                 <Route path="signup" component={SignUpIntro} />
                             </Route>
-                            <Route path="place" component={Place} />
+                            <Route path="place/:id" component={Place} />
                             <Route path="signIn" component={requireAuth(SignIn)} />
                             <Route path="suggestions" component={requireAuth(Suggestions)} />
                             <Route path="preferences" component={requireAuth(Preferences)} />
@@ -55,7 +55,7 @@ export default class Root extends Component {
                         </Route>
                         <Route path="*" component={PageNotFound} />
                     </Router>
-                    { !isDevelopment ? <DevTools /> : null }
+                    { isDevelopment ? <DevTools /> : null }
                 </StyleRoot>
             </Provider>
         );

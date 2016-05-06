@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import request from 'superagent-bluebird-promise';
 
 import * as globalActions from 'modules/global';
+import { routerActions } from 'react-router-redux';
 
 import FullCard from 'components/Reusable/Card/FullCard';
 
@@ -36,15 +37,25 @@ class Place extends Component {
     state : {};
 
     componentWillMount() {
-        const { actions } = this.props;
-
+        // const { actions, params } = this.props;
+        // const id = params.id;
+        //
         // actions.setLoading(true);
-        // request.get('')
+        //
+        // console.log({ favorites: [id] })
+        // request
+        //     .post('http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/business-info')
+        //     .send({ favorites: [id] })
+        //     .then((res) => {
+        //         actions.setLoading(false);
+        //         console.log(res)
+        //     })
     }
 
     render() {
-        const {  } = this.props;
+        const { actions, routerActions } = this.props;
 
+        console.log(actions)
         return (
             <div style={STYLES.container}>
                 <FullCard
@@ -52,6 +63,7 @@ class Place extends Component {
                     place={place}
                     favorite
                     handleFavorite={() => {}}
+                    handleBack={() => actions.goBack()}
                 />
             </div>
         );
@@ -63,7 +75,7 @@ const STYLES = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '700px',
+        height: '100vh',
         width: '100%'
     }
 };
@@ -78,6 +90,7 @@ function mapDispatchToProps(dispatch) {
         actions : bindActionCreators(Object.assign(
             {},
             globalActions,
+            routerActions
         ), dispatch)
     };
 }
