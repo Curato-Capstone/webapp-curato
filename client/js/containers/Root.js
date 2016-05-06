@@ -55,7 +55,7 @@ export default class Root extends Component {
                         </Route>
                         <Route path="*" component={PageNotFound} />
                     </Router>
-                    { isDevelopment ? <DevTools /> : null }
+                    { !isDevelopment ? <DevTools /> : null }
                 </StyleRoot>
             </Provider>
         );

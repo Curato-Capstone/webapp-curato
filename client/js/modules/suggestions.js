@@ -121,7 +121,7 @@ export function getSuggestions({ random = false } = {}) {
             const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
+                .post(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
 
             console.log(res);
             dispatch(setSuggestions(res.body));
@@ -139,7 +139,7 @@ export function getSuggestionsNoAccount() {
         try {
             dispatch(globalActions.setLoading(true));
             const preferences = getState().getIn(['user', 'preferences']).toJS();
-            console.log(preferences);
+
             const res = await request
                 .post(`${baseURL}/suggestions`)
                 .send({preferences});

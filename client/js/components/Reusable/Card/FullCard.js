@@ -10,6 +10,7 @@ import { primaryColor } from 'utils/colors';
 
 import Heart from 'components/Reusable/Icons/Heart';
 import Tag from './Tag';
+import Map from './Map';
 
 @Radium
 export default class FullCard extends Component {
@@ -46,6 +47,10 @@ export default class FullCard extends Component {
                             </div>
                             {this.renderHours()}
                             {this.renderDescription()}
+                            {<div style={STYLES.map}>
+                                <Map lat={place.location.lat} lng={place.location.lng} />
+                                </div>
+                            }
                         </div>
                     </div>
 
@@ -338,6 +343,7 @@ const STYLES = {
                 marginRight: '12px',
                 marginBottom: '30px',
                 color: 'grey',
+                width: '100%',
                 transform: 'translateY(335px)',
                 transition: 'transform 1s ease-out',
                 animation: 'x 1s ease-in-out 1s 1 normal forwards',
@@ -482,4 +488,10 @@ const STYLES = {
             }
         }
     },
+
+    map: {
+        width: '100%',
+        display: 'flex',
+        // justifyContent: 'center'
+    }
 };
