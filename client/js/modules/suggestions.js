@@ -112,7 +112,7 @@ export default function reducer(state: State = initialState, action: Action): St
 // Thunks
 // -----------------------------------
 const suggestionBaseURL = 'http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000';
-
+const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
 export function getSuggestions({ random = false } = {}) {
     return async (dispatch, getState) => {
         try {
@@ -121,8 +121,9 @@ export function getSuggestions({ random = false } = {}) {
             const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .get(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
+                .post(`${suggestionBaseURL}/suggestions?user_id=${123456789}&q=${query}`);
 
+            console.log(res);
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
         } catch (error) {
@@ -140,11 +141,11 @@ export function getSuggestionsNoAccount() {
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
             const res = await request
-                .post(`${suggestionBaseURL}/suggestions`)
-                .send(preferences);
+                .post(`${baseURL}/suggestions`)
+                .send({preferences});
 
             dispatch(setSuggestions(res.body));
-            dispatch(routerActions.push('/intro/2'));
+            dispatch(routerActions.push('/intro/suggestions'));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Something went wrong :( '));
         }

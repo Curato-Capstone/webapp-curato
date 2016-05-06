@@ -5,6 +5,8 @@ var ROOT_DIR = __dirname;
 module.exports = {
     context: ROOT_DIR,
 
+    // devtool: 'source-map',
+
     entry: path.resolve(ROOT_DIR, 'client', 'js', 'index.js'),
 
     resolve: {

@@ -6,7 +6,7 @@ import Radium from 'radium';
 export default class Heart extends Component {
     static defaultProps = {};
 
-    props: { active: boolean };
+    props: { active: boolean, styles?: Object };
 
     state = { changed: false };
     state: { changed: boolean };
@@ -18,14 +18,15 @@ export default class Heart extends Component {
     }
 
     render() {
-        const { active } = this.props;
+        const { active, styles } = this.props;
         const { changed } = this.state;
 
         return (
             <section
                 style={[
                     STYLES.main, STYLES.active(active),
-                    STYLES.animating(active && changed)
+                    STYLES.animating(active && changed),
+                    styles
                 ]}
             />
         );

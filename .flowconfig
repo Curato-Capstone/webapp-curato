@@ -6,6 +6,7 @@
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
 esproposal.decorators=ignore
+unsafe.enable_getters_and_setters=true
 
 module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/\1'
 module.name_mapper='^containers\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/\1'
