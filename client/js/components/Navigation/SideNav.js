@@ -19,11 +19,9 @@ export default class SideNav extends Component {
 
         return (
             <div style={STYLES.container}>
-                <div>
-                    <Link to="/">
-                        <img src={logo} style={STYLES.logo} type="image/svg+xml" />
-                    </Link>
-                </div>
+                <Link to="/">
+                    <img src={logo} style={STYLES.logo} type="image/svg+xml" />
+                </Link>
                 <div style={STYLES.navItemsContainer} key="search">
                     <div style={STYLES.navItem}>
                         <Link to="/">
@@ -127,18 +125,16 @@ const STYLES = {
         textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
     },
 
-    active: (item: number) => {
-        return {
-            position: 'absolute',
-            top: 38 + 125 * item,
-            left: 2,
-            height: '55px',
-            width: '3px',
-            backgroundColor: 'white',
-            transition: 'top 0.4s ease-in-out',
-            '@media (min-width: 520px)': {
-                left: 4
-            }
-        };
-    }
+    active: (item: number) => ({
+        position: 'absolute',
+        top: 38 + 125 * item,
+        left: 2,
+        height: '55px',
+        width: '3px',
+        backgroundColor: 'white',
+        transition: 'top 0.4s ease-in-out',
+        '@media (min-width: 520px)': {
+            left: 4
+        }
+    })
 };

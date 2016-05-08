@@ -12,9 +12,7 @@ import Tag from './Tag';
 
 @Radium
 export default class Card extends Component {
-    static defaultProps = {
-        hideDislike: false
-    };
+    static defaultProps = { hideDislike: false };
 
     props : {
         place: Place,
@@ -50,8 +48,8 @@ export default class Card extends Component {
 
                         {this.renderDislike()}
 
-                        <Link to={`/place/${place.id}`}>
-                            <div style={STYLES.cardActions.more}>...more</div>
+                        <Link to={`/place/${place.id}`} style={STYLES.cardActions.more}>
+                            ...more
                         </Link>
                     </div>
                 </div>
@@ -113,25 +111,23 @@ const STYLES = {
     },
 
     cardImage: {
-        container: (loaded) => {
-            return {
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                width: '250px',
-                height: '325px',
-                backgroundColor: 'white',
-                transition: 'height 1s ease-out, width 1s ease-out',
-                animation: 'x 1s ease-in-out 0s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
-                '@media (min-width: 520px)': {
-                    width: '320px',
-                    height: '380px'
-                },
-            };
-        },
+        container: (loaded) => ({
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            width: '250px',
+            height: '325px',
+            backgroundColor: 'white',
+            transition: 'height 1s ease-out, width 1s ease-out',
+            animation: 'x 1s ease-in-out 0s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
+            '@media (min-width: 520px)': {
+                width: '320px',
+                height: '380px'
+            },
+        }),
 
         raiseImageAnimation: Radium.keyframes({
             '0%': {
@@ -165,7 +161,7 @@ const STYLES = {
                 boxShadow: '3px 8px 12px #888888',
                 background: 'white',
                 opacity: 0,
-                transition: 'all 1s ease-out',
+                // transition: 'all 1s ease-out',
                 animation: 'x 0.7s ease-in-out 0.3s 1 normal forwards',
                 animationName: loaded ? STYLES.cardText.lowerTextAnimation : null,
                 '@media (min-width: 520px)': {
