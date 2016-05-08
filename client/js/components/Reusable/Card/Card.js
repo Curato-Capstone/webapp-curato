@@ -20,7 +20,6 @@ export default class Card extends Component {
         hideDislike: bool,
         handleDislike: () => void,
         handleFavorite: () => void,
-        handleMore: () => void
     };
 
     state = { loaded: false };
@@ -104,7 +103,7 @@ const STYLES = {
         height: '350px',
         marginTop: '75px',
         marginBottom: '80px',
-        transition: 'height 1s ease-out',
+        transition: 'height 0.5s ease-out',
         '@media (min-width: 520px)': {
             height: '450px',
         },
@@ -120,7 +119,6 @@ const STYLES = {
             width: '250px',
             height: '325px',
             backgroundColor: 'white',
-            transition: 'height 1s ease-out, width 1s ease-out',
             animation: 'x 1s ease-in-out 0s 1 normal forwards',
             animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
             '@media (min-width: 520px)': {
@@ -142,7 +140,6 @@ const STYLES = {
         }),
 
         main: {
-            transition: 'width 1s ease-out',
             width: '700px',
             '@media (min-width: 520px)': {
                 width: '900px',
@@ -161,7 +158,6 @@ const STYLES = {
                 boxShadow: '3px 8px 12px #888888',
                 background: 'white',
                 opacity: 0,
-                // transition: 'all 1s ease-out',
                 animation: 'x 0.7s ease-in-out 0.3s 1 normal forwards',
                 animationName: loaded ? STYLES.cardText.lowerTextAnimation : null,
                 '@media (min-width: 520px)': {
@@ -195,8 +191,6 @@ const STYLES = {
             left: 20,
             color: 'grey',
             transform: 'translateY(265px)',
-            /* revisit */
-            transition: 'transform 1s ease-out',
             '@media (min-width: 520px)': {
                 transform: 'translateY(335px)',
             }
