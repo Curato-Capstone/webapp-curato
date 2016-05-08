@@ -45,14 +45,12 @@ export default class FullCard extends Component {
                                 {this.renderFourSquare(place.id)}
                                 {this.renderWebsite(place.url)}
                             </div>
-                            {this.renderHours()}
-                            {this.renderDescription()}
-                            {<div style={STYLES.map}>
-                                <Map name={place.name} lat={place.location.lat} lng={place.location.lng} />
-                                </div>
-                            }
+                            {this.renderHours(place.hours)}
+                            {this.renderDescription(place.description)}
+                            {this.renderMap(place.location.lat, place.location.lng, place.name)}
                         </div>
                     </div>
+                    <span style={STYLES.cardText.shadow(loaded)}></span>
 
                     <div style={STYLES.cardActions.container(loaded)}>
                         <div onClick={handleFavorite}>
@@ -97,11 +95,9 @@ export default class FullCard extends Component {
     renderPhoneNumber(phoneNumber: string) {
         if (phoneNumber) {
             return (
-                <div>
-                    <div style={STYLES.info.link.container}>
-                        <FontAwesome name="phone" size="2x" style={STYLES.info.link.phone} />
-                        <div>{phoneNumber}</div>
-                    </div>
+                <div style={STYLES.info.link.container}>
+                    <FontAwesome name="phone" size="2x" style={STYLES.info.link.phone} />
+                    <div>{phoneNumber}</div>
                 </div>
             );
         }
@@ -110,41 +106,35 @@ export default class FullCard extends Component {
     renderTwitter(twitterLink: string) {
         if (twitterLink) {
             return (
-                <div>
-                    <a href={`http://www.twitter.com/${twitterLink}`} style={STYLES.info.link.container}>
-                        <FontAwesome name="twitter" size="2x" style={STYLES.info.link.twitter} />
-                        <div>{twitterLink}</div>
-                    </a>
-                </div>
+                <a href={`http://www.twitter.com/${twitterLink}`} style={STYLES.info.link.container}>
+                    <FontAwesome name="twitter" size="2x" style={STYLES.info.link.twitter} />
+                    <div>{twitterLink}</div>
+                </a>
             );
         }
     }
 
     renderFourSquare(venueID: string) {
         return (
-            <div>
-                <a href={`http://www.foursquare.com/${venueID}`} style={STYLES.info.link.container}>
-                    <FontAwesome name="foursquare" size="2x" style={STYLES.info.link.foursquare} />
-                    <div>Venue Page</div>
-                </a>
-            </div>
+            <a href={`http://www.foursquare.com/v/${venueID}`} style={STYLES.info.link.container}>
+                <FontAwesome name="foursquare" size="2x" style={STYLES.info.link.foursquare} />
+                <div>Venue Page</div>
+            </a>
         );
     }
 
     renderWebsite(website: string) {
-        return (
-            <div>
+        if (website) {
+            return (
                 <a href={website} style={STYLES.info.link.container}>
                     <FontAwesome name="globe" size="2x" style={STYLES.info.link.website} />
                     <div>Website</div>
                 </a>
-            </div>
-        );
+            );
+        }
     }
 
-    renderHours() {
-        const { hours } = this.props.place;
-
+    renderHours(hours: Object) {
         if (hours) {
             return (
                 <div style={STYLES.info.body}>
@@ -161,9 +151,7 @@ export default class FullCard extends Component {
         }
     }
 
-    renderDescription() {
-        const { description } = this.props.place;
-
+    renderDescription(description: string) {
         if (description) {
             return (
                 <div style={STYLES.info.body}>
@@ -172,6 +160,14 @@ export default class FullCard extends Component {
                 </div>
             );
         }
+    }
+
+    renderMap(lat: number, lng: number, name: string) {
+        return (
+            <div style={STYLES.map}>
+                <Map name={name} lat={lat} lng={lng} />
+            </div>
+        );
     }
 
     truncateName(name: string) {
@@ -185,15 +181,12 @@ export default class FullCard extends Component {
 }
 
 const STYLES = {
-    container: (loaded) => {
-        return {
-            position: 'relative',
-            height: '450px',
-            transition: 'height 1s ease-out',
-            animation: 'x 1s ease-in-out 1s 1 normal forwards',
-            animationName: loaded ? STYLES.expandContainerAnimation : null,
-        }
-    },
+    container: (loaded) => ({
+        position: 'relative',
+        height: '450px',
+        animation: 'x 1s ease-in-out 1s 1 normal forwards',
+        animationName: loaded ? STYLES.expandContainerAnimation : null,
+    }),
 
     expandContainerAnimation: Radium.keyframes({
         '0%': {},
@@ -201,22 +194,19 @@ const STYLES = {
     }),
 
     cardImage: {
-        container: (loaded) => {
-            return {
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                width: '320px',
-                height: '380px',
-                backgroundColor: 'white',
-                willChange: 'height, width, transform',
-                transition: 'height 1s ease-out, width 1s ease-out',
-                animation: 'x 2s ease-in-out 0s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null
-            };
-        },
+        container: (loaded) => ({
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            width: '320px',
+            height: '380px',
+            backgroundColor: 'white',
+            boxShadow: '0px 13px 20px -4px rgba(0,0,0,0.5)',
+            animation: 'x 2s ease-in-out 0s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null
+        }),
 
         raiseImageAnimation: Radium.keyframes({
             '0%': {
@@ -234,83 +224,71 @@ const STYLES = {
             }
         }),
 
-        main: (loaded) => {
-            return {
-                transition: 'width 1s ease-out',
-                width: '900px',
-                animation: 'x 1s ease-in-out 1s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.expandImageAnimation : null,
-            };
-        },
+        main: (loaded) => ({
+            width: '900px',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.expandImageAnimation : null,
+        }),
 
         expandImageAnimation: Radium.keyframes({
             '0%': { width: '900px' },
-            '100%': { width: '100%' }
+            '100%': { width: '100vw' }
         }),
 
-        arrow: (loaded) => {
-            return {
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                opacity: 0,
-                color: 'gray',
-                cursor: 'pointer',
-                transform: 'scale(1.5, 2.25)',
-                animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.fadeArrowIn : null
-            };
-        },
+        arrow: (loaded) => ({
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            opacity: 0,
+            color: 'gray',
+            cursor: 'pointer',
+            transform: 'scale(1.5, 2.25)',
+            animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.fadeArrowIn : null
+        }),
 
         fadeArrowIn: Radium.keyframes({
             '0%': { opacity: 0 },
             '100%': { opacity: 0.75 }
         }),
 
-        favoriteButton: (loaded) => {
-            return {
-                position: 'absolute',
-                bottom: 0,
-                transform: 'scale(0.6, 0.6) translateY(20px)',
-                right: 15,
-                opacity: 0,
-                animation: 'x 1s ease-in-out 2.75s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.fadeFavoriteButton : null,
-            };
-        },
+        favoriteButton: (loaded) => ({
+            position: 'absolute',
+            bottom: 0,
+            transform: 'scale(0.6, 0.6) translateY(20px)',
+            right: 15,
+            opacity: 0,
+            animation: 'x 1s ease-in-out 2.75s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.fadeFavoriteButton : null,
+        }),
 
         fadeFavoriteButton: Radium.keyframes({
-            '0%': {
-
-            },
+            '0%': {},
             '100%': {
                 opacity: 1,
-                transform: 'scale(0.85, 0.85) translateY(-10px)',
+                transform: 'scale(1, 1) translateY(-10px)',
             }
         }),
 
         heart: {
             width: '56px',
-            transform: 'scale(1.25, 1.25)'
+            marginTop: '3px',
+            transform: 'scale(1.35, 1.35)'
         }
     },
 
     cardText: {
-        container: (loaded) => {
-            return {
-                position: 'absolute',
-                top: -55,
-                left: -7.5,
-                height: '450px',
-                width: '335px',
-                boxShadow: '3px 8px 12px #888888',
-                background: 'white',
-                opacity: 0,
-                transition: 'all 1s ease-out',
-                animation: 'x 1.7s ease-in-out 0.3s 1 normal forwards',
-                animationName: loaded ? STYLES.cardText.lowerTextAnimation : null
-            };
-        },
+        container: (loaded) => ({
+            position: 'absolute',
+            top: -55,
+            left: -7.5,
+            height: '450px',
+            width: '335px',
+            background: 'white',
+            opacity: 0,
+            animation: 'x 1.7s ease-in-out 0.3s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.lowerTextAnimation : null
+        }),
 
         lowerTextAnimation: Radium.keyframes({
             '0%': {
@@ -321,35 +299,45 @@ const STYLES = {
             '50%': {
                 transform: 'translateY(45px)',
                 opacity: 1,
-                left: -7.5,
                 height: '450px'
             },
 
             '100%': {
                 transform: 'translateY(45px)',
-                boxShadow: 'none',
                 opacity: 1,
                 width: '100%',
-                left: 0,
                 height: 'calc(100% + 90px)',
             }
         }),
 
-        text: (loaded) => {
-            return {
-                position: 'absolute',
-                top: 0,
-                left: 20,
-                marginRight: '12px',
-                marginBottom: '30px',
-                color: 'grey',
-                width: 'calc(100% - 20px)',
-                transform: 'translateY(335px)',
-                transition: 'transform 1s ease-out',
-                animation: 'x 1s ease-in-out 1s 1 normal forwards',
-                animationName: loaded ? STYLES.cardText.moveCardTextAnimation : null
-            };
-        },
+        shadow: (loaded) => ({
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: '5px',
+            width: '100%',
+            boxShadow: '3px 8px 12px #888888',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.fadeShadow : null
+        }),
+
+        fadeShadow: Radium.keyframes({
+            '0%': {},
+            '100%': { opacity: 0 }
+        }),
+
+        text: (loaded) => ({
+            position: 'absolute',
+            top: 0,
+            left: 20,
+            marginRight: '12px',
+            marginBottom: '30px',
+            color: 'grey',
+            width: 'calc(100% - 20px)',
+            transform: 'translateY(335px)',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.moveCardTextAnimation : null
+        }),
 
         moveCardTextAnimation: Radium.keyframes({
             '0%': { transform: 'translateY(335px)' },
@@ -357,27 +345,23 @@ const STYLES = {
             '100%': { transform: 'translateY(150px)' }
         }),
 
-        placeName: (loaded) => {
-            return {
-                fontSize: '20px',
-                animation: 'x 1s ease-in-out 1s 1 normal forwards',
-                animationName: loaded ? STYLES.cardText.placeNameSizingAnimation : null
-            };
-        },
+        placeName: (loaded) => ({
+            fontSize: '20px',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.placeNameSizingAnimation : null
+        }),
 
         placeNameSizingAnimation: Radium.keyframes({
             '0%': { },
             '100%': { fontSize: 'calc(2.5vw + 16px)' }
         }),
 
-        address: (loaded) => {
-            return {
-                color: primaryColor,
-                fontSize: '17px',
-                animation: 'x 1s ease-in-out 1s 1 normal forwards',
-                animationName: loaded ? STYLES.cardText.addressSizingAnimation : null
-            };
-        },
+        address: (loaded) => ({
+            color: primaryColor,
+            fontSize: '17px',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.addressSizingAnimation : null
+        }),
 
         addressSizingAnimation: Radium.keyframes({
             '0%': { },
@@ -386,24 +370,22 @@ const STYLES = {
     },
 
     cardActions: {
-        container: (loaded) => {
-            return {
-                position: 'absolute',
-                bottom: 7.5,
-                left: -10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                width: '100%',
-                fontSize: '14px',
-                animation: 'x 1s ease-in-out 1s 1 normal forwards',
-                animationName: loaded ? STYLES.cardActions.hideActionsAnimation : null,
-            };
-        },
+        container: (loaded) => ({
+            position: 'absolute',
+            bottom: 7.5,
+            left: -10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            width: '100%',
+            fontSize: '14px',
+            animation: 'x 1s ease-in-out 1s 1 normal forwards',
+            animationName: loaded ? STYLES.cardActions.hideActionsAnimation : null,
+        }),
 
         hideActionsAnimation: Radium.keyframes({
             '0%': { opacity: 1 },
-            '100%': { opacity: 0 }
+            '100%': { opacity: 0, display: 'none' }
         }),
 
         dislike: {
@@ -417,13 +399,11 @@ const STYLES = {
     },
 
     tag: {
-        main: (loaded) => {
-            return {
-                opacity: 0,
-                animation: 'x .75s ease-in-out 2s 1 normal forwards',
-                animationName: loaded ? STYLES.tag.fadeTagIn : null
-            };
-        },
+        main: (loaded) => ({
+            opacity: 0,
+            animation: 'x .75s ease-in-out 2s 1 normal forwards',
+            animationName: loaded ? STYLES.tag.fadeTagIn : null
+        }),
 
         fadeTagIn: Radium.keyframes({
             '0%': { opacity: 0 },
@@ -432,15 +412,13 @@ const STYLES = {
     },
 
     info: {
-        container: (loaded) => {
-            return {
-                display: 'flex',
-                flexWrap: 'wrap',
-                opacity: 0,
-                animation: 'x 1s ease-in-out 1.75s 1 normal forwards',
-                animationName: loaded ? STYLES.info.fadeInfoIn : null
-            };
-        },
+        container: (loaded) => ({
+            display: 'flex',
+            flexWrap: 'wrap',
+            opacity: 0,
+            animation: 'x 1s ease-in-out 1.75s 1 normal forwards',
+            animationName: loaded ? STYLES.info.fadeInfoIn : null
+        }),
 
         fadeInfoIn: Radium.keyframes({
             '0%': { opacity: 0 },
@@ -457,6 +435,8 @@ const STYLES = {
         },
 
         contact: {
+            display: 'flex',
+            flexDirection: 'column',
             marginRight: '10%'
         },
 
@@ -464,7 +444,6 @@ const STYLES = {
             container: {
                 display: 'inline-flex',
                 alignItems: 'center',
-                // transform: 'scale(0.9, 0.9)'
             },
 
             phone: {
@@ -490,9 +469,7 @@ const STYLES = {
     },
 
     map: {
-        width: '100%',
-        display: 'flex',
+        width: '98%',
         marginTop: '20px'
-        // justifyContent: 'center'
     }
 };

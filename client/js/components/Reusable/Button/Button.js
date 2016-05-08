@@ -30,6 +30,7 @@ export default class Button extends Component {
             backgroundColor: this.getColor(type),
             opacity: disabled ? 0.6 : 1
         };
+        
         return (
             <div style={style}>
                 <button

@@ -32,6 +32,7 @@
     "koa-send": "^3.2.0",
     "koa-static": "^2.0.0",
     "leaflet": "^0.7.7",
+    "loadings": "0.0.3",
     "lodash": "^4.10.0",
     "material-ui": "^0.15.0-alpha.2",
     "radium": "^0.17.1",

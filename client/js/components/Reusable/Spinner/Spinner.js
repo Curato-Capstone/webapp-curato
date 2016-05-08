@@ -19,7 +19,8 @@ export default class Spinner extends Component {
 
 const STYLES = {
     position: 'fixed',
-    top: '35%',
-    left: '50%',
+    top: '40%',
+    left: '48%',
+    opacity: 0.85,
     zIndex: 99
 };

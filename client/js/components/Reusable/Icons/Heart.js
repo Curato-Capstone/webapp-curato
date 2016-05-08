@@ -44,7 +44,7 @@ const heartBurst = Radium.keyframes({
 
 const STYLES = {
     main: {
-        height: '35px',
+        height: '40px',
         width: '60px',
         cursor: 'pointer',
         backgroundImage: `url(${require('images/icons/heart.png')})`,

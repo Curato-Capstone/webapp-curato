@@ -2,30 +2,38 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
-export default class SimpleExample extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            lat: 51.505,
-            lng: -0.09,
-            zoom: 13,
-        };
-    }
+@Radium
+export default class MyMap extends Component {
+    static defaultProps = {};
+    props: {
+        lat: number,
+        lng: number,
+        name: string
+    };
+    state: void;
 
     render() {
-        const position = [this.state.lat, this.state.lng];
+        const { lat, lng, name } = this.props;
+
         return (
-            <Map id="blah" center={[47.59836964993318, -123.32291156506479]} zoom={this.state.zoom}>
+            <Map center={[lat, lng]} zoom={18} style={STYLES.map}>
                 <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    detectRetina="true"
                 />
-                <Marker position={[47.59836964993318, -123.32291156506479]}>
+                <Marker position={[lat, lng]}>
                     <Popup>
-                        <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
+                        <span>{name}</span>
                     </Popup>
                 </Marker>
             </Map>
         );
+    }
+}
+
+const STYLES = {
+    map: {
+        width: '100%',
+        height: '200px'
     }
 };
