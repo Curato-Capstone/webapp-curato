@@ -33,22 +33,10 @@ const STYLES = {
 
     messageType: (type) => {
         if (type === 'warning') {
-            return STYLES.warning;
+            return { backgroundColor: '#FFF176' };
         } else if (type === 'success') {
-            return STYLES.success;
+            return { backgroundColor: '#81C784' };
         }
-        return STYLES.failure;
-    },
-
-    warning: {
-        backgroundColor: '#FFF176',
-    },
-
-    success: {
-        backgroundColor: '#81C784',
-    },
-
-    failure: {
-        backgroundColor: '#E57373',
+        return { backgroundColor: '#E57373' };
     }
 };

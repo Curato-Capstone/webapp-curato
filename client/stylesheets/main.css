@@ -72,6 +72,11 @@ input {
     border: none
 }
 
+#blah {
+    height: 400px;
+    width: 100%;
+}
+
 /*have to do this because radium doesn't work with react-flip-move*/
 @media (min-width: 1200px) {
     .suggestionsContainer {

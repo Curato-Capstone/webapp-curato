@@ -2,11 +2,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
+import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 
 @Radium
 export default class MyStepper extends Component {

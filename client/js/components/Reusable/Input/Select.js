@@ -10,10 +10,10 @@ import MenuItem from 'material-ui/MenuItem';
 export default class Select extends Component {
     static defaultProps = {};
     props: {
-        options: Array<string>,
-        value: string,
-        onChange: () => void,
-        placeholder: string
+        options      : Array<string>,
+        value        : string,
+        onChange     : () => void,
+        placeholder? : string
     };
     state: void;
 

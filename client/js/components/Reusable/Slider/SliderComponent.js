@@ -102,16 +102,12 @@ export default class SliderComponent extends Component {
         const { value, tooltipValues } = this.props;
         const length = tooltipValues.length;
 
-        for (let i = 0; i <= length; i++) {
-            // 200 = length (200)
-            if (value < ((200 + 1) / length) * (i + 1)) {
-                return (
-                    <div style={STYLES.tooltipText} key={tooltipValues[i]}>
-                        {tooltipValues[i]}
-                    </div>
-                );
-            }
-        }
+        const index = Math.round(value / (200 / (length - 1)));
+        return (
+            <div style={STYLES.tooltipText} key={index}>
+                {tooltipValues[index]}
+            </div>
+        );
     }
 }
 
@@ -144,87 +140,76 @@ const STYLES = {
         borderRadius: '5px'
     },
 
-    coloredBar: (value: number) => {
-        return {
-            position: 'absolute',
-            height: '4px',
-            width: `${value + 5}px`,
-            marginTop: '6px',
-            cursor: 'pointer',
-            backgroundColor: primaryColor,
-            zIndex: 5,
-            borderRadius: '5px',
-            transition: 'width .55s ease-out'
-        };
-    },
+    coloredBar: (value: number) => ({
+        position: 'absolute',
+        height: '4px',
+        width: `${value + 5}px`,
+        marginTop: '6px',
+        cursor: 'pointer',
+        backgroundColor: primaryColor,
+        zIndex: 5,
+        borderRadius: '5px',
+        transition: 'width .55s ease-out'
+    }),
 
-    circle: (value: number) => {
-        return {
-            position: 'absolute',
-            left: `${value + 70}px`,
-            height: '16px',
-            width: '16px',
-            cursor: 'pointer',
-            borderRadius: '50%',
-            backgroundColor: primaryColor,
-            zIndex: 10
-        };
-    },
+    circle: (value: number) => ({
+        position: 'absolute',
+        left: `${value + 70}px`,
+        height: '16px',
+        width: '16px',
+        cursor: 'pointer',
+        borderRadius: '50%',
+        backgroundColor: primaryColor,
+        zIndex: 10
+    }),
 
-    biggerCircle: (value: number, dragging: boolean) => {
-        return {
-            position: 'absolute',
-            left: `${value + 70}px`,
-            height: '50px',
-            width: '50px',
-            marginLeft: '-16px',
-            marginTop: '-16px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            backgroundColor: 'lightgrey',
-            opacity: dragging ? 0.2 : 0,
-            zIndex: 3,
-            transition: 'opacity .25s ease-out'
-        };
-    },
+    biggerCircle: (value: number, dragging: boolean) => ({
+        position: 'absolute',
+        left: `${value + 70}px`,
+        height: '50px',
+        width: '50px',
+        marginLeft: '-16px',
+        marginTop: '-16px',
+        borderRadius: '50%',
+        cursor: 'pointer',
+        backgroundColor: 'lightgrey',
+        opacity: dragging ? 0.2 : 0,
+        zIndex: 3,
+        transition: 'opacity .25s ease-out'
+    }),
 
-    tooltip: (value: number, dragging: boolean) => {
-        return {
-            position: 'absolute',
-            left: `${value - 20}px`,
-            bottom: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            background: 'rgba(222, 138, 125, 0.95)',
-            color: '#fff',
-            marginBottom: '-45px',
-            textAlign: 'center',
-            opacity: dragging ? 0.9 : 0,
-            padding: '20px',
-            pointerEvents: 'none',
-            width: '45%',
-            zIndex: 100,
-            boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
-            transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
-            /* revisit */
-            transition: 'all .3s ease-out',
-        };
-    },
+    tooltip: (value: number, dragging: boolean) => ({
+        position: 'absolute',
+        left: `${value - 20}px`,
+        bottom: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgba(222, 138, 125, 0.95)',
+        color: '#fff',
+        marginBottom: '-45px',
+        textAlign: 'center',
+        opacity: dragging ? 0.9 : 0,
+        padding: '20px',
+        pointerEvents: 'none',
+        width: '45%',
+        zIndex: 100,
+        boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.28)',
+        transform: dragging ? 'translateY(20px)' : 'translateY(40px)',
+        transition: 'all .3s ease-out',
+    }),
 
-    triangle: (value: number, dragging: boolean) => {
-        return {
-            position: 'absolute',
-            top: 55,
-            left: `${value + 80}px`,
-            marginLeft: '-13px',
-            borderLeft: 'solid transparent 10px',
-            borderRight: 'solid transparent 10px',
-            borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
-            opacity: dragging ? 1 : 0,
-            transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
-            transition: 'all .3s ease-out',
-        };
-    },
+    triangle: (value: number, dragging: boolean) => ({
+        position: 'absolute',
+        top: 55,
+        left: `${value + 80}px`,
+        marginLeft: '-13px',
+        borderLeft: 'solid transparent 10px',
+        borderRight: 'solid transparent 10px',
+        borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
+        opacity: dragging ? 1 : 0,
+        transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
+        transition: 'all .3s ease-out',
+    }),
 
     tooltipText: {}
 };

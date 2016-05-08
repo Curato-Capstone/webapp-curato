@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 import Heart from './Heart';
+import CheckMark from './CheckMark';
 
 @Radium
 export default class Example extends Component {
@@ -21,6 +22,7 @@ export default class Example extends Component {
                 <div onClick={() => this.setState({ heartActive: !heartActive })}>
                     <Heart active={heartActive} />
                 </div>
+                <CheckMark />
             </div>
         );
     }

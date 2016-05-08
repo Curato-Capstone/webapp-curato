@@ -26,28 +26,17 @@ export default class Heart extends Component {
 }
 
 const checkMark = Radium.keyframes({
-    '0%': {
-        strokeDashoffset: '50px'
-    },
-
-    '100%': {
-        strokeDashoffset: 0
-    }
-}, 'checkMark');
+    '0%': { strokeDashoffset: '50px' },
+    '100%': { strokeDashoffset: 0 }
+});
 
 const checkMarkCircle = Radium.keyframes({
-    '0%': {
-        strokeDashoffset: '240px'
-    },
-
-    '100%': {
-        strokeDashoffset: '480px'
-    }
-}, 'checkmMarkCircle');
+    '0%': { strokeDashoffset: '240px' },
+    '100%': { strokeDashoffset: '480px' }
+});
 
 const STYLES = {
     container: {
-        // transform: 'scale(.25, .25)',
         height: '35px',
         width: '35px',
     },

@@ -5,8 +5,8 @@ import Radium from 'radium';
 @Radium
 export default class Tag extends Component {
     static defaultProps;
-
     props: { text: string };
+    state: void;
 
     render() {
         let { text } = this.props;
@@ -14,8 +14,8 @@ export default class Tag extends Component {
         return (
             <div style={STYLE.container}>
                 <span style={STYLE.tag}>{text}</span>
-                <div style={STYLE.before}></div>
-                <span style={STYLE.after}></span>
+                <div style={STYLE.before} />
+                <span style={STYLE.after} />
             </div>
         );
     }

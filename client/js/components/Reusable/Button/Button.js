@@ -3,23 +3,21 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { primaryColor, secondaryColor } from 'utils/colors';
 
-import RaisedButton from 'material-ui/RaisedButton';
-
 @Radium
 export default class Button extends Component {
     static defaultProps = {
         type        : 'primary',
         disabled    : false,
         handleClick : () => {},
-        style       : {}
+        size        : 'md'
     };
     props: {
         label       : string,
         type        : 'primary' | 'secondary' | 'submit',
         handleClick : (event: Object) => void,
         disabled    : boolean,
-        style       : Object,
-        size       : 'sm' | 'md' | 'lg'
+        style?      : Object,
+        size        : 'sm' | 'md' | 'lg'
     };
     state: void;
 
@@ -45,7 +43,7 @@ export default class Button extends Component {
         );
     }
 
-    getDimensions(size: string): Object {
+    getDimensions(size: string): Object | void {
         if (size === 'sm') {
             return {
                 borderRadius: '2em',

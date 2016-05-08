@@ -29,7 +29,7 @@ export default class Card extends Component {
     state : { loaded: bool };
 
     render() {
-        const { place, favorite, hideDislike, handleDislike, handleFavorite } = this.props;
+        const { place, favorite, handleFavorite } = this.props;
         const { loaded } = this.state;
 
         return (

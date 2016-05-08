@@ -82,7 +82,7 @@ const STYLES = {
         height: '100vh',
         minHeight: '600px',
         width: '50px',
-        zIndex: '999',
+        zIndex: '9',
         backgroundColor: primaryColor,
         transition: 'width 0.7s ease-in-out',
         '@media (min-width: 520px)': {

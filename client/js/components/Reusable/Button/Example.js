@@ -19,6 +19,9 @@ export default class Example extends Component {
 
                 <Button label="Disabled Primary Button" type="primary" disabled />
                 <Button label="Disabled Secondary Button" type="secondary" disabled />
+
+                <Button label="Primary Button Large" size="lg" />
+                <Button label="Primary Button Small" size="sm" />
             </div>
         );
     }

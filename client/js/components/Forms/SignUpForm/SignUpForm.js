@@ -86,8 +86,8 @@ class SignUpForm extends Component {
                     <Field name="gender" component={gender =>
                         <div style={STYLES.selectField}>
                             <Select
-                                options={['male', 'female']}
-                                floatingLabelText="Gender"
+                                options={['male', 'female', 'other']}
+                                floatingLabelText="Gender*"
                                 {...gender}
                             />
                         </div>
