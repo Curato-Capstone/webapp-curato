@@ -71,7 +71,7 @@ const revealButtonKeyframes = Radium.keyframes({
 const STYLES = {
     container: {
         height: '100%',
-        minHeight: '300px',
+        minHeight: '100vh',
         width: '100%'
     },
 
@@ -81,7 +81,7 @@ const STYLES = {
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-        height: '100%',
+        minHeight: '100vh',
         opacity: 0,
         animation: 'x .8s ease-in-out 0s 1 normal forwards',
         animationName: lowerSearchBarKeyframes,

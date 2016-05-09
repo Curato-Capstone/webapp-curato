@@ -75,12 +75,8 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        minHeight: '300px',
+        minHeight: '100vh',
         paddingTop: '72px',
-        marginLeft: '16px',
-        marginRight: '16px',
         boxSizing: 'border-box'
     },
 

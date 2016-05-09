@@ -77,7 +77,7 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: '100vh',
+        height: '110vh',
         minHeight: '600px',
         width: '50px',
         zIndex: '9',
@@ -127,12 +127,13 @@ const STYLES = {
 
     active: (item: number) => ({
         position: 'absolute',
-        top: 38 + 125 * item,
-        left: 2,
+        top: 38,
+        transform: `translateY(${125 * item}px)`,
+        left: 3,
         height: '55px',
         width: '3px',
         backgroundColor: 'white',
-        transition: 'top 0.4s ease-in-out',
+        transition: 'transform 0.5s ease-in-out',
         '@media (min-width: 520px)': {
             left: 4
         }

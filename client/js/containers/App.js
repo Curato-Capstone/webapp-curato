@@ -55,7 +55,7 @@ class App extends Component {
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>
                     {this.renderMessageBar()}
                 </FlipMove>
-                    {this.renderNavigation()}
+                {this.renderNavigation()}
                 {this.renderSpinner()}
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={500} style={STYLES.app}>
                     {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
@@ -94,7 +94,7 @@ class App extends Component {
         }
 
         return (
-            <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={1000} style={STYLES.navContainer}>
+            <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.navContainer}>
                 {nav}
             </FlipMove>
         );
@@ -119,7 +119,6 @@ const STYLES = {
 
     app: {
         minHeight: '100vh',
-        height: '1vh',
         width: '100%'
     },
 
