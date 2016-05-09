@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
@@ -60,7 +59,6 @@ class App extends Component {
             );
         }
 
-        console.log(this.props.location.pathname)
         return (
             <div style={STYLES.container}>
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>

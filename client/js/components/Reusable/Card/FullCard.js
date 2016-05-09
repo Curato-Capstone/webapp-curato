@@ -4,6 +4,7 @@ import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import padRight from 'pad-right';
 
 import type { Place } from 'flow/types';
 import { primaryColor } from 'utils/colors';
@@ -139,13 +140,13 @@ export default class FullCard extends Component {
             return (
                 <div style={STYLES.info.body}>
                     <h2 style={STYLES.info.header}>Hours</h2>
-                    <div>{`Monday:    ${hours.Mon}`}</div>
-                    <div>{`Tuesday:   ${hours.Tue}`}</div>
-                    <div>{`Wednesday: ${hours.Wed}`}</div>
-                    <div>{`Thursday:  ${hours.Thu}`}</div>
-                    <div>{`Friday:    ${hours.Fri}`}</div>
-                    <div>{`Saturday:  ${hours.Sat}`}</div>
-                    <div>{`Sunday:    ${hours.Sun}`}</div>
+                    <div><span style={STYLES.info.hour}>Monday:</span>    {hours.Mon}</div>
+                    <div><span style={STYLES.info.hour}>Tuesday:</span>   {hours.Tue}</div>
+                    <div><span style={STYLES.info.hour}>Wednesday:</span> {hours.Wed}</div>
+                    <div><span style={STYLES.info.hour}>Thursday:</span>  {hours.Thu}</div>
+                    <div><span style={STYLES.info.hour}>Friday:</span>    {hours.Fri}</div>
+                    <div><span style={STYLES.info.hour}>Saturday:</span>  {hours.Sat}</div>
+                    <div><span style={STYLES.info.hour}>Sunday:</span>    {hours.Sun}</div>
                 </div>
             );
         }
@@ -465,6 +466,11 @@ const STYLES = {
                 color: 'green',
                 width: '36px'
             }
+        },
+
+        hour: {
+            width: '100px',
+            display: 'inline-block'
         }
     },
 

@@ -33,6 +33,8 @@ export default class SliderComponent extends Component {
                 id={name}
                 style={STYLES.container}
                 onMouseMove={this.handleDrag}
+                onTouchMove={this.handleDrag}
+                onTouchEnd={this.handleDragDone}
                 onMouseLeave={this.handleDragDone}
                 onMouseUp={this.handleDragDone}
             >
@@ -46,6 +48,7 @@ export default class SliderComponent extends Component {
                         <div
                             style={STYLES.circle(value)}
                             onMouseDown={() => this.setState({ dragging: true })}
+                            onTouchStart={() => this.setState({ dragging: true })}
                         />
                         <div style={STYLES.biggerCircle(value, dragging)} />
                     </div>
