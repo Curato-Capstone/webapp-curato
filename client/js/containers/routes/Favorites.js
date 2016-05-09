@@ -76,9 +76,12 @@ const STYLES = {
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-        marginTop: '72px',
+        height: '100%',
+        minHeight: '300px',
+        paddingTop: '72px',
         marginLeft: '16px',
         marginRight: '16px',
+        boxSizing: 'border-box'
     },
 
     empty: {

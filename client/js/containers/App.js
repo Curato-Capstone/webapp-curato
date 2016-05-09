@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
 
@@ -51,22 +50,16 @@ class App extends Component {
     }
 
     renderComponents() {
-        if (this.props.auth.isAuthenticating) {
-            return (
-                <div style={STYLES.container}>
-                    {this.renderSpinner()}
-                </div>
-            );
-        }
-
         return (
             <div style={STYLES.container}>
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>
                     {this.renderMessageBar()}
                 </FlipMove>
-                {this.renderNavigation()}
+                    {this.renderNavigation()}
                 {this.renderSpinner()}
-                {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
+                <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={500} style={STYLES.app}>
+                    {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
+                </FlipMove>
             </div>
         );
     }
@@ -85,17 +78,26 @@ class App extends Component {
     renderNavigation() {
         const { location, user } = this.props;
 
-        if (!location.pathname.includes('intro')
-            && !location.pathname.includes('signin')
-            && !location.pathname.includes('place')) {
-            return (
-                <div style={STYLES.navContainer}>
+        if (location.pathname.includes('intro') || location.pathname.includes('signin')) {
+            return null;
+        }
+
+        let nav;
+        if (!location.pathname.includes('place')) {
+            nav = (
+                <div key="navigation">
                     <SideNav location={location} />
                     <UserAvatar name={user.name} />
                     <BreadCrumbs location={location} />
                 </div>
             );
         }
+
+        return (
+            <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={1000} style={STYLES.navContainer}>
+                {nav}
+            </FlipMove>
+        );
     }
 
     renderSpinner() {
@@ -113,6 +115,12 @@ const STYLES = {
         display: 'flex',
         backgroundColor: '#F6F6F6',
         minHeight: '100vh'
+    },
+
+    app: {
+        minHeight: '100vh',
+        height: '1vh',
+        width: '100%'
     },
 
     navContainer: {
@@ -143,12 +151,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions
-        ), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
     };
 }
 

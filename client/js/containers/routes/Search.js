@@ -70,7 +70,7 @@ const revealButtonKeyframes = Radium.keyframes({
 
 const STYLES = {
     container: {
-        height: '100vh',
+        height: '100%',
         minHeight: '300px',
         width: '100%'
     },
