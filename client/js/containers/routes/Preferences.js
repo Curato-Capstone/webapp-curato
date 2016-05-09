@@ -14,7 +14,8 @@ import { preferencesInfo } from 'utils/preferences';
 import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
 
-const preferencesList = ['price'];
+const preferencesList = ['price', 'culture', 'food', 'outdoors',
+    'entertainment', 'relaxation', 'shopping', 'sports'];
 
 @Radium
 class Preferences extends Component {

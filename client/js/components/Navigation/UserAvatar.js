@@ -26,10 +26,11 @@ export default class UserAvatar extends Component {
 const STYLES = {
     container: {
         position: 'absolute',
-        right: 0,
+        left: 'calc(90vw)',
         display: 'inline-flex',
         alignItems: 'center',
         height: '50px',
+        width: '300px',
         marginRight: '20px',
         marginTop: '5px',
         zIndex: 5

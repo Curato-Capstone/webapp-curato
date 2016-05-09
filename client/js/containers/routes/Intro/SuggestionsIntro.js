@@ -23,10 +23,6 @@ class Suggestions extends Component {
      };
     state: void;
 
-    componentWillMount() {
-        // this.props.actions.getSuggestionsNoAccount();
-    }
-
     render() {
         const { actions, suggestions } = this.props;
 
@@ -122,7 +118,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions, suggestionsActions), dispatch),
+        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
     };
 }
 

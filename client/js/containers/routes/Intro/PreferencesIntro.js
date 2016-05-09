@@ -95,7 +95,6 @@ const STYLES = {
         overflowY: 'scroll',
         width: '100%',
         height: '300px',
-        // marginTop: '24px'
     },
 
     slider: {
@@ -106,7 +105,6 @@ const STYLES = {
             justifyContent: 'center',
             alignItems: 'center',
             width: '300px',
-            // height: '100%'
         },
 
         name: {
@@ -156,7 +154,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions, suggestionsActions), dispatch),
+        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
     };
 }
 
