@@ -100,6 +100,7 @@ const STYLES = {
         justifyContent: 'center',
         position: 'relative',
         width: '100%',
+        minHeight: '100vh'
     },
 
     cardsContainer: {

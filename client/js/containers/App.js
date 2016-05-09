@@ -73,6 +73,8 @@ class App extends Component {
         } else if (successMessage) {
             return <MessageBar key={successMessage} type="success" message={successMessage} />;
         }
+
+        return <span />;
     }
 
     renderNavigation() {
@@ -123,10 +125,7 @@ const STYLES = {
     },
 
     navContainer: {
-        width: '80px',
-        '@media (min-width: 520px)': {
-            marginRight: '12px'
-        }
+        width: '80px'
     },
 
     messageBar: {
