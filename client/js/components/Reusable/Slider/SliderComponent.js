@@ -33,7 +33,7 @@ export default class SliderComponent extends Component {
                 id={name}
                 style={STYLES.container}
                 onMouseMove={this.handleDrag}
-                onTouchMove={this.handleDrag}
+                onTouchMove={this.handleDragTouch}
                 onTouchEnd={this.handleDragDone}
                 onMouseLeave={this.handleDragDone}
                 onMouseUp={this.handleDragDone}
@@ -68,6 +68,26 @@ export default class SliderComponent extends Component {
         if (this.state.dragging) {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
             const location = e.clientX - left;
+
+            // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
+            // 80 = left padding (70) + (container width (220) - slider width (200))
+            let moveTo;
+            if ((location <= 280) && (location >= 80)) {
+                moveTo = location - 80;
+            } else if (location >= 280) {
+                moveTo = 200;
+            } else if (location <= 80) {
+                moveTo = 0;
+            }
+            window.requestAnimationFrame(() => this.props.handleChange(moveTo));
+        }
+    }
+
+    @autobind
+    handleDragTouch(e: Object): void {
+        if (this.state.dragging) {
+            const left = document.getElementById(this.props.name).getBoundingClientRect().left;
+            const location = e.touches[0].clientX - left;
 
             // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
             // 80 = left padding (70) + (container width (220) - slider width (200))
@@ -163,7 +183,7 @@ const STYLES = {
         cursor: 'pointer',
         borderRadius: '50%',
         backgroundColor: primaryColor,
-        zIndex: 10
+        zIndex: 10,
     }),
 
     biggerCircle: (value: number, dragging: boolean) => ({
