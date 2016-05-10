@@ -227,6 +227,7 @@ const STYLES = {
 
         main: (loaded) => ({
             width: '900px',
+            minWidth: '900px',
             animation: 'x 1s ease-in-out 1s 1 normal forwards',
             animationName: loaded ? STYLES.cardImage.expandImageAnimation : null,
         }),

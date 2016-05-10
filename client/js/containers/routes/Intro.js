@@ -53,9 +53,9 @@ const STYLES = {
     },
 
     card: {
-        width: '95%',
+        width: '92%',
         maxWidth: '600px',
-        height: '450px',
+        minHeight: '450px',
         margin: '20px',
         boxSizing: 'border-box',
         padding: '12px',

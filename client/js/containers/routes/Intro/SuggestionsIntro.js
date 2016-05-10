@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import FlipMove from 'react-flip-move';
+import FontAwesome from 'react-fontawesome';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
+import { primaryColor, secondaryColor } from 'utils/colors';
+
 import Header from 'components/Intro/Header';
 import Card from 'reusable/Card/Card';
 import Button from 'reusable/Button/Button';
+import Dots from 'reusable/Dots/Dots';
 
 @Radium
 class Suggestions extends Component {
@@ -21,29 +25,59 @@ class Suggestions extends Component {
         favorites: Array<Object>,
         suggestions: Array<Object>
      };
-    state: void;
+     state = { suggestionNum: 0 };
+     state : { suggestionNum: number };
 
     render() {
         const { actions, suggestions } = this.props;
+        const { suggestionNum } = this.state;
+
+        const place = suggestions[suggestionNum];
+        const items = suggestions.slice(0, 3).map((pref, index) => {
+            return {
+                name: index,
+                handleClick: () => this.setState({ suggestionNum: index })
+            };
+        });
 
         return (
             <div style={STYLES.container}>
                 <Header text="Your Suggestions!" />
-                <div style={STYLES.text}>These are the suggestions we came up with!</div>
+                <div style={STYLES.text}>
+                    These are the suggestions we came up with!
+                    If you like it, tap on the heart to add it to
+                    your favorites. If you don't, tap on "I don't like this",
+                    and you won't see it suggested again. We use this information
+                    to help give you even better suggestions in the future!
+                </div>
                 <div style={STYLES.cardContainer}>
-                    {suggestions.slice(0, 1).map((place, index) => {
-                        return (
-                            <div style={STYLES.card} key={place.id}>
-                                <Card
-                                    place={place}
-                                    favorite={this.checkFavorited(place)}
-                                    handleFavorite={() => this.handleFavorite(place, index)}
-                                    handleDislike={() => actions.removeSuggestion(index)}
-                                    handleMore={() => {}}
-                                />
-                            </div>
-                        );
-                    })}
+                    <div style={STYLES.card} key={place.id}>
+                        <Card
+                            place={place}
+                            favorite={this.checkFavorited(place)}
+                            handleFavorite={() => this.handleFavorite(place)}
+                            handleDislike={() => actions.removeSuggestion()}
+                            handleMore={() => {}}
+                        />
+                    </div>
+                    <div style={STYLES.dots.container}>
+                        <FontAwesome
+                            name="arrow-left"
+                            size="2x"
+                            style={{...STYLES.dots.leftArrow, ...STYLES.dots.arrow(suggestionNum === 0)}}
+                            onClick={() => this.setState({ suggestionNum: suggestionNum - 1 })}
+                        />
+                        <Dots
+                            items={items}
+                            active={suggestionNum}
+                        />
+                        <FontAwesome
+                            name="arrow-right"
+                            size="2x"
+                            style={{...STYLES.dots.rightArrow, ...STYLES.dots.arrow(suggestionNum === suggestions.length - 1)}}
+                            onClick={() => this.setState({ suggestionNum: suggestionNum + 1 })}
+                        />
+                    </div>
                 </div>
                 <div style={STYLES.buttonContainer}>
                     <Link to="/intro/signup">
@@ -66,9 +100,9 @@ class Suggestions extends Component {
         return false;
     }
 
-    handleFavorite(place, index) {
+    handleFavorite(place) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavorite(index);
+            this.props.actions.removeFavorite();
         } else {
             this.props.actions.addFavorite(place);
         }
@@ -83,31 +117,61 @@ const STYLES = {
 
     cardContainer: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
-        overflow: 'scroll',
-        overflowY: 'hidden',
-        height: '350px',
         alignItems: 'center',
         '@media (min-width: 520px)': {
-            height: '450px'
         },
 
     },
 
     card: {
-        // transform: 'scale(0.7, 0.7)'
+        height: '420px',
+        transform: 'scale(0.9, 0.9) translateY(-30px)',
+        '@media (min-width: 520px)': {
+            height: '500px'
+        },
     },
 
     text: {
+        fontSize: '12px',
         margin: '24px',
-        textAlign: 'center'
+        textAlign: 'center',
+        '@media (min-width: 520px)': {
+            fontSize: '15px'
+        },
     },
 
     buttonContainer: {
+        // position: 'absolute',
+        // bottom: 10,
         width: '100%',
         display: 'flex',
         justifyContent: 'center'
-    }
+    },
+
+    dots: {
+        container: {
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '20px'
+        },
+
+        arrow: (disabled: bool) => ({
+            color: disabled ? 'grey' : primaryColor,
+            pointerEvents: disabled ? 'none' : '',
+            cursor: disabled ? '' : 'pointer'
+        }),
+
+        leftArrow: {
+            // marginRight: '5px'
+        },
+
+        rightArrow: {
+            color: primaryColor,
+            marginLeft: '16px'
+        }
+    },
 };
 
 function mapStateToProps(state) {

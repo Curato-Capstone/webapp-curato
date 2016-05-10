@@ -130,8 +130,10 @@ const STYLES = {
 
         main: {
             width: '700px',
+            minWidth: '700px',
             '@media (min-width: 520px)': {
                 width: '900px',
+                minWidth: '900px'
             },
         }
     },
