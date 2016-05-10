@@ -51,6 +51,9 @@ class Preferences extends Component {
                                         style={STYLES.icon(info.color)}
                                     />
                                 </div>
+                                <div style={STYLES.sliderDescription(info.color)}>
+                                    {info.tooltipValues[preferences[preferenceName] - 1]}
+                                </div>
                             </div>
                         );
                     })}
@@ -72,10 +75,11 @@ const STYLES = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh',
+        // minHeight: '100vh',
         marginTop: '30px',
-        height: '1vh',
-        boxSizing: 'border-box'
+        marginLeft: '12px',
+        // height: '1vh',
+        boxSizing: 'border-box',
     },
 
     header: {
@@ -94,7 +98,7 @@ const STYLES = {
 
     sliderContainer: {
         position: 'relative',
-        margin: '12px',
+        margin: '30px',
         backgroundColor: 'white',
         boxShadow: '3px 8px 12px #888888'
     },
@@ -114,6 +118,16 @@ const STYLES = {
         fontSize: '24px',
         fontWeight: '200'
     },
+
+    sliderDescription: (color: string) => ({
+        display: 'flex',
+        justifyContent: 'center',
+        width: '360px',
+        margin: '0 0px 16px 0px',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        color
+    }),
 
     icon: (color: string) => ({
         marginLeft: '12px',

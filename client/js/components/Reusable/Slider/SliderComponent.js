@@ -166,24 +166,26 @@ const STYLES = {
 
     circle: (value: number, color: string) => ({
         position: 'absolute',
-        left: `${value + 70}px`,
+        left: '70px',
         height: '16px',
         width: '16px',
         cursor: 'pointer',
         borderRadius: '50%',
+        transform: `translateX(${value}px)`,
         backgroundColor: color,
         zIndex: 10,
     }),
 
     biggerCircle: (value: number, dragging: boolean) => ({
         position: 'absolute',
-        left: `${value + 70}px`,
+        left: '70px',
         height: '50px',
         width: '50px',
         marginLeft: '-16px',
         marginTop: '-16px',
         borderRadius: '50%',
         cursor: 'pointer',
+        transform: `translateX(${value}px)`,
         backgroundColor: 'lightgrey',
         opacity: dragging ? 0.2 : 0,
         zIndex: 3,

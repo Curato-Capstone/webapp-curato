@@ -55,6 +55,7 @@ export const preferencesInfo = {
         color: '#00796B',
         tooltipValues: ['There\'s too much to do to relax!',
                         'I\'ll slow it down from time to time.',
+                        'blah',
                         'I like kicking back pretty often.',
                         'There\'s still sand in my shoes from the last time I was at the beach!']
     },
