@@ -31,7 +31,7 @@ class Suggestions extends Component {
                 <Header text="Your Suggestions!" />
                 <div style={STYLES.text}>These are the suggestions we came up with!</div>
                 <div style={STYLES.cardContainer}>
-                    {suggestions.slice(0, 3).map((place, index) => {
+                    {suggestions.slice(0, 1).map((place, index) => {
                         return (
                             <div style={STYLES.card} key={place.id}>
                                 <Card
@@ -47,7 +47,7 @@ class Suggestions extends Component {
                 </div>
                 <div style={STYLES.buttonContainer}>
                     <Link to="/intro/signup">
-                        <Button label="I'm ready to sign up!" type="primary" />
+                        <Button label="One Last Step!" type="primary" />
                     </Link>
                 </div>
             </div>
@@ -83,6 +83,7 @@ const STYLES = {
 
     cardContainer: {
         display: 'flex',
+        justifyContent: 'center',
         overflow: 'scroll',
         overflowY: 'hidden',
         height: '350px',
@@ -94,7 +95,7 @@ const STYLES = {
     },
 
     card: {
-        transform: 'scale(0.7, 0.7)'
+        // transform: 'scale(0.7, 0.7)'
     },
 
     text: {
