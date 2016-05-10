@@ -31,7 +31,6 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
@@ -45,7 +44,11 @@ module.exports = {
             },
             comments: false,
             sourceMap: false
-        })
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
     ],
 
     module: {
@@ -67,7 +70,10 @@ module.exports = {
 
             {
                 test: /\.(jpg|png|woff|woff2|eot|ttf|svg|otf|pdf)$/,
-                loader: 'url-loader?limit=10000'
+                loader: 'url-loader',
+                query: {
+                    limit: '10000'
+                }
             },
 
             {
