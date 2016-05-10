@@ -13,6 +13,7 @@ import FontAwesome from 'react-fontawesome';
 import Header from 'components/Intro/Header';
 import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
+import Dots from 'reusable/Dots/Dots';
 
 const preferencesList = ['price', 'culture', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
@@ -24,10 +25,22 @@ class Preferences extends Component {
         preferences: Object,
         actions: Object
     };
-    state: void;
+    state = { prefNum: 0 };
+    state : { prefNum: number };
 
     render() {
         const { preferences, actions } = this.props;
+        const { prefNum } = this.state;
+
+        const items = preferencesList.map((pref, index) => {
+            return {
+                name: pref,
+                handleClick: () => this.setState({ prefNum: index })
+            };
+        });
+
+        const preferenceName = preferencesList[prefNum];
+        const info = preferencesInfo[preferenceName];
 
         return (
             <div style={STYLES.container}>
@@ -38,32 +51,46 @@ class Preferences extends Component {
                     help find businesses that you’re interested in, and to also
                     find other people like you who may have similar interests.
                 </div>
-                <div style={STYLES.slidersContainer}>
-                    {preferencesList.map((preferenceName) => {
-                        const preferenceInfo = preferencesInfo[preferenceName];
-                        return (
-                            <div style={STYLES.slider.container} key={preferenceName}>
-                                <Slider
-                                    name={preferenceName}
-                                    value={preferences[preferenceName]}
-                                    handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    tooltipValues={preferenceInfo.tooltipValues}
-                                />
-                                <div style={STYLES.slider.name}>{preferenceInfo.name}</div>
-                                <FontAwesome
-                                    name={preferenceInfo.icon}
-                                    size="4x"
-                                    style={STYLES.slider.icon}
-                                />
-                            </div>
-                        );
-                    })}
+
+                <div style={STYLES.sliderContainer} key={preferenceName}>
+                    <Slider
+                        name={info.name}
+                        tooltipValues={info.tooltipValues}
+                        color={info.color}
+                        handleChange={(v) => actions.changePreference(preferenceName, v)}
+                        value={preferences[preferenceName]}
+                    />
+                    <div style={STYLES.sliderInfo(info.color)}>
+                        <div style={STYLES.sliderText}>{info.name}</div>
+                        <FontAwesome
+                            name={info.icon}
+                            size="2x"
+                            style={STYLES.icon(info.color)}
+                        />
+                    </div>
+                    <div style={STYLES.sliderDescription(info.color)}>
+                        {info.tooltipValues[preferences[preferenceName] - 1]}
+                    </div>
                 </div>
-                <FontAwesome
-                    name="arrows-h"
-                    size="3x"
-                    style={STYLES.arrow}
-                />
+                <div style={STYLES.dots.container}>
+                    <FontAwesome
+                        name="arrow-left"
+                        size="2x"
+                        style={{...STYLES.dots.leftArrow, ...STYLES.dots.arrow(prefNum === 0)}}
+                        onClick={() => this.setState({ prefNum: prefNum - 1 })}
+                    />
+                    <Dots
+                        items={items}
+                        active={prefNum}
+                    />
+                    <FontAwesome
+                        name="arrow-right"
+                        size="2x"
+                        style={{...STYLES.dots.rightArrow, ...STYLES.dots.arrow(prefNum === preferencesList.length - 1)}}
+                        onClick={() => this.setState({ prefNum: prefNum + 1 })}
+                    />
+                </div>
+
                 <div style={STYLES.buttonContainer}>
                     <Button
                         label="Get Your Suggestions!"
@@ -89,39 +116,43 @@ const STYLES = {
         color: primaryColor
     },
 
-    slidersContainer: {
+    sliderContainer: {
+        position: 'relative',
+        margin: '30px',
+        backgroundColor: 'white',
+        boxShadow: '3px 8px 12px #888888'
+    },
+
+    sliderInfo: (color: string) => ({
+        position: 'absolute',
+        top: 10,
+        left: 12,
         display: 'flex',
+        justifyContent: 'center',
         alignItems: 'center',
-        overflowY: 'scroll',
-        width: '100%',
-        height: '300px',
+        color
+    }),
+
+    sliderText: {
+        fontSize: '24px',
+        fontWeight: '200'
     },
 
-    slider: {
-        container: {
-            display: 'flex',
-            position: 'relative',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '300px',
-        },
+    sliderDescription: (color: string) => ({
+        display: 'flex',
+        justifyContent: 'center',
+        width: '360px',
+        margin: '0 0px 16px 0px',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        color
+    }),
 
-        name: {
-            position: 'absolute',
-            top: 0,
-            left: 30,
-            fontSize: '24px',
-            color: secondaryColor
-        },
-
-        icon: {
-            color: '#BC4432',
-            textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)',
-            marginTop: '12px',
-            opacity: '0.75'
-        }
-    },
+    icon: (color: string) => ({
+        marginLeft: '12px',
+        textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)',
+        color
+    }),
 
     text: {
         margin: '12px',
@@ -137,6 +168,29 @@ const STYLES = {
         textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)',
         margin: '20px',
         opacity: '0.75'
+    },
+
+    dots: {
+        container: {
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '20px'
+        },
+
+        arrow: (disabled: bool) => ({
+            color: disabled ? 'grey' : primaryColor,
+            pointerEvents: disabled ? 'none' : '',
+            cursor: disabled ? '' : 'pointer'
+        }),
+
+        leftArrow: {
+            // marginRight: '5px'
+        },
+
+        rightArrow: {
+            color: primaryColor,
+            marginLeft: '16px'
+        }
     },
 
     buttonContainer: {
