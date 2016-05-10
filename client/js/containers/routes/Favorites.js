@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import { Link } from 'react-router';
 
 import { primaryColor } from 'utils/colors';
@@ -105,12 +104,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions,
-        ), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions,
+        }, dispatch)
     };
 }
 

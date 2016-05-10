@@ -106,11 +106,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions
-        ), dispatch),
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions
+        }, dispatch),
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
