@@ -4,12 +4,14 @@ import Radium from 'radium';
 import autobind from 'autobind-decorator';
 
 import { primaryColor } from 'utils/colors';
+import * as ColorManipulator from 'material-ui/utils/colorManipulator';
 
 @Radium
 export default class SliderComponent extends Component {
     static defaultProps = {
         tooltipValues : [],
-        updateValue   : () => {}
+        updateValue   : () => {},
+        color         : primaryColor
     };
 
     props: {
@@ -18,14 +20,15 @@ export default class SliderComponent extends Component {
         value         : number,
         tooltipValues : Array<string>,
         handleChange  : (value: number) => void,
-        updateValue   : () => void
+        updateValue   : () => void,
+        color         : string
     };
 
     state = { dragging: false };
     state : { dragging : boolean };
 
     render() : React.Element {
-        const { name, value } = this.props;
+        const { name, value, color } = this.props;
         const { dragging } = this.state;
 
         return (
@@ -33,7 +36,7 @@ export default class SliderComponent extends Component {
                 id={name}
                 style={STYLES.container}
                 onMouseMove={this.handleDrag}
-                onTouchMove={this.handleDragTouch}
+                onTouchMove={this.handleDrag}
                 onTouchEnd={this.handleDragDone}
                 onMouseLeave={this.handleDragDone}
                 onMouseUp={this.handleDragDone}
@@ -43,20 +46,20 @@ export default class SliderComponent extends Component {
                     onClick={this.handleClick}
                 >
                     <div style={STYLES.uncoloredBar} />
-                    <div style={STYLES.coloredBar(value)} />
+                    <div style={STYLES.coloredBar(value, color)} />
                     <div>
                         <div
-                            style={STYLES.circle(value)}
+                            style={STYLES.circle(value, color)}
                             onMouseDown={() => this.setState({ dragging: true })}
                             onTouchStart={() => this.setState({ dragging: true })}
                         />
                         <div style={STYLES.biggerCircle(value, dragging)} />
                     </div>
                     <div>
-                        <div style={STYLES.tooltip(value, dragging)}>
+                        <div style={STYLES.tooltip(value, dragging, color)}>
                                 {this.getTooltipText()}
                         </div>
-                        <div style={STYLES.triangle(value, dragging)} />
+                        <div style={STYLES.triangle(value, dragging, color)} />
                     </div>
                 </div>
             </div>
@@ -67,27 +70,13 @@ export default class SliderComponent extends Component {
     handleDrag(e: Object): void {
         if (this.state.dragging) {
             const left = document.getElementById(this.props.name).getBoundingClientRect().left;
-            const location = e.clientX - left;
 
-            // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
-            // 80 = left padding (70) + (container width (220) - slider width (200))
-            let moveTo;
-            if ((location <= 280) && (location >= 80)) {
-                moveTo = location - 80;
-            } else if (location >= 280) {
-                moveTo = 200;
-            } else if (location <= 80) {
-                moveTo = 0;
+            let location;
+            if (e.touches) {
+                location = e.touches[0].clientX - left;
+            } else {
+                location = e.clientX - left;
             }
-            window.requestAnimationFrame(() => this.props.handleChange(moveTo));
-        }
-    }
-
-    @autobind
-    handleDragTouch(e: Object): void {
-        if (this.state.dragging) {
-            const left = document.getElementById(this.props.name).getBoundingClientRect().left;
-            const location = e.touches[0].clientX - left;
 
             // 280 = length (200) + left padding (70) + (container (220) - slider (200)) / 2
             // 80 = left padding (70) + (container width (220) - slider width (200))
@@ -163,26 +152,26 @@ const STYLES = {
         borderRadius: '5px'
     },
 
-    coloredBar: (value: number) => ({
+    coloredBar: (value: number, color: string) => ({
         position: 'absolute',
         height: '4px',
         width: `${value + 5}px`,
         marginTop: '6px',
         cursor: 'pointer',
-        backgroundColor: primaryColor,
+        backgroundColor: color,
         zIndex: 5,
         borderRadius: '5px',
         transition: 'width .55s ease-out'
     }),
 
-    circle: (value: number) => ({
+    circle: (value: number, color: string) => ({
         position: 'absolute',
         left: `${value + 70}px`,
         height: '16px',
         width: '16px',
         cursor: 'pointer',
         borderRadius: '50%',
-        backgroundColor: primaryColor,
+        backgroundColor: color,
         zIndex: 10,
     }),
 
@@ -201,13 +190,13 @@ const STYLES = {
         transition: 'opacity .25s ease-out'
     }),
 
-    tooltip: (value: number, dragging: boolean) => ({
+    tooltip: (value: number, dragging: boolean, color: string) => ({
         position: 'absolute',
         left: `${value - 20}px`,
         bottom: '100%',
         display: 'flex',
         justifyContent: 'center',
-        background: 'rgba(222, 138, 125, 0.95)',
+        background: ColorManipulator.lighten(color, 0.3),
         color: '#fff',
         marginBottom: '-45px',
         textAlign: 'center',
@@ -221,14 +210,14 @@ const STYLES = {
         transition: 'all .3s ease-out',
     }),
 
-    triangle: (value: number, dragging: boolean) => ({
+    triangle: (value: number, dragging: boolean, color: string) => ({
         position: 'absolute',
         top: 55,
         left: `${value + 80}px`,
         marginLeft: '-13px',
         borderLeft: 'solid transparent 10px',
         borderRight: 'solid transparent 10px',
-        borderTop: 'solid rgba(222, 138, 125, 0.95) 10px',
+        borderTop: `solid ${ColorManipulator.lighten(color, 0.3)} 10px`,
         opacity: dragging ? 1 : 0,
         transform: dragging ? 'translateY(10px)' : 'translateY(30px)',
         transition: 'all .3s ease-out',

@@ -16,7 +16,6 @@ import Button from 'reusable/Button/Button';
 
 const preferencesList = ['price', 'culture', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
-
 @Radium
 class Preferences extends Component {
     static defaultProps = {};
@@ -31,24 +30,28 @@ class Preferences extends Component {
 
         return (
             <div style={STYLES.container}>
+                <h2 style={STYLES.header}>Your Preferences!</h2>
                 <div style={STYLES.slidersContainer}>
                     {preferencesList.map((preferenceName) => {
-                        const preferenceInfo = preferencesInfo[preferenceName];
+                        const info = preferencesInfo[preferenceName];
 
                         return (
-                            <div style={STYLES.slider.container} key={preferenceName}>
+                            <div style={STYLES.sliderContainer} key={preferenceName}>
                                 <Slider
-                                    name={preferenceName}
-                                    value={preferences[preferenceName]}
+                                    name={info.name}
+                                    tooltipValues={info.tooltipValues}
+                                    color={info.color}
                                     handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    tooltipValues={preferenceInfo.tooltipValues}
+                                    value={preferences[preferenceName]}
                                 />
-                                <div style={STYLES.slider.name}>{preferenceInfo.name}</div>
-                                <FontAwesome
-                                    name={preferenceInfo.icon}
-                                    size="4x"
-                                    style={STYLES.slider.icon}
-                                />
+                                <div style={STYLES.sliderInfo(info.color)}>
+                                    <div style={STYLES.sliderText}>{info.name}</div>
+                                    <FontAwesome
+                                        name={info.icon}
+                                        size="2x"
+                                        style={STYLES.icon(info.color)}
+                                    />
+                                </div>
                             </div>
                         );
                     })}
@@ -64,73 +67,60 @@ class Preferences extends Component {
     }
 }
 
-const lowerSlidersKeyframes = Radium.keyframes({
-    '0%': {
-        transform: 'translateY(-35px)',
-        opacity: 0
-    },
-
-    '50%': { opacity: 0.3 },
-
-    '100%': {
-        transform: 'translateY(0px)',
-        opacity: 1
-    }
-}, 'lowerSliders');
-
 const STYLES = {
     container: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        minHeight: '100vh',
+        marginTop: '30px',
+        height: '1vh',
+        boxSizing: 'border-box'
+    },
+
+    header: {
+        fontSize: '40px',
+        fontWeight: '300',
+        color: primaryColor
     },
 
     slidersContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        width: '100%',
-        marginTop: '60px',
-        marginLeft: '44px',
-        boxSizing: 'border-box'
+        alignItems: 'space-around',
+        // height: '100%'
     },
 
-    slider: {
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '250px',
-            width: '300px',
-            margin: '10px 10px',
-            opacity: 0,
-            backgroundColor: 'white',
-            boxShadow: '3px 8px 12px #888888',
-            animation: 'x 0.75s ease-in-out 0s 1 normal forwards',
-            animationName: lowerSlidersKeyframes,
-            '@media (min-width: 520px)': {
-                height: '250px',
-                width: '300px',
-            }
-        },
-
-        name: {
-            position: 'absolute',
-            top: 10,
-            right: 12,
-            fontSize: '24px',
-            color: secondaryColor
-        },
-
-        icon: {
-            marginTop: '12px',
-            opacity: '0.75',
-            color: primaryColor,
-            textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
-        }
+    sliderContainer: {
+        position: 'relative',
+        margin: '12px',
+        backgroundColor: 'white',
+        boxShadow: '3px 8px 12px #888888'
     },
+
+    sliderInfo: (color: string) => ({
+        position: 'absolute',
+        top: 10,
+        left: 12,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // margin: '10px',
+        color
+    }),
+
+    sliderText: {
+        fontSize: '24px',
+        fontWeight: '200'
+    },
+
+    icon: (color: string) => ({
+        marginLeft: '12px',
+        textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)',
+        color
+    }),
 
     updateButton: {
         margin: '50px'

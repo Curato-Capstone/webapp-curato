@@ -15,10 +15,12 @@ export default class UserAvatar extends Component {
         const { name } = this.props;
 
         return (
-            <Link to="/account" style={STYLES.container}>
-                <Avatar className="fa fa-paper-plane" style={STYLES.avatarIcon} />
-                <div>{name}</div>
-            </Link>
+            <div style={STYLES.container}>
+                <Link to="/account" style={STYLES.link}>
+                    <Avatar className="fa fa-paper-plane" style={STYLES.avatarIcon} />
+                    <div>{name}</div>
+                </Link>
+            </div>
         );
     }
 }
@@ -26,14 +28,21 @@ export default class UserAvatar extends Component {
 const STYLES = {
     container: {
         position: 'absolute',
-        left: 'calc(90vw)',
-        display: 'inline-flex',
-        alignItems: 'center',
+        left: 'calc(100vw - 150px)',
+        display: 'none',
         height: '50px',
-        width: '300px',
+        width: '150px',
         marginRight: '20px',
         marginTop: '5px',
-        zIndex: 5
+        zIndex: 5,
+        '@media (min-width: 520px)': {
+            display: 'block',
+        },
+    },
+
+    link: {
+        display: 'inline-flex',
+        alignItems: 'center',
     },
 
     avatarIcon: {
