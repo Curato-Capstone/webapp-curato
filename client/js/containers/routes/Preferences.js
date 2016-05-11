@@ -79,7 +79,7 @@ const STYLES = {
         alignItems: 'center',
         // minHeight: '100vh',
         marginTop: '30px',
-        marginLeft: '12px',
+        // marginLeft: '12px',
         // height: '1vh',
         width: '95%',
         overflow: 'hidden',

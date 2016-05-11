@@ -99,7 +99,7 @@ const STYLES = {
     },
 
     randomButton: {
-        marginTop: '20px'
+        marginTop: '32px'
     }
 };
 

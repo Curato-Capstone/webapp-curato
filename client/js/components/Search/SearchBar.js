@@ -84,7 +84,6 @@ const STYLES = {
         fontFamily: 'Montserrat',
         fontWeight: '300',
         boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
-        transition: 'height 0.4s ease-in',
         '@media (min-width: 520px)': {
             height: '70px',
             fontSize: '23px',
@@ -97,10 +96,11 @@ const STYLES = {
         alignItems: 'center',
         width: '65px',
         height: '52px',
+        cursor: 'pointer',
         boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
         backgroundColor: primaryColor,
         transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
-        transition: 'height 0.4s ease-in, width 0.4s ease-in, transform 0.3s ease-in',
+        transition: 'transform 0.3s ease-in',
         '@media (min-width: 520px)': {
             width: '80px',
             height: '72px',
