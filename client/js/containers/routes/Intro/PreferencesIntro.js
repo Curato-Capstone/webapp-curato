@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FlipMove from 'react-flip-move';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
@@ -51,27 +52,30 @@ class Preferences extends Component {
                     help find businesses that you’re interested in, and to also
                     find other people like you who may have similar interests.
                 </div>
-
-                <div style={STYLES.sliderContainer} key={preferenceName}>
-                    <Slider
-                        name={info.name}
-                        tooltipValues={info.tooltipValues}
-                        color={info.color}
-                        handleChange={(v) => actions.changePreference(preferenceName, v)}
-                        value={preferences[preferenceName]}
-                    />
-                    <div style={STYLES.sliderInfo(info.color)}>
-                        <div style={STYLES.sliderText}>{info.name}</div>
-                        <FontAwesome
-                            name={info.icon}
-                            size="2x"
-                            style={STYLES.icon(info.color)}
-                        />
+                <FlipMove enterAnimation="fade" leaveAnimation="fade">
+                    <div style={STYLES.sliderContainer} key={preferenceName}>
+                        <div style={STYLES.slider}>
+                            <Slider
+                                name={info.name}
+                                tooltipValues={info.tooltipValues}
+                                color={info.color}
+                                handleChange={(v) => actions.changePreference(preferenceName, v)}
+                                value={preferences[preferenceName]}
+                            />
+                        </div>
+                        <div style={STYLES.sliderInfo(info.color)}>
+                            <div style={STYLES.sliderText}>{info.name}</div>
+                            <FontAwesome
+                                name={info.icon}
+                                size="2x"
+                                style={STYLES.icon(info.color)}
+                            />
+                        </div>
+                        <div style={STYLES.sliderDescription(info.color)}>
+                            {info.tooltipValues[preferences[preferenceName] - 1]}
+                        </div>
                     </div>
-                    <div style={STYLES.sliderDescription(info.color)}>
-                        {info.tooltipValues[preferences[preferenceName] - 1]}
-                    </div>
-                </div>
+                </FlipMove>
                 <div style={STYLES.dots.container}>
                     <FontAwesome
                         name="arrow-left"
@@ -120,7 +124,19 @@ const STYLES = {
         position: 'relative',
         margin: '30px',
         backgroundColor: 'white',
-        boxShadow: '3px 8px 12px #888888'
+        boxShadow: '3px 8px 12px #888888',
+        width: '280px',
+        paddingBottom: '12px',
+        '@media (min-width: 520px)': {
+            width: 'initial'
+        }
+    },
+
+    slider: {
+        marginLeft: '-50px',
+        '@media (min-width: 520px)': {
+            marginLeft: '0px'
+        }
     },
 
     sliderInfo: (color: string) => ({
@@ -141,11 +157,15 @@ const STYLES = {
     sliderDescription: (color: string) => ({
         display: 'flex',
         justifyContent: 'center',
-        width: '360px',
+        width: '280px',
         margin: '0 0px 16px 0px',
+        padding: '0 12px',
         boxSizing: 'border-box',
         textAlign: 'center',
-        color
+        color,
+        '@media (min-width: 520px)': {
+            width: '360px'
+        },
     }),
 
     icon: (color: string) => ({

@@ -36,13 +36,15 @@ class Preferences extends Component {
 
                         return (
                             <div style={STYLES.sliderContainer} key={preferenceName}>
-                                <Slider
-                                    name={info.name}
-                                    tooltipValues={info.tooltipValues}
-                                    color={info.color}
-                                    handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    value={preferences[preferenceName]}
-                                />
+                                <div style={STYLES.slider}>
+                                    <Slider
+                                        name={info.name}
+                                        tooltipValues={info.tooltipValues}
+                                        color={info.color}
+                                        handleChange={(v) => actions.changePreference(preferenceName, v)}
+                                        value={preferences[preferenceName]}
+                                    />
+                                </div>
                                 <div style={STYLES.sliderInfo(info.color)}>
                                     <div style={STYLES.sliderText}>{info.name}</div>
                                     <FontAwesome
@@ -80,12 +82,17 @@ const STYLES = {
         marginLeft: '12px',
         // height: '1vh',
         boxSizing: 'border-box',
+        width: '95%',
+        overflow: 'hidden'
     },
 
     header: {
-        fontSize: '40px',
+        fontSize: '30px',
         fontWeight: '300',
-        color: primaryColor
+        color: primaryColor,
+        '@media (min-width: 520px)': {
+            fontSize: '40px'
+        }
     },
 
     slidersContainer: {
@@ -93,14 +100,29 @@ const STYLES = {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         alignItems: 'space-around',
-        // height: '100%'
+        marginRight: '-32px',
+        '@media (min-width: 520px)': {
+            marginRight: '0'
+        }
     },
 
     sliderContainer: {
         position: 'relative',
-        margin: '30px',
+        margin: '10px 0',
         backgroundColor: 'white',
-        boxShadow: '3px 8px 12px #888888'
+        boxShadow: '3px 8px 12px #888888',
+        width: '280px',
+        '@media (min-width: 520px)': {
+            width: 'initial',
+            margin: '30px 10px',
+        }
+    },
+
+    slider: {
+        marginLeft: '-50px',
+        '@media (min-width: 520px)': {
+            marginLeft: '0px'
+        }
     },
 
     sliderInfo: (color: string) => ({
@@ -110,7 +132,6 @@ const STYLES = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        // margin: '10px',
         color
     }),
 
@@ -122,11 +143,15 @@ const STYLES = {
     sliderDescription: (color: string) => ({
         display: 'flex',
         justifyContent: 'center',
-        width: '360px',
+        width: '280px',
         margin: '0 0px 16px 0px',
+        padding: '0 12px',
         boxSizing: 'border-box',
         textAlign: 'center',
-        color
+        color,
+        '@media (min-width: 520px)': {
+            width: '360px'
+        },
     }),
 
     icon: (color: string) => ({

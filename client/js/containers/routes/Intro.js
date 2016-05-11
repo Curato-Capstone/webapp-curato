@@ -49,7 +49,8 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        overflow: 'hidden'
     },
 
     card: {
