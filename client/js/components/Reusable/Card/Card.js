@@ -12,9 +12,7 @@ import Tag from './Tag';
 
 @Radium
 export default class Card extends Component {
-    static defaultProps = {
-        hideDislike: false
-    };
+    static defaultProps = { hideDislike: false };
 
     props : {
         place: Place,
@@ -22,14 +20,13 @@ export default class Card extends Component {
         hideDislike: bool,
         handleDislike: () => void,
         handleFavorite: () => void,
-        handleMore: () => void
     };
 
     state = { loaded: false };
     state : { loaded: bool };
 
     render() {
-        const { place, favorite, hideDislike, handleDislike, handleFavorite } = this.props;
+        const { place, favorite, handleFavorite } = this.props;
         const { loaded } = this.state;
 
         return (
@@ -50,8 +47,8 @@ export default class Card extends Component {
 
                         {this.renderDislike()}
 
-                        <Link to={`/place/${place.id}`}>
-                            <div style={STYLES.cardActions.more}>...more</div>
+                        <Link to={`/place/${place.id}`} style={STYLES.cardActions.more}>
+                            ...more
                         </Link>
                     </div>
                 </div>
@@ -60,7 +57,7 @@ export default class Card extends Component {
                     <img
                         style={STYLES.cardImage.main}
                         src={place.image}
-                        onLoad={this.handleImageLoad}
+                        onLoad={() => this.setState({ loaded: true })}
                     />
                     {this.renderTag()}
                 </div>
@@ -70,11 +67,6 @@ export default class Card extends Component {
 
     truncateName(name: string) {
         return name.length >= 50 ? `${name.substring(0, 48)}...` : name;
-    }
-
-    @autobind
-    handleImageLoad() {
-        this.setState({ loaded: true });
     }
 
     renderDislike() {
@@ -106,76 +98,65 @@ const STYLES = {
         height: '350px',
         marginTop: '75px',
         marginBottom: '80px',
-        transition: 'height 1s ease-out',
+        transition: 'height 0.5s ease-out',
         '@media (min-width: 520px)': {
             height: '450px',
         },
     },
 
     cardImage: {
-        container: (loaded) => {
-            return {
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                width: '250px',
-                height: '325px',
-                backgroundColor: 'white',
-                transition: 'height 1s ease-out, width 1s ease-out',
-                animation: 'x 1s ease-in-out 0s 1 normal forwards',
-                animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
-                '@media (min-width: 520px)': {
-                    width: '320px',
-                    height: '380px'
-                },
-            };
-        },
+        container: (loaded) => ({
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            width: '250px',
+            height: '325px',
+            backgroundColor: 'white',
+            animation: 'x 1s ease-in-out 0s 1 normal forwards',
+            animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null,
+            boxShadow: '0px 13px 20px -4px rgba(0,0,0,0.5)',
+            '@media (min-width: 520px)': {
+                width: '320px',
+                height: '380px'
+            },
+        }),
 
         raiseImageAnimation: Radium.keyframes({
-            '0%': {
-                transform: 'translateY(0)',
-                boxShadow: '0 0 0 0 rgba(0,0,0,0.5)',
-            },
-
-            '100%': {
-                transform: 'translateY(-70px)',
-                boxShadow: '0px 13px 20px -4px rgba(0,0,0,0.5)',
-            }
+            '0%': { transform: 'translateY(0)' },
+            '100%': { transform: 'translateY(-70px)' }
         }),
 
         main: {
-            transition: 'width 1s ease-out',
             width: '700px',
+            minWidth: '700px',
             '@media (min-width: 520px)': {
                 width: '900px',
+                minWidth: '900px'
             },
         }
     },
 
     cardText: {
-        container: (loaded) => {
-            return {
-                position: 'absolute',
-                top: -40,
+        container: (loaded) => ({
+            position: 'absolute',
+            top: -40,
+            left: -7.5,
+            height: '370px',
+            width: '275px',
+            boxShadow: '3px 8px 12px #888888',
+            background: 'white',
+            opacity: 0,
+            animation: 'x 0.7s ease-in-out 0.3s 1 normal forwards',
+            animationName: loaded ? STYLES.cardText.lowerTextAnimation : null,
+            '@media (min-width: 520px)': {
+                top: -55,
                 left: -7.5,
-                height: '370px',
-                width: '275px',
-                boxShadow: '3px 8px 12px #888888',
-                background: 'white',
-                opacity: 0,
-                transition: 'all 1s ease-out',
-                animation: 'x 0.7s ease-in-out 0.3s 1 normal forwards',
-                animationName: loaded ? STYLES.cardText.lowerTextAnimation : null,
-                '@media (min-width: 520px)': {
-                    top: -55,
-                    left: -7.5,
-                    height: '450px',
-                    width: '335px',
-                },
-            };
-        },
+                height: '450px',
+                width: '335px',
+            }
+        }),
 
         lowerTextAnimation: Radium.keyframes({
             '0%': {
@@ -199,8 +180,6 @@ const STYLES = {
             left: 20,
             color: 'grey',
             transform: 'translateY(265px)',
-            /* revisit */
-            transition: 'transform 1s ease-out',
             '@media (min-width: 520px)': {
                 transform: 'translateY(335px)',
             }
@@ -235,6 +214,7 @@ const STYLES = {
         },
 
         dislike: {
+            color: 'red',
             cursor: 'pointer'
         },
 
@@ -245,22 +225,15 @@ const STYLES = {
     },
 
     tag: {
-        main: (loaded) => {
-            return {
-                opacity: 0,
-                animation: 'x .75s ease-in-out .75s 1 normal forwards',
-                animationName: loaded ? STYLES.tag.fadeTagIn : null
-            };
-        },
+        main: (loaded) => ({
+            opacity: 0,
+            animation: 'x .75s ease-in-out .75s 1 normal forwards',
+            animationName: loaded ? STYLES.tag.fadeTagIn : null
+        }),
 
         fadeTagIn: Radium.keyframes({
-            '0%': {
-                opacity: 0
-            },
-
-            '100%': {
-                opacity: 1
-            }
-        }, 'fadeTagIn')
+            '0%': { opacity: 0 },
+            '100%': { opacity: 1 }
+        })
     }
 };

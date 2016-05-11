@@ -17,7 +17,6 @@ function validate(values: Map<string, any>): Object {
     } else if (password.length < 8) {
         errors.password = 'Password must be at least 8 characters!';
     }
-    // TODO integrate password strength checking
 
     const name = values.get('name');
     if (!name) {

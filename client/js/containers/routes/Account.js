@@ -33,6 +33,11 @@ const STYLES = {
         alignItems: 'center',
         width: '100%',
         paddingTop: '30px',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     avatar: {
@@ -47,7 +52,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
+        actions : bindActionCreators({ ...userActions }, dispatch),
     };
 }
 

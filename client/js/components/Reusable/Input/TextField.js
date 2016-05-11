@@ -18,10 +18,10 @@ export default class TextField extends Component {
     };
 
     props: {
-        value     : string,
-        disabled  : boolean,
-        hintText  : string,
-        type      : string,
+        disabled          : boolean,
+        hintText          : string,
+        type              : string,
+        value             : string,
         floatingLabelText : string
     };
 
@@ -42,7 +42,7 @@ export default class TextField extends Component {
                     underlineStyle={{ borderColor: primaryColor }}
                     underlineFocusStyle={{ borderColor: primaryColor }}
                     floatingLabelStyle={{ color: secondaryColor }}
-                    style={{ fontFamily: 'montserrat' }}
+                    style={{ fontFamily: 'Montserrat' }}
                     {...other}
                 />
                 {type === 'password' ?

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import FontAwesome from 'react-fontawesome';
 
 import * as userActions from 'modules/user';
@@ -16,7 +15,6 @@ import Button from 'reusable/Button/Button';
 
 const preferencesList = ['price', 'culture', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
-
 @Radium
 class Preferences extends Component {
     static defaultProps = {};
@@ -31,24 +29,33 @@ class Preferences extends Component {
 
         return (
             <div style={STYLES.container}>
+                <h2 style={STYLES.header}>Your Preferences!</h2>
                 <div style={STYLES.slidersContainer}>
                     {preferencesList.map((preferenceName) => {
-                        const preferenceInfo = preferencesInfo[preferenceName];
+                        const info = preferencesInfo[preferenceName];
 
                         return (
-                            <div style={STYLES.slider.container} key={preferenceName}>
-                                <Slider
-                                    name={preferenceName}
-                                    value={preferences[preferenceName]}
-                                    handleChange={(v) => actions.changePreference(preferenceName, v)}
-                                    tooltipValues={preferenceInfo.tooltipValues}
-                                />
-                                <div style={STYLES.slider.name}>{preferenceInfo.name}</div>
-                                <FontAwesome
-                                    name={preferenceInfo.icon}
-                                    size="4x"
-                                    style={STYLES.slider.icon}
-                                />
+                            <div style={STYLES.sliderContainer} key={preferenceName}>
+                                <div style={STYLES.slider}>
+                                    <Slider
+                                        name={info.name}
+                                        tooltipValues={info.tooltipValues}
+                                        color={info.color}
+                                        handleChange={(v) => actions.changePreference(preferenceName, v)}
+                                        value={preferences[preferenceName]}
+                                    />
+                                </div>
+                                <div style={STYLES.sliderInfo(info.color)}>
+                                    <div style={STYLES.sliderText}>{info.name}</div>
+                                    <FontAwesome
+                                        name={info.icon}
+                                        size="2x"
+                                        style={STYLES.icon(info.color)}
+                                    />
+                                </div>
+                                <div style={STYLES.sliderDescription(info.color)}>
+                                    {info.tooltipValues[preferences[preferenceName] - 1]}
+                                </div>
                             </div>
                         );
                     })}
@@ -64,76 +71,101 @@ class Preferences extends Component {
     }
 }
 
-const lowerSlidersKeyframes = Radium.keyframes({
-    '0%': {
-        transform: 'translateY(-35px)',
-        opacity: 0
-    },
-
-    '50%': { opacity: 0.3 },
-
-    '100%': {
-        transform: 'translateY(0px)',
-        opacity: 1
-    }
-}, 'lowerSliders');
-
 const STYLES = {
     container: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        // minHeight: '100vh',
+        marginTop: '30px',
+        // marginLeft: '12px',
+        // height: '1vh',
+        width: '100%',
+        overflow: 'hidden',
+        paddingLeft: '50px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
+    },
+
+    header: {
+        fontSize: '30px',
+        fontWeight: '300',
+        color: primaryColor,
+        '@media (min-width: 520px)': {
+            fontSize: '40px'
+        }
     },
 
     slidersContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        width: '100%',
-        marginTop: '60px',
-        marginLeft: '44px',
-        boxSizing: 'border-box'
-    },
-
-    slider: {
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '250px',
-            width: '300px',
-            margin: '10px 10px',
-            opacity: 0,
-            backgroundColor: 'white',
-            boxShadow: '3px 8px 12px #888888',
-            animation: 'x 0.75s ease-in-out 0s 1 normal forwards',
-            animationName: lowerSlidersKeyframes,
-            '@media (min-width: 520px)': {
-                height: '250px',
-                width: '300px',
-            }
-        },
-
-        name: {
-            position: 'absolute',
-            top: 10,
-            right: 12,
-            fontSize: '24px',
-            color: secondaryColor
-        },
-
-        icon: {
-            marginTop: '12px',
-            opacity: '0.75',
-            color: primaryColor,
-            textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
+        alignItems: 'space-around',
+        // marginRight: '-20px',
+        '@media (min-width: 520px)': {
+            marginRight: '0'
         }
     },
 
+    sliderContainer: {
+        position: 'relative',
+        margin: '10px 0',
+        backgroundColor: 'white',
+        boxShadow: '3px 8px 12px #888888',
+        width: '280px',
+        '@media (min-width: 520px)': {
+            width: 'initial',
+            margin: '30px 10px',
+        }
+    },
+
+    slider: {
+        marginLeft: '-50px',
+        '@media (min-width: 520px)': {
+            marginLeft: '0px'
+        }
+    },
+
+    sliderInfo: (color: string) => ({
+        position: 'absolute',
+        top: 10,
+        left: 12,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color
+    }),
+
+    sliderText: {
+        fontSize: '24px',
+        fontWeight: '200'
+    },
+
+    sliderDescription: (color: string) => ({
+        display: 'flex',
+        justifyContent: 'center',
+        width: '280px',
+        margin: '0 0px 16px 0px',
+        padding: '0 12px',
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        color,
+        '@media (min-width: 520px)': {
+            width: '360px'
+        },
+    }),
+
+    icon: (color: string) => ({
+        marginLeft: '12px',
+        textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)',
+        color
+    }),
+
     updateButton: {
-        margin: '50px'
+        margin: '30px 0'
     }
 };
 
@@ -145,8 +177,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, userActions), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators({ ...userActions }, dispatch),
     };
 }
 

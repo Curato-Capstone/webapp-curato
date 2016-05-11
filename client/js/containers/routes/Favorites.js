@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import { Link } from 'react-router';
 
 import { primaryColor } from 'utils/colors';
@@ -75,18 +74,20 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '100%',
-        marginTop: '72px',
-        marginLeft: '16px',
-        marginRight: '16px',
+        minHeight: '100vh',
+        paddingTop: '72px',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     empty: {
         fontSize: '18px',
         color: 'grey',
         textAlign: 'center',
-        marginTop: 'auto',
-        marginBottom: 'auto',
+        margin: 'auto 12px',
         paddingBottom: '120px',
         '@media (min-width: 520px)': {
             fontSize: '24px',
@@ -107,12 +108,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions,
-        ), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions,
+        }, dispatch)
     };
 }
 

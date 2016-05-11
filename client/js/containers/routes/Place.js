@@ -12,27 +12,15 @@ import { routerActions } from 'react-router-redux';
 
 import FullCard from 'components/Reusable/Card/FullCard';
 
-// const place = {
-//     name: 'Pike Place Market',
-//     location: { address: '1234 Street Ave., Seattle, WA', formattedAddress: ["719 S King St", "Seattle, WA 98104",
-// "United States"] },
-//     image: require('images/places/pike_place_market.jpg'),
-//     id: '125',
-//     categories: [{ name: 'Shop' }],
-//     hours: {
-//         isOpen: false,
-//         status: 'Closed until 10:00 AM'
-//     },
-//     contact: {
-//         formattedPhone: '(206) 623-5124',
-//         twitter: 'wingluke'
-//     }
-// };
-
 @Radium
 class Place extends Component {
     static defaultProps = {};
-    props: {};
+    props: {
+        actions: Object,
+        params: Object,
+        suggestions: Array<Object>,
+        favorites: Array<Object>
+    };
 
     state = { place: null };
     state : { place: Object };
@@ -58,7 +46,7 @@ class Place extends Component {
     }
 
     render() {
-        const { actions, routerActions, suggestions } = this.props;
+        const { actions } = this.props;
         const { place } = this.state;
 
         return (
@@ -74,10 +62,8 @@ class Place extends Component {
         );
     }
 
-    handleFavorite(place, index) {
-        console.log(this.props.actions)
+    handleFavorite(place) {
         if (this.checkFavorited(place)) {
-            console.log('remove')
             this.props.actions.removeFavoriteThunk(place);
         } else {
             this.props.actions.addFavoriteThunk(place);
@@ -86,6 +72,7 @@ class Place extends Component {
 
     checkFavorited(place) {
         const { favorites } = this.props;
+
         for (let i = 0; i < favorites.length; i ++) {
             if (favorites[i].id === place.id) {
                 return true;
@@ -106,7 +93,7 @@ const STYLES = {
     }
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
         favorites: state.getIn(['user', 'favorites']).toJS(),
@@ -115,12 +102,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            globalActions,
-            routerActions
-        ), dispatch)
+        actions : bindActionCreators({
+            ...userActions,
+            ...globalActions,
+            ...routerActions
+        }, dispatch)
     };
 }
 

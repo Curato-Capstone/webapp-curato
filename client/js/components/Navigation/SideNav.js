@@ -19,11 +19,9 @@ export default class SideNav extends Component {
 
         return (
             <div style={STYLES.container}>
-                <div>
-                    <Link to="/">
-                        <img src={logo} style={STYLES.logo} type="image/svg+xml" />
-                    </Link>
-                </div>
+                <Link to="/">
+                    <img src={logo} style={STYLES.logo} type="image/svg+xml" />
+                </Link>
                 <div style={STYLES.navItemsContainer} key="search">
                     <div style={STYLES.navItem}>
                         <Link to="/">
@@ -79,10 +77,10 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: '100vh',
+        height: '110vh',
         minHeight: '600px',
         width: '50px',
-        zIndex: '999',
+        zIndex: '9',
         backgroundColor: primaryColor,
         transition: 'width 0.7s ease-in-out',
         '@media (min-width: 520px)': {
@@ -127,18 +125,17 @@ const STYLES = {
         textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
     },
 
-    active: (item: number) => {
-        return {
-            position: 'absolute',
-            top: 38 + 125 * item,
-            left: 2,
-            height: '55px',
-            width: '3px',
-            backgroundColor: 'white',
-            transition: 'top 0.4s ease-in-out',
-            '@media (min-width: 520px)': {
-                left: 4
-            }
-        };
-    }
+    active: (item: number) => ({
+        position: 'absolute',
+        top: 38,
+        transform: `translateY(${125 * item}px)`,
+        left: 3,
+        height: '55px',
+        width: '3px',
+        backgroundColor: 'white',
+        transition: 'transform 0.5s ease-in-out',
+        '@media (min-width: 520px)': {
+            left: 4
+        }
+    })
 };

@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import FlipMove from 'react-flip-move';
 
+import type { Place } from 'flow/types';
+
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
@@ -19,18 +21,7 @@ import fourSquareImage from 'images/foursquare.png';
 class Suggestions extends Component {
     static defaultProps = {};
     props: {
-        suggestions: Array<{
-            name : string,
-            id : string,
-            location: {
-                address: string
-            },
-            categories: Array<Object>,
-            image: string
-        }>,
-        favorites: Array<{
-            id: string
-        }>,
+        suggestions: Array<Place>,
         actions: Object
     };
     state: void;
@@ -41,20 +32,17 @@ class Suggestions extends Component {
         return (
             <div style={STYLES.container}>
                 {suggestions.length ? <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
-                    {suggestions.slice(0, 3).map((place, index) => {
-                        return (
-                            <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
-                                <Card
-                                    key={place.id}
-                                    place={place}
-                                    favorite={this.checkFavorited(place)}
-                                    handleFavorite={() => this.handleFavorite(place, index)}
-                                    handleDislike={() => this.handleDislike(place, index)}
-                                    handleMore={() => {}}
-                                />
-                            </div>
-                        );
-                    })}
+                    {suggestions.slice(0, 3).map((place, index) => (
+                        <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
+                            <Card
+                                key={place.id}
+                                place={place}
+                                favorite={this.checkFavorited(place)}
+                                handleFavorite={() => this.handleFavorite(place, index)}
+                                handleDislike={() => this.handleDislike(place, index)}
+                            />
+                        </div>
+                    ))}
                     {this.renderEmptyState()}
                 </FlipMove> : null}
                 <img style={STYLES.fourSquare} src={fourSquareImage} />
@@ -112,6 +100,12 @@ const STYLES = {
         justifyContent: 'center',
         position: 'relative',
         width: '100%',
+        minHeight: '100vh',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     cardsContainer: {
@@ -169,11 +163,10 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions,
-        ), dispatch),
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions,
+        }, dispatch),
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }

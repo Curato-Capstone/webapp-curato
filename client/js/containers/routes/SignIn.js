@@ -9,7 +9,7 @@ import logoColor from 'images/logo/full-logo-color.svg';
 import logo from 'images/logo/full-logo.svg'
 
 import SignInForm from 'components/Forms/SignInForm/SignInForm';
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 
 @Radium
 class SignIn extends Component {
@@ -44,6 +44,7 @@ const STYLES = {
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
+        minHeight: '90vh',
     },
 
     card: {
@@ -117,7 +118,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign({}, authActions), dispatch),
+        actions : bindActionCreators(authActions, dispatch),
     };
 }
 

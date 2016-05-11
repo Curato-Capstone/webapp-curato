@@ -66,14 +66,13 @@ const STYLES = {
         left: 80,
         height: '20px',
         marginLeft: '20px',
-        opacity: 0,
+        display: 'none',
         zIndex: 99,
         fontSize: '21px',
         fontFamily: 'Roboto Mono',
         fontWeight: 'bold',
-        transition: 'opacity 0.5s ease-in-out',
         '@media (min-width: 520px)': {
-            opacity: 1
+            display: 'block'
         },
     },
 

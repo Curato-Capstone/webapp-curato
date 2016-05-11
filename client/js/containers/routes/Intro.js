@@ -49,10 +49,12 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        minHeight: '100vh',
+        overflow: 'hidden'
     },
 
     card: {
-        width: '80%',
+        width: '92%',
         maxWidth: '600px',
         minHeight: '450px',
         margin: '20px',
@@ -62,6 +64,7 @@ const STYLES = {
         backgroundColor: 'white',
         zIndex: 5,
         '@media (min-width: 520px)': {
+            width: '80%',
             margin: '10px 40px 40px 40px',
             padding: '24px',
             minHeight: '550px'

@@ -47,22 +47,28 @@ const STYLES = {
     },
 
     text: {
-        margin: '24px',
+        margin: '0 12px',
         textAlign: 'center',
         fontSize: '14px',
         '@media (min-width: 520px)': {
-            fontSize: '18px'
+            fontSize: '18px',
+            margin: '24px'
         }
     },
 
     buttonContainer: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 'auto',
+        marginBottom: '12px'
     },
 
     headerImage: {
-        margin: '0 35px 20px 35px'
+        margin: '0 35px 10px 35px',
+        '@media (min-width: 520px)': {
+            margin: '0 35px 20px 35px',
+        }
     },
 
     signUpButton: {

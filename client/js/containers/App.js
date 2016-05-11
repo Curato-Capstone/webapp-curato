@@ -2,10 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { routerActions } from 'react-router-redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
@@ -52,15 +50,6 @@ class App extends Component {
     }
 
     renderComponents() {
-        if (this.props.auth.isAuthenticating) {
-            return (
-                <div style={STYLES.container}>
-                    {this.renderSpinner()}
-                </div>
-            );
-        }
-
-        console.log(this.props.location.pathname)
         return (
             <div style={STYLES.container}>
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>
@@ -68,6 +57,27 @@ class App extends Component {
                 </FlipMove>
                 {this.renderNavigation()}
                 {this.renderSpinner()}
+                {this.renderView()}
+            </div>
+        );
+    }
+
+    renderView() {
+        if (!location.pathname.includes('intro')) {
+            return (
+                <FlipMove
+                    enterAnimation="fade"
+                    leaveAnimation="fade"
+                    duration={500}
+                    style={STYLES.app}
+                >
+                    {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
+                </FlipMove>
+            );
+        }
+
+        return (
+            <div style={STYLES.app}>
                 {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
             </div>
         );
@@ -82,22 +92,33 @@ class App extends Component {
         } else if (successMessage) {
             return <MessageBar key={successMessage} type="success" message={successMessage} />;
         }
+
+        return <span />;
     }
 
     renderNavigation() {
         const { location, user } = this.props;
 
-        if (!location.pathname.includes('intro')
-            && !location.pathname.includes('signin')
-            && !location.pathname.includes('place')) {
-            return (
-                <div style={STYLES.navContainer}>
+        if (location.pathname.includes('intro') || location.pathname.includes('signin')) {
+            return null;
+        }
+
+        let nav;
+        if (!location.pathname.includes('place')) {
+            nav = (
+                <div key="navigation">
                     <SideNav location={location} />
                     <UserAvatar name={user.name} />
                     <BreadCrumbs location={location} />
                 </div>
             );
         }
+
+        return (
+            <FlipMove enterAnimation="fade" leaveAnimation="fade">
+                {nav}
+            </FlipMove>
+        );
     }
 
     renderSpinner() {
@@ -117,11 +138,9 @@ const STYLES = {
         minHeight: '100vh'
     },
 
-    navContainer: {
-        width: '80px',
-        '@media (min-width: 520px)': {
-            marginRight: '12px'
-        }
+    app: {
+        minHeight: '100vh',
+        width: '100%'
     },
 
     messageBar: {
@@ -145,12 +164,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions
-        ), dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
+        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
     };
 }
 

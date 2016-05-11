@@ -1,25 +1,28 @@
 export const preferencesInfo = {
     price         : {
-        name: 'Price',
-        icon: 'money',
-        tooltipValues: ['Saving is all I can do',
-                        'I\'d prefer to save...',
-                        'I could spend a little',
-                        'I have some money to blow',
-                        'Money isn\'t an object']
+        name: 'Art',
+        icon: 'paint-brush',
+        color: '#d32f2f',
+        tooltipValues: ['Art makes no sense to me',
+                        'I only care about famous art',
+                        'I enjoy viewing art from time to time',
+                        'I make an effort to see art more often than not',
+                        'I\'m at every art show, ever!']
     },
     culture       : {
-        name: 'Culture',
-        icon: 'globe',
-        tooltipValues: ['You couldn\'t make me interested',
-                        'Once in a while is OK',
-                        'I like art and culture',
-                        'I\'ll make sure to see some culture regularly',
-                        'I spend hours at a time in a museum!']
+        name: 'History',
+        icon: 'clock-o',
+        color: '#388E3C',
+        tooltipValues: ['Histo-what?',
+                        'I\'m not a big fan, but on occasions',
+                        'History is ok, I\'ll check out a museum sometimes',
+                        'I really enjoy all sorts of history',
+                        'History is my lifeblood. I can\'t live without it!']
     },
     food          : {
         name: 'Food',
         icon: 'cutlery',
+        color: '#512DA8',
         tooltipValues: ['I only eat if necessary',
                         'I guess I\'ll eat...',
                         'I like to mix it up.',
@@ -29,6 +32,7 @@ export const preferencesInfo = {
     outdoors       : {
         name: 'Outdoors',
         icon: 'tree',
+        color: '#0288D1',
         tooltipValues: ['I definitely prefer the indoors',
                         'I don\'t really spend time outdoors',
                         'I\'ll hike every once in a while',
@@ -38,6 +42,7 @@ export const preferencesInfo = {
     entertainment : {
         name: 'Entertainment',
         icon: 'ticket',
+        color: '#E64A19',
         tooltipValues: ['I make my own entertainment better',
                         'Movies and shows are only for artists I care about',
                         'I\'ll catch a movie every so often',
@@ -47,7 +52,9 @@ export const preferencesInfo = {
     relaxation    : {
         name: 'Relaxation',
         icon: 'bed',
+        color: '#00796B',
         tooltipValues: ['There\'s too much to do to relax!',
+                        'I\'ll only relax if others do.',
                         'I\'ll slow it down from time to time.',
                         'I like kicking back pretty often.',
                         'There\'s still sand in my shoes from the last time I was at the beach!']
@@ -55,6 +62,7 @@ export const preferencesInfo = {
     shopping      : {
         name: 'Shopping',
         icon: 'shopping-bag',
+        color: '#FBC02D',
         tooltipValues: ['Malls terrify me',
                         'I\'ll do my best to avoid shopping',
                         'Sometimes it\'s nice to shop.',
@@ -64,6 +72,7 @@ export const preferencesInfo = {
     sports        : {
         name: 'Sports',
         icon: 'futbol-o',
+        color: '#d32f2f',
         tooltipValues: ['What are sports?',
                         'I\'ll usually pass on sports things.',
                         'I\'ve gone to a few sporting events!',

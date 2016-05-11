@@ -72,21 +72,8 @@ class AccountForm extends Component {
                         <div style={STYLES.field}>
                             <Select
                                 options={['male', 'female']}
-                                floatingLabelText="Gender"
+                                floatingLabelText="Gender*"
                                 {...gender}
-                            />
-                        </div>
-                    }
-                    />
-                </div>
-
-                <div style={STYLES.fieldContainer}>
-                    <Field name="ethnicity" component={ethnicity =>
-                        <div style={STYLES.field}>
-                            <Select
-                                options={['white', 'black', 'latino', 'asian']}
-                                floatingLabelText="Ethnicity"
-                                {...ethnicity}
                             />
                         </div>
                     }

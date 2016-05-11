@@ -70,9 +70,14 @@ const revealButtonKeyframes = Radium.keyframes({
 
 const STYLES = {
     container: {
-        height: '100vh',
-        minHeight: '300px',
-        width: '100%'
+        height: '100%',
+        minHeight: '100vh',
+        width: '100%',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     searchBarContainer: {
@@ -81,7 +86,7 @@ const STYLES = {
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-        height: '100%',
+        minHeight: '100vh',
         opacity: 0,
         animation: 'x .8s ease-in-out 0s 1 normal forwards',
         animationName: lowerSearchBarKeyframes,
@@ -94,7 +99,7 @@ const STYLES = {
     },
 
     randomButton: {
-        marginTop: '20px'
+        marginTop: '32px'
     }
 };
 
@@ -106,11 +111,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(Object.assign(
-            {},
-            userActions,
-            suggestionsActions
-        ), dispatch),
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions
+        }, dispatch),
         routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
