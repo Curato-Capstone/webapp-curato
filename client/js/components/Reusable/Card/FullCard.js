@@ -433,13 +433,13 @@ const STYLES = {
         },
 
         body: {
-            marginBottom: '16px'
+            marginBottom: '16px',
+            marginRight: '75px'
         },
 
         contact: {
             display: 'flex',
             flexDirection: 'column',
-            marginRight: '10%'
         },
 
         link: {
