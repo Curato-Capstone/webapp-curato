@@ -57,9 +57,28 @@ class App extends Component {
                 </FlipMove>
                 {this.renderNavigation()}
                 {this.renderSpinner()}
-                <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={500} style={STYLES.app}>
+                {this.renderView()}
+            </div>
+        );
+    }
+
+    renderView() {
+        if (!location.pathname.includes('intro')) {
+            return (
+                <FlipMove
+                    enterAnimation="fade"
+                    leaveAnimation="fade"
+                    duration={500}
+                    style={STYLES.app}
+                >
                     {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
                 </FlipMove>
+            );
+        }
+
+        return (
+            <div style={STYLES.app}>
+                {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
             </div>
         );
     }
