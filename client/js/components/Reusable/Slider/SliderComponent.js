@@ -53,7 +53,11 @@ export default class SliderComponent extends Component {
                             onMouseDown={() => this.setState({ dragging: true })}
                             onTouchStart={() => this.setState({ dragging: true })}
                         />
-                        <div style={STYLES.biggerCircle(value, dragging)} />
+                        <div
+                            style={STYLES.biggerCircle(value, dragging)}
+                            onMouseDown={() => this.setState({ dragging: true })}
+                            onTouchStart={() => this.setState({ dragging: true })}
+                        />
                     </div>
                     <div>
                         <div style={STYLES.tooltip(value, dragging, color)}>
@@ -173,6 +177,7 @@ const STYLES = {
         borderRadius: '50%',
         transform: `translateX(${value}px)`,
         backgroundColor: color,
+        userSelect: 'none',
         zIndex: 10,
     }),
 
@@ -215,7 +220,7 @@ const STYLES = {
     triangle: (value: number, dragging: boolean, color: string) => ({
         position: 'absolute',
         top: 55,
-        left: `${value + 80}px`,
+        left: `${value + 82}px`,
         marginLeft: '-13px',
         borderLeft: 'solid transparent 10px',
         borderRight: 'solid transparent 10px',
