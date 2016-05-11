@@ -4,13 +4,12 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import FlipMove from 'react-flip-move';
 import FontAwesome from 'react-fontawesome';
 
 import * as userActions from 'modules/user';
 import * as suggestionsActions from 'modules/suggestions';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 
 import Header from 'components/Intro/Header';
 import Card from 'reusable/Card/Card';
@@ -24,18 +23,18 @@ class Suggestions extends Component {
         actions: Object,
         favorites: Array<Object>,
         suggestions: Array<Object>
-     };
-     state = { suggestionNum: 0 };
-     state : { suggestionNum: number };
+    };
+    state = { suggestionNum: 0 };
+    state : { suggestionNum: number };
 
     render() {
         const { actions, suggestions } = this.props;
         const { suggestionNum } = this.state;
 
         const place = suggestions[suggestionNum];
-        const items = suggestions.slice(0, 3).map((pref, index) => {
+        const items = suggestions.slice(0, 3).map((suggestion, index) => {
             return {
-                name: index,
+                name: suggestion.id,
                 handleClick: () => this.setState({ suggestionNum: index })
             };
         });
@@ -64,7 +63,10 @@ class Suggestions extends Component {
                         <FontAwesome
                             name="arrow-left"
                             size="2x"
-                            style={{...STYLES.dots.leftArrow, ...STYLES.dots.arrow(suggestionNum === 0)}}
+                            style={{
+                                ...STYLES.dots.leftArrow,
+                                ...STYLES.dots.arrow(suggestionNum === 0)
+                            }}
                             onClick={() => this.setState({ suggestionNum: suggestionNum - 1 })}
                         />
                         <Dots
@@ -74,7 +76,10 @@ class Suggestions extends Component {
                         <FontAwesome
                             name="arrow-right"
                             size="2x"
-                            style={{...STYLES.dots.rightArrow, ...STYLES.dots.arrow(suggestionNum === suggestions.length - 1)}}
+                            style={{
+                                ...STYLES.dots.rightArrow,
+                                ...STYLES.dots.arrow(suggestionNum === 2)
+                            }}
                             onClick={() => this.setState({ suggestionNum: suggestionNum + 1 })}
                         />
                     </div>
@@ -120,9 +125,6 @@ const STYLES = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        '@media (min-width: 520px)': {
-        },
-
     },
 
     card: {
