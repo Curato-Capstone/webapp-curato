@@ -1,7 +1,7 @@
 export const preferencesInfo = {
     price         : {
-        name: 'Price',
-        icon: 'money',
+        name: 'Art',
+        icon: 'paint-brush',
         color: '#d32f2f',
         tooltipValues: ['Art makes no sense to me',
                         'I only care about famous art',
@@ -10,8 +10,8 @@ export const preferencesInfo = {
                         'I\'m at every art show, ever!']
     },
     culture       : {
-        name: 'Culture',
-        icon: 'globe',
+        name: 'History',
+        icon: 'clock-o',
         color: '#388E3C',
         tooltipValues: ['Histo-what?',
                         'I\'m not a big fan, but on occasions',

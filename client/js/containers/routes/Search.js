@@ -72,7 +72,12 @@ const STYLES = {
     container: {
         height: '100%',
         minHeight: '100vh',
-        width: '100%'
+        width: '100%',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     searchBarContainer: {
