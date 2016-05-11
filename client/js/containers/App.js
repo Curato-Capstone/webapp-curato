@@ -96,7 +96,7 @@ class App extends Component {
         }
 
         return (
-            <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.navContainer}>
+            <FlipMove enterAnimation="fade" leaveAnimation="fade">
                 {nav}
             </FlipMove>
         );
@@ -122,10 +122,6 @@ const STYLES = {
     app: {
         minHeight: '100vh',
         width: '100%'
-    },
-
-    navContainer: {
-        width: '80px'
     },
 
     messageBar: {

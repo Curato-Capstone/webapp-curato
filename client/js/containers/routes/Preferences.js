@@ -81,9 +81,13 @@ const STYLES = {
         marginTop: '30px',
         marginLeft: '12px',
         // height: '1vh',
-        boxSizing: 'border-box',
         width: '95%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     header: {

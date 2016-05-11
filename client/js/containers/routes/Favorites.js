@@ -76,7 +76,11 @@ const STYLES = {
         alignItems: 'center',
         minHeight: '100vh',
         paddingTop: '72px',
-        boxSizing: 'border-box'
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     empty: {

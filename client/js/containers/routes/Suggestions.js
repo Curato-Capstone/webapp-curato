@@ -100,7 +100,12 @@ const STYLES = {
         justifyContent: 'center',
         position: 'relative',
         width: '100%',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        paddingLeft: '40px',
+        boxSizing: 'border-box',
+        '@media (min-width: 520px)': {
+            paddingLeft: '80px'
+        }
     },
 
     cardsContainer: {
