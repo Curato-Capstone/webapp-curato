@@ -87,7 +87,7 @@ const STYLES = {
         fontSize: '18px',
         color: 'grey',
         textAlign: 'center',
-        margin: 'auto 5px',
+        margin: 'auto 12px',
         paddingBottom: '120px',
         '@media (min-width: 520px)': {
             fontSize: '24px',

@@ -81,9 +81,9 @@ const STYLES = {
         marginTop: '30px',
         // marginLeft: '12px',
         // height: '1vh',
-        width: '95%',
+        width: '100%',
         overflow: 'hidden',
-        paddingLeft: '40px',
+        paddingLeft: '50px',
         boxSizing: 'border-box',
         '@media (min-width: 520px)': {
             paddingLeft: '80px'
@@ -104,7 +104,7 @@ const STYLES = {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         alignItems: 'space-around',
-        marginRight: '-32px',
+        // marginRight: '-20px',
         '@media (min-width: 520px)': {
             marginRight: '0'
         }
@@ -165,7 +165,7 @@ const STYLES = {
     }),
 
     updateButton: {
-        margin: '50px'
+        margin: '30px 0'
     }
 };
 
