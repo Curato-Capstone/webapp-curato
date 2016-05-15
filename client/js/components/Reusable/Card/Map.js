@@ -34,6 +34,6 @@ export default class MyMap extends Component {
 const STYLES = {
     map: {
         width: '100%',
-        height: '200px'
+        height: '100%'
     }
 };

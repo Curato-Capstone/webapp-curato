@@ -47,8 +47,8 @@ export default class FullCard extends Component {
                                 {this.renderWebsite(place.url)}
                             </div>
                             {this.renderHours(place.hours)}
-                            {this.renderDescription(place.description)}
                             {this.renderMap(place.location.lat, place.location.lng, place.name)}
+                            {this.renderDescription(place.description)}
                         </div>
                     </div>
                     <span style={STYLES.cardText.shadow(loaded)}></span>
@@ -166,6 +166,7 @@ export default class FullCard extends Component {
     renderMap(lat: number, lng: number, name: string) {
         return (
             <div style={STYLES.map}>
+                <h2 style={STYLES.info.header}>Location</h2>
                 <Map name={name} lat={lat} lng={lng} />
             </div>
         );
@@ -184,6 +185,10 @@ export default class FullCard extends Component {
 const STYLES = {
     container: (loaded) => ({
         position: 'relative',
+        width: '55vw',
+        '@media screen and (max-width: 900px)': {
+          width: '100vw'
+        },
         height: '450px',
         animation: 'x 1s ease-in-out 1s 1 normal forwards',
         animationName: loaded ? STYLES.expandContainerAnimation : null,
@@ -206,22 +211,41 @@ const STYLES = {
             backgroundColor: 'white',
             boxShadow: '0px 13px 20px -4px rgba(0,0,0,0.5)',
             animation: 'x 2s ease-in-out 0s 1 normal forwards',
-            animationName: loaded ? STYLES.cardImage.raiseImageAnimation : null
+            animationName: loaded ?
+                              (window.innerWidth > 900 ?
+                              STYLES.cardImage.raiseImageAnimation :
+                              STYLES.cardImage.raiseSmallImageAnimation) : null
         }),
 
         raiseImageAnimation: Radium.keyframes({
             '0%': {
                 transform: 'translateY(0)',
             },
-            '50%': {
+            '19.5%': {
                 transform: 'translateY(-70px)',
                 height: '380px',
-                width: '320px',
+                width: '18vw'
+            },
+            '100%': {
+                transform: 'translateY(-70px)',
+                width: '55vw',
+                height: '400px'
+            }
+        }),
+
+        raiseSmallImageAnimation: Radium.keyframes({
+            '0%': {
+                transform: 'translateY(0)',
+            },
+            '19.5%': {
+                transform: 'translateY(-70px)',
+                height: '380px',
+                width: '50vw'
             },
             '100%': {
                 transform: 'translateY(-70px)',
                 width: '100vw',
-                height: '200px'
+                height: '400px'
             }
         }),
 
@@ -287,6 +311,8 @@ const STYLES = {
             height: '450px',
             width: '335px',
             background: 'white',
+            marginTop: '200px',
+            marginLeft: '10px',
             opacity: 0,
             animation: 'x 1.7s ease-in-out 0.3s 1 normal forwards',
             animationName: loaded ? STYLES.cardText.lowerTextAnimation : null
@@ -433,7 +459,8 @@ const STYLES = {
         },
 
         body: {
-            marginBottom: '16px'
+            marginBottom: '16px',
+            marginRight: '10%'
         },
 
         contact: {
@@ -476,7 +503,9 @@ const STYLES = {
     },
 
     map: {
-        width: '98%',
-        marginTop: '20px'
-    }
+        minWidth: '300px',
+        height: '300px',
+        paddingBottom: '30px',
+        marginBottom: '20px'
+      }
 };
