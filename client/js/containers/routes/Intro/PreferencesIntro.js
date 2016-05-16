@@ -3,9 +3,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';

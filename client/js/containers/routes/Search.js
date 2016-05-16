@@ -4,9 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
 
 import SearchBar from 'components/Search/SearchBar';
 import Button from 'components/Reusable/Button/Button';

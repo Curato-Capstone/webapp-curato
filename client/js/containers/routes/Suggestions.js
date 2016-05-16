@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import FlipMove from 'react-flip-move';
-
 import type { Place } from 'flow/types';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
 
 import { primaryColor } from 'utils/colors';
 

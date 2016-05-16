@@ -4,7 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as authActions from 'modules/auth';
+import { auth as authActions } from 'redux-curato';
 
 import Header from 'components/Intro/Header';
 import SignUpForm from 'components/Forms/SignUpForm/SignUpForm';

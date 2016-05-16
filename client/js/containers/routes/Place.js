@@ -1,13 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import request from 'superagent-bluebird-promise';
+import { user as userActions, global as globalActions } from 'redux-curato';
 
-import * as userActions from 'modules/user';
-import * as globalActions from 'modules/global';
 import { routerActions } from 'react-router-redux';
 
 import FullCard from 'components/Reusable/Card/FullCard';

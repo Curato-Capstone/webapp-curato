@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import * as authActions from 'modules/auth';
+import { auth as authActions } from 'redux-curato';
 
 import logoColor from 'images/logo/full-logo-color.svg';
 import logo from 'images/logo/full-logo.svg'

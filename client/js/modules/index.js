@@ -2,11 +2,12 @@ import { combineReducers } from 'redux-immutablejs';
 import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
-import userReducer from './user';
-import suggestionsReducer from './suggestions';
-import globalReducer from './global';
-import authReducer from './auth';
-
+import {
+    userReducer,
+    suggestionsReducer,
+    globalReducer,
+    authReducer
+} from 'redux-curato';
 
 const rootReducer = combineReducers({
     user        : userReducer,

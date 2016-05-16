@@ -4,11 +4,9 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
 
 import { primaryColor } from 'utils/colors';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
 
 import Card from 'reusable/Card/Card';
 

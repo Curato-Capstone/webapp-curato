@@ -4,8 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
-
-import * as userActions from 'modules/user';
+import { user as userActions } from 'redux-curato';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';
