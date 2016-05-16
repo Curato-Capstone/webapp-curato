@@ -111,8 +111,8 @@ export default function reducer(state: State = initialState, action: Action): St
 
 // Thunks
 // -----------------------------------
-const suggestionBaseURL = 'http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000';
 const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
+
 export function getSuggestions({ random = false } = {}) {
     return async (dispatch, getState) => {
         try {
@@ -123,9 +123,11 @@ export function getSuggestions({ random = false } = {}) {
 
             const res = await request
                 .post(`${baseURL}/suggestions`)
-                .send({preferences, q: query});
+                .send({
+                    preferences,
+                    q: query
+                });
 
-            console.log(res);
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/suggestions'));
         } catch (error) {
@@ -144,7 +146,10 @@ export function getSuggestionsNoAccount() {
 
             const res = await request
                 .post(`${baseURL}/suggestions`)
-                .send({preferences});
+                .send({
+                    preferences,
+                    num_sugg: 3
+                });
 
             dispatch(setSuggestions(res.body));
             dispatch(routerActions.push('/intro/suggestions'));

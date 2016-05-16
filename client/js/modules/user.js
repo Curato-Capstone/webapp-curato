@@ -323,7 +323,6 @@ export function removeFavoriteThunk(place) {
 
             dispatch(removeFavorite(index));
         } catch (error) {
-
             dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
         }
 
@@ -332,13 +331,13 @@ export function removeFavoriteThunk(place) {
 }
 
 export function dislikePlace(id) {
-    return async (dispatch) => {
+    return async () => {
         try {
             await request
                 .post(`${baseURL}/place/dislike`)
                 .send({ id });
         } catch (error) {
-            // dispatch(globalActions.setMessage('error', 'Something went wrong :/'));
+            // don't need to do anything I think
         }
     };
 }
