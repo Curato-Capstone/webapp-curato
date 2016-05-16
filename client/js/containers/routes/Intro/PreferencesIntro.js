@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
+import { routerActions } from 'react-router-redux';
 import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
@@ -78,7 +79,7 @@ class Preferences extends Component {
                     <FontAwesome
                         name="arrow-left"
                         size="2x"
-                        style={{...STYLES.dots.leftArrow, ...STYLES.dots.arrow(prefNum === 0)}}
+                        style={{ ...STYLES.dots.leftArrow, ...STYLES.dots.arrow(prefNum === 0) }}
                         onClick={() => this.setState({ prefNum: prefNum - 1 })}
                     />
                     <Dots
@@ -88,7 +89,10 @@ class Preferences extends Component {
                     <FontAwesome
                         name="arrow-right"
                         size="2x"
-                        style={{...STYLES.dots.rightArrow, ...STYLES.dots.arrow(prefNum === preferencesList.length - 1)}}
+                        style={{
+                            ...STYLES.dots.rightArrow,
+                            ...STYLES.dots.arrow(prefNum === preferencesList.length - 1)
+                        }}
                         onClick={() => this.setState({ prefNum: prefNum + 1 })}
                     />
                 </div>
@@ -96,7 +100,10 @@ class Preferences extends Component {
                 <div style={STYLES.buttonContainer}>
                     <Button
                         label="Get Your Suggestions!"
-                        onClick={() => actions.getSuggestionsNoAccount()}
+                        onClick={() => {
+                            actions.getSuggestionsNoAccount()
+                                .then(() => actions.push('/intro/suggestions'));
+                        }}
                     />
                 </div>
             </div>
@@ -226,7 +233,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
+        actions : bindActionCreators({
+            ...userActions,
+            ...suggestionsActions,
+            ...routerActions
+        }, dispatch),
     };
 }
 

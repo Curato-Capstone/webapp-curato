@@ -24,13 +24,19 @@ class Search extends Component {
                     <SearchBar
                         value={searchText}
                         handleChange={actions.changeSearchText}
-                        handleSubmit={actions.getSuggestions}
+                        handleSubmit={() => {
+                            actions.getSuggestions()
+                                .then(() => actions.push('/suggestions'));
+                        }}
                     />
                     <div style={STYLES.randomButtonContainer}>
                         <Button
                             label="Random Suggestions!"
                             type="primary"
-                            handleClick={() => actions.getSuggestions({ random: true })}
+                            handleClick={() => {
+                                actions.getSuggestions({ random: true })
+                                    .then(() => actions.push('/suggestions'));
+                            }}
                             style={STYLES.randomButton}
                         />
                     </div>
@@ -111,9 +117,9 @@ function mapDispatchToProps(dispatch) {
     return {
         actions : bindActionCreators({
             ...userActions,
-            ...suggestionsActions
+            ...suggestionsActions,
+            ...routerActions
         }, dispatch),
-        routerActions : bindActionCreators(routerActions, dispatch)
     };
 }
 
