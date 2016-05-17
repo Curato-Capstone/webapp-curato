@@ -35,6 +35,7 @@ class Place extends Component {
                 return;
             }
         }
+        
         request
             .get(`http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/place/${id}`)
             .then((res) => {

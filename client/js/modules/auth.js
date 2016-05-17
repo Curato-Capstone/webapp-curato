@@ -83,6 +83,9 @@ export function signUpUser() {
                 .post(`${baseURL}/user/signup`)
                 .send(user);
 
+            console.log(res);
+            console.log(res.headers)
+            console.log(res.header)
             // localStorage.setItem('accessToken', res.headers)
 
             // dispatch(setToken(res.headers))

@@ -1,5 +1,5 @@
 export const preferencesInfo = {
-    price         : {
+    art         : {
         name: 'Art',
         icon: 'paint-brush',
         color: '#d32f2f',
@@ -9,7 +9,7 @@ export const preferencesInfo = {
                         'I make an effort to see art more often than not',
                         'I\'m at every art show, ever!']
     },
-    culture       : {
+    history       : {
         name: 'History',
         icon: 'clock-o',
         color: '#388E3C',

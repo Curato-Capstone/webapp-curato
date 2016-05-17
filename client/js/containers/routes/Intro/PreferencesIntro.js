@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import FlipMove from 'react-flip-move';
 import { routerActions } from 'react-router-redux';
 import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
@@ -15,7 +14,7 @@ import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
 import Dots from 'reusable/Dots/Dots';
 
-const preferencesList = ['price', 'culture', 'food', 'outdoors',
+const preferencesList = ['art', 'history', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
 
 @Radium
@@ -51,7 +50,6 @@ class Preferences extends Component {
                     help find businesses that you’re interested in, and to also
                     find other people like you who may have similar interests.
                 </div>
-                <FlipMove enterAnimation="fade" leaveAnimation="fade">
                     <div style={STYLES.sliderContainer} key={preferenceName}>
                         <div style={STYLES.slider}>
                             <Slider
@@ -74,7 +72,6 @@ class Preferences extends Component {
                             {info.tooltipValues[preferences[preferenceName] - 1]}
                         </div>
                     </div>
-                </FlipMove>
                 <div style={STYLES.dots.container}>
                     <FontAwesome
                         name="arrow-left"

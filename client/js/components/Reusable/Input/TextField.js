@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor, accentColor } from 'utils/colors';
 
 import MaterialTextField from 'material-ui/TextField';
 import eye from 'images/icons/eye.svg';
@@ -41,7 +41,7 @@ export default class TextField extends Component {
                     fullWidth
                     underlineStyle={{ borderColor: primaryColor }}
                     underlineFocusStyle={{ borderColor: primaryColor }}
-                    floatingLabelStyle={{ color: secondaryColor }}
+                    floatingLabelStyle={{ color: accentColor }}
                     style={{ fontFamily: 'Montserrat' }}
                     {...other}
                 />

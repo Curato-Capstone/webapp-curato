@@ -175,9 +175,11 @@ const STYLES = {
 };
 
 function mapStateToProps(state) {
+    const places =  state.get('places').toJS();
+
     return {
         favorites: state.getIn(['user', 'favorites']).toJS(),
-        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS().map((id) => places[id]),
     };
 }
 

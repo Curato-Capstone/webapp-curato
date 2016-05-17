@@ -200,12 +200,31 @@ export function getUserData() {
         try {
             dispatch(authActions.setIsAuthenticating(true));
 
+            // get user data
             const res = await request.get(`${baseURL}/user`);
 
             dispatch(setUser(res.body));
+
+            // get favorites place data
+            res.body.forEach((id) => getFavorite(id));
+
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            console.log(error);
+            dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
+        }
+        dispatch(authActions.setIsAuthenticating(false));
+    };
+}
+
+// called when page is first loaded
+export function getFavorite(id) {
+    return async (dispatch) => {
+        try {
+            const res = await request.get(`${baseURL}/place/${id}`);
+
+            dispatch(placesActions.addPlaces([res.body]));
+        } catch (error) {
+            dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));
     };
