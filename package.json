@@ -43,7 +43,7 @@
     "react-router": "^2.0.0-rc5",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.0.5",
-    "redux-curato": "^1.1.0",
+    "redux-curato": "^2.0.0",
     "redux-form": "^6.0.0-alpha.6",
     "redux-immutablejs": "0.0.8",
     "redux-thunk": "^2.0.1",
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "babel": "^6.3.26",
-    "babel-core": "^6.4.0",
+    "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-async-to-generator": "^6.7.4",

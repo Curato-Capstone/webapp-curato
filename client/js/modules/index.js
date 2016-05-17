@@ -6,12 +6,14 @@ import {
     userReducer,
     suggestionsReducer,
     globalReducer,
-    authReducer
+    authReducer,
+    placeReducer
 } from 'redux-curato';
-
+console.log(placeReducer)
 const rootReducer = combineReducers({
     user        : userReducer,
     suggestions : suggestionsReducer,
+    places      : placeReducer,
     global      : globalReducer,
     auth        : authReducer,
     form        : formReducer,
