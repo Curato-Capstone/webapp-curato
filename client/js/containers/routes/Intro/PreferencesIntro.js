@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
 import { routerActions } from 'react-router-redux';
-import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';

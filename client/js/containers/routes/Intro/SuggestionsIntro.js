@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
-import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor } from 'utils/colors';
 

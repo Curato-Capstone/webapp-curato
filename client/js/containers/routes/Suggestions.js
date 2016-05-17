@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import FlipMove from 'react-flip-move';
 import type { Place } from 'flow/types';
-import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor } from 'utils/colors';
 
@@ -150,10 +150,12 @@ const STYLES = {
 };
 
 function mapStateToProps(state, ownProps) {
+    const places =  state.get('places').toJS();
+    
     return {
         user: state.get('user').toJS(),
         favorites: state.getIn(['user', 'favorites']).toJS(),
-        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS().map((id) => places[id]),
         location: ownProps.location
     };
 }

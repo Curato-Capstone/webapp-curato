@@ -4,7 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import request from 'superagent-bluebird-promise';
-import { user as userActions, global as globalActions } from 'redux-curato';
+import { user as userActions, global as globalActions } from 'modules/index';
 
 import { routerActions } from 'react-router-redux';
 

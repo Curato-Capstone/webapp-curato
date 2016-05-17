@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 
-import { auth as authActions } from 'redux-curato';
+import { auth as authActions } from 'modules/index';
 
 export default function requireAuthentication(MyComponent) {
     class AuthenticatedComponent extends Component {

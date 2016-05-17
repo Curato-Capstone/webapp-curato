@@ -4,7 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor } from 'utils/colors';
 
@@ -99,8 +99,10 @@ const STYLES = {
 };
 
 function mapStateToProps(state) {
+    const places =  state.get('places').toJS();
+
     return {
-        favorites: state.get('user').toJS().favorites,
+        favorites: state.get('user').toJS().favorites.map((id) => places[id]),
     };
 }
 

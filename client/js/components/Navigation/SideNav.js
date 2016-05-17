@@ -81,6 +81,7 @@ const STYLES = {
         minHeight: '600px',
         width: '50px',
         zIndex: '9',
+        boxShadow: '10px 0px 30px -15px rgba(0,0,0,0.65)',
         backgroundColor: primaryColor,
         transition: 'width 0.7s ease-in-out',
         '@media (min-width: 520px)': {

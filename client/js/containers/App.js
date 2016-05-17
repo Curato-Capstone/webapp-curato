@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
 
-import { user as userActions, suggestions as suggestionsActions } from 'redux-curato';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
