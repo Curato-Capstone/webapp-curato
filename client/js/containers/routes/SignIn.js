@@ -77,6 +77,7 @@ const STYLES = {
         textAlign: 'center',
         color: primaryColor,
         fontSize: '18px',
+        margin: '5px'
     },
 
     logo: {

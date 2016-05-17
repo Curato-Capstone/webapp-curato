@@ -30,7 +30,7 @@ class Suggestions extends Component {
         const { suggestionNum } = this.state;
 
         const place = suggestions[suggestionNum];
-        const items = suggestions.slice(0, 3).map((suggestion, index) => {
+        const items = suggestions.map((suggestion, index) => {
             return {
                 name: suggestion.id,
                 handleClick: () => this.setState({ suggestionNum: index })
@@ -53,7 +53,7 @@ class Suggestions extends Component {
                             place={place}
                             favorite={this.checkFavorited(place)}
                             handleFavorite={() => this.handleFavorite(place)}
-                            handleDislike={() => actions.removeSuggestion()}
+                            handleDislike={() => actions.removeSuggestion(suggestionNum)}
                             handleMore={() => {}}
                         />
                     </div>
