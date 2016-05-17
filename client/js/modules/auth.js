@@ -84,8 +84,8 @@ export function signUpUser() {
                 .send(user);
 
             console.log(res);
-            console.log(res.headers)
-            console.log(res.header)
+            // console.log(res.headers)
+            console.log(res.header.Authorization)
             // localStorage.setItem('accessToken', res.headers)
 
             // dispatch(setToken(res.headers))
@@ -107,6 +107,7 @@ export function signInUser() {
                 .post(`${baseURL}/user/signin`)
                 .send(loginCredentials);
 
+            console.log(res);
             // localStorage.setItem('accessToken', res.headers)
 
             // dispatch(setToken(res.headers))
