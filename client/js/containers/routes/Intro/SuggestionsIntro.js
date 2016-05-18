@@ -48,15 +48,17 @@ class Suggestions extends Component {
                     to help give you even better suggestions in the future!
                 </div>
                 <div style={STYLES.cardContainer}>
-                    <div style={STYLES.card} key={place.id}>
-                        <Card
-                            place={place}
-                            favorite={this.checkFavorited(place)}
-                            handleFavorite={() => this.handleFavorite(place)}
-                            handleDislike={() => actions.removeSuggestion(suggestionNum)}
-                            handleMore={() => {}}
-                        />
-                    </div>
+                    { suggestions.length ?
+                        <div style={STYLES.card}>
+                            <Card
+                                place={place}
+                                favorite={this.checkFavorited(place)}
+                                handleFavorite={() => this.handleFavorite(place)}
+                                handleDislike={() => actions.removeSuggestion(suggestionNum)}
+                                handleMore={() => {}}
+                            />
+                        </div> : this.renderEmpty()
+                    }
                     <div style={STYLES.dots.container}>
                         <FontAwesome
                             name="arrow-left"
@@ -109,6 +111,21 @@ class Suggestions extends Component {
         } else {
             this.props.actions.addFavorite(place);
         }
+    }
+
+    renderEmpty() {
+        return (
+            <div style={STYLES.empty.text} key="empty">
+                <p>
+                    Didn't like any of our suggestions?
+                    We'll try harder next time!
+                </p>
+                <p>
+                    Maybe try changing your
+                    <Link to="/intro/preferences" style={STYLES.empty.link}> preferences</Link>!
+                </p>
+            </div>
+        )
     }
 }
 
@@ -172,6 +189,26 @@ const STYLES = {
             marginLeft: '16px'
         }
     },
+
+    empty: {
+        text: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            fontSize: '16px',
+            textAlign: 'center',
+            margin: '30px',
+            color: 'grey',
+            '@media (min-width: 520px)': {
+                fontSize: '20px',
+            }
+        },
+
+        link: {
+            color: primaryColor,
+            fontWeight: 'bold'
+        }
+    }
 };
 
 function mapStateToProps(state) {
