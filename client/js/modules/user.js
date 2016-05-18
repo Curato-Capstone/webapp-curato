@@ -196,12 +196,15 @@ const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
 
 // called when page is first loaded
 export function getUserData() {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch(authActions.setIsAuthenticating(true));
+            dispatch(authActions.setToken(localStorage.getItem('accessToken')))
 
             // get user data
-            const res = await request.get(`${baseURL}/user`);
+            const res = await request
+                .get(`${baseURL}/user`)
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(setUser(res.body));
 
@@ -210,6 +213,7 @@ export function getUserData() {
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
+            console.log(error)
             dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));

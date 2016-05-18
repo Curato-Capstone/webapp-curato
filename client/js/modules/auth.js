@@ -83,12 +83,11 @@ export function signUpUser() {
                 .post(`${baseURL}/user/signup`)
                 .send(user);
 
-            console.log(res);
-            // console.log(res.headers)
-            console.log(res.header.Authorization)
-            // localStorage.setItem('accessToken', res.headers)
+            // grab token and store it
+            const token = res.header.authorization;
+            localStorage.setItem('accessToken', res.header.authorization)
+            dispatch(setToken(token))
 
-            // dispatch(setToken(res.headers))
             dispatch(userActions.setUser(res.body));
             dispatch(setIsAuthenticated(true));
         } catch (error) {
@@ -107,10 +106,11 @@ export function signInUser() {
                 .post(`${baseURL}/user/signin`)
                 .send(loginCredentials);
 
-            console.log(res);
-            // localStorage.setItem('accessToken', res.headers)
+            //grab token and store it
+            const token = res.header.authorization;
+            localStorage.setItem('accessToken', res.header.authorization)
+            dispatch(setToken(token))
 
-            // dispatch(setToken(res.headers))
             dispatch(userActions.setUser(res.body));
             dispatch(setIsAuthenticated(true));
         } catch (error) {

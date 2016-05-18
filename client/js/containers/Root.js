@@ -47,7 +47,7 @@ export default class Root extends Component {
                                 <Route path="signup" component={SignUpIntro} />
                             </Route>
                             <Route path="place/:id" component={Place} />
-                            <Route path="signIn" component={requireAuth(SignIn)} />
+                            <Route path="signIn" component={SignIn} />
                             <Route path="suggestions" component={requireAuth(Suggestions)} />
                             <Route path="preferences" component={requireAuth(Preferences)} />
                             <Route path="account" component={requireAuth(Account)} />
