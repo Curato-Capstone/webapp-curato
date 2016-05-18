@@ -23,9 +23,9 @@ export default function requireAuthentication(MyComponent) {
             const { auth } = this.props;
 
             // if user isn't authenticated and we aren't in the process of authenticating
-            if (!auth.get('isAuthenticated') && !auth.get('isAuthenticating')) {
-                this.props.routerActions.push('/intro');
-            }
+            // if (!auth.get('isAuthenticated') && !auth.get('isAuthenticating')) {
+            //     this.props.routerActions.push('/intro');
+            // }
         }
 
         render() {

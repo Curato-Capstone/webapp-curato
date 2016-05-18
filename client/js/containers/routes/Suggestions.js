@@ -28,20 +28,22 @@ class Suggestions extends Component {
 
         return (
             <div style={STYLES.container}>
-                {suggestions.length ? <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
-                    {suggestions.slice(0, 3).map((place, index) => (
-                        <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
-                            <Card
-                                key={place.id}
-                                place={place}
-                                favorite={this.checkFavorited(place)}
-                                handleFavorite={() => this.handleFavorite(place, index)}
-                                handleDislike={() => this.handleDislike(place, index)}
-                            />
-                        </div>
-                    ))}
-                    {this.renderEmptyState()}
-                </FlipMove> : null}
+                <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
+                    {suggestions.length ?
+                        suggestions.slice(0, 3).map((place, index) => (
+                            <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
+                                <Card
+                                    key={place.id}
+                                    place={place}
+                                    favorite={this.checkFavorited(place)}
+                                    handleFavorite={() => this.handleFavorite(place, index)}
+                                    handleDislike={() => this.handleDislike(place, index)}
+                                />
+                            </div>
+                    ))  :
+                    <div>{this.renderEmptyState()}</div>
+                    }
+                </FlipMove>
                 <img style={STYLES.fourSquare} src={fourSquareImage} />
             </div>
         );
@@ -135,7 +137,7 @@ const STYLES = {
             alignItems: 'center',
             fontSize: '16px',
             textAlign: 'center',
-            margin: '0 16px',
+            margin: '0 16px 30px 16px',
             color: 'grey',
             '@media (min-width: 520px)': {
                 fontSize: '20px',
@@ -151,7 +153,7 @@ const STYLES = {
 
 function mapStateToProps(state, ownProps) {
     const places =  state.get('places').toJS();
-    
+
     return {
         user: state.get('user').toJS(),
         favorites: state.getIn(['user', 'favorites']).toJS(),
