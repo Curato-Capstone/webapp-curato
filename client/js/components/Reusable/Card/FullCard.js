@@ -27,7 +27,7 @@ export default class FullCard extends Component {
     render() {
         const { place, favorite, handleFavorite, handleBack } = this.props;
         const { loaded } = this.state;
-        console.log(place)
+
         return (
             <div style={STYLES.container(loaded)}>
                 <div style={STYLES.cardText.container(loaded)}>
