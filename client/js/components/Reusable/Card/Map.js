@@ -13,11 +13,7 @@ export default class MyMap extends Component {
     state: void;
 
     componentDidMount() {
-        console.log('here')
-        setTimeout(() => {
-            this.refs.map.getLeafletElement().invalidateSize(false)
-            console.log('here')
-        }, 2000);
+        setTimeout(() => this.refs.map.getLeafletElement().invalidateSize(false), 2000);
     }
 
     render() {
@@ -26,7 +22,7 @@ export default class MyMap extends Component {
         return (
             <Map ref="map" center={[lat, lng]} zoom={18} style={STYLES.map}>
                 <TileLayer
-                    url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url="http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
                     detectRetina="true"
                 />
                 <Marker position={[lat, lng]}>
@@ -42,6 +38,6 @@ export default class MyMap extends Component {
 const STYLES = {
     map: {
         width: '100%',
-        height: '200px'
+        height: '100%'
     }
 };

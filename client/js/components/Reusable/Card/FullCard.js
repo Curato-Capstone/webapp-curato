@@ -475,10 +475,10 @@ const STYLES = {
     },
 
     map: {
-        width: '95%',
-        marginTop: '20px',
-        '@media (min-width: 520px)': {
-            width: '50%',
-        },
+        minWidth: '300px',
+        height: '300px',
+        paddingTop: '30px',
+        paddingBottom: '30px',
+        marginBottom: '20px'
     }
 };

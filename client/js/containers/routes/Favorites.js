@@ -26,10 +26,10 @@ class Favorites extends Component {
 
         return (
             <div style={STYLES.container}>
-                {favorites.map((place) => {
+                {favorites.map((place, index) => {
                     return (
                         <Card
-                            key={place.id}
+                            key={place.id || index}
                             place={place}
                             favorite
                             hideDislike
@@ -98,7 +98,7 @@ function mapStateToProps(state) {
             if (places[id]) {
                 return places[id];
             }
-            console.log(new PlaceRecord().id);
+
             return new PlaceRecord();
         })
     };

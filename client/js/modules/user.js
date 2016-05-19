@@ -208,7 +208,7 @@ export function getUserData() {
             dispatch(setUser(res.body));
 
             // get favorites place data
-            res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
+            // res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
