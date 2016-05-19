@@ -82,8 +82,13 @@ export default class FullCard extends Component {
                         />
                     </div>
 
-                    <div style={STYLES.cardImage.favoriteButton(loaded)}>
-                        <FloatingActionButton onClick={handleFavorite}>
+                    <div key="fab" style={STYLES.cardImage.favoriteButton(loaded)}>
+                        <FloatingActionButton
+                            onClick={handleFavorite}
+                            style={Radium.getState(this.state, 'fab', ':hover') ?
+                                { transform: 'translateY(6px)' } : {}
+                            }
+                        >
                             <Heart active={favorite} styles={STYLES.cardImage.heart} />
                         </FloatingActionButton>
                     </div>
@@ -259,10 +264,11 @@ const STYLES = {
             position: 'absolute',
             bottom: 0,
             transform: 'scale(0.6, 0.6) translateY(20px)',
-            right: 15,
+            right: '2vw',
             opacity: 0,
             animation: 'x 1s ease-in-out 2.75s 1 normal forwards',
             animationName: loaded ? STYLES.cardImage.fadeFavoriteButton : null,
+            ':hover': {}
         }),
 
         fadeFavoriteButton: Radium.keyframes({
