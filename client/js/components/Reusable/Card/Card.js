@@ -97,6 +97,7 @@ const STYLES = {
         position: 'relative',
         height: '350px',
         marginTop: '75px',
+        fontWeight: '300',
         marginBottom: '80px',
         transition: 'height 0.5s ease-out',
         '@media (min-width: 520px)': {
@@ -187,6 +188,7 @@ const STYLES = {
 
         placeName: {
             fontSize: '17px',
+            fontWeight: '400',
             '@media (min-width: 520px)': {
                 fontSize: '20px'
             }
@@ -204,7 +206,7 @@ const STYLES = {
     cardActions: {
         container: {
             position: 'absolute',
-            bottom: 7.5,
+            bottom: 5,
             left: -10,
             display: 'flex',
             alignItems: 'center',
@@ -214,13 +216,14 @@ const STYLES = {
         },
 
         dislike: {
-            color: 'red',
+            color: '#f44336',
             cursor: 'pointer'
         },
 
         more: {
             color: 'blue',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontWeight: '400'
         }
     },
 

@@ -184,6 +184,7 @@ const STYLES = {
     container: (loaded) => ({
         position: 'relative',
         height: '450px',
+        fontWeight: '300',
         animation: 'x 1s ease-in-out 1s 1 normal forwards',
         animationName: loaded ? STYLES.expandContainerAnimation : null,
     }),
@@ -373,7 +374,7 @@ const STYLES = {
     cardActions: {
         container: (loaded) => ({
             position: 'absolute',
-            bottom: 7.5,
+            bottom: 5,
             left: -10,
             display: 'flex',
             alignItems: 'center',
@@ -390,12 +391,14 @@ const STYLES = {
         }),
 
         dislike: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            color: '#f44336',
         },
 
         more: {
             color: 'blue',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontWeight: '400'
         }
     },
 
