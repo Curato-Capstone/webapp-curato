@@ -99,8 +99,11 @@ const STYLES = {
         cursor: 'pointer',
         boxShadow: '-6px 0px 8px 2px rgba(211,211,211,0.75)',
         backgroundColor: primaryColor,
-        transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -2px)',
-        transition: 'transform 0.3s ease-in',
+        transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -3px)',
+        transition: 'transform 0.25s ease-in',
+        ':hover': {
+            transform: clicking ? 'translate(1.5px, 10px)' : 'translate(0px, -1px)'
+        },
         '@media (min-width: 520px)': {
             width: '80px',
             height: '72px',
