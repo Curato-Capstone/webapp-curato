@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
+import type { Place } from 'flow/types';
+import PlaceRecord from '../../models/Place';
 
 import { primaryColor } from 'utils/colors';
 
@@ -14,17 +16,7 @@ import Card from 'reusable/Card/Card';
 class Favorites extends Component {
     static defaultProps = {};
     props:{
-        favorites: Array<
-            {
-                name : string,
-                id : string,
-                categories: Array<Object>,
-                location: {
-                    address: string
-                },
-                image: string
-            }
-        >
+        favorites: Array<Place>
     };
     state: void;
 
@@ -102,7 +94,13 @@ function mapStateToProps(state) {
     const places =  state.get('places').toJS();
 
     return {
-        favorites: state.get('user').toJS().favorites.map((id) => places[id]),
+        favorites: state.get('user').toJS().favorites.map((id) => {
+            if (places[id]) {
+                return places[id];
+            }
+            console.log(new PlaceRecord().id);
+            return new PlaceRecord();
+        })
     };
 }
 

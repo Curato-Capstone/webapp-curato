@@ -70,7 +70,7 @@ class Suggestions extends Component {
     checkFavorited(place) {
         const { favorites } = this.props;
         for (let i = 0; i < favorites.length; i ++) {
-            if (favorites[i].id === place.id) {
+            if (favorites[i] === place.id) {
                 return true;
             }
         }
@@ -80,9 +80,9 @@ class Suggestions extends Component {
 
     handleFavorite(place, index) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavoriteThunk(place, index);
+            this.props.actions.removeFavoriteThunk(place.id);
         } else {
-            this.props.actions.addFavoriteThunk(place);
+            this.props.actions.addFavoriteThunk(place.id);
         }
     }
 

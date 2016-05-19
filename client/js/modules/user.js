@@ -201,7 +201,6 @@ export function getUserData() {
             dispatch(authActions.setIsAuthenticating(true));
             dispatch(authActions.setToken(localStorage.getItem('accessToken')))
 
-            // get user data
             const res = await request
                 .get(`${baseURL}/user`)
                 .set('Authorization', getState().getIn(['auth', 'token']));
@@ -209,23 +208,22 @@ export function getUserData() {
             dispatch(setUser(res.body));
 
             // get favorites place data
-            res.body.forEach((id) => getFavorite(id));
+            res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            console.log(error)
             dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));
     };
 }
 
-// called when page is first loaded
+// get favorites to put in
 export function getFavorite(id) {
     return async (dispatch) => {
         try {
             const res = await request.get(`${baseURL}/place/${id}`);
-
+            console.log(res);
             dispatch(placesActions.addPlaces([res.body]));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
@@ -241,9 +239,10 @@ export function updateAccount() {
             dispatch(globalActions.setLoading(true));
             const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
 
-            request
+            await request
                 .put(`${baseURL}/user/`)
-                .send(accountValues);
+                .send(accountValues)
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Account!'));
         } catch (error) {
@@ -263,7 +262,8 @@ export function updatePreferences() {
 
             await request
                 .put(`${baseURL}/user/`)
-                .send({ preferences });
+                .send({ preferences })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
@@ -282,7 +282,8 @@ export function addFavoriteThunk(id) {
 
             await request
                 .post(`${baseURL}/place/favorites/add`)
-                .send({ id });
+                .send({ id })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(addFavorite(id));
         } catch (error) {
@@ -301,16 +302,30 @@ export function removeFavoriteThunk(id) {
 
             await request
                 .post(`${baseURL}/place/favorites/remove`)
-                .send({ id });
+                .send({ id })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             const favorites = getState().getIn(['user', 'favorites']).toJS();
 
-            let index;
-            for (let i = 0; i < favorites.length; i++) {
-                if (favorites[i].id === id) {
-                    index = i;
-                }
-            }
+            const index = favorites.indexOf(id);
+
+            dispatch(removeFavorite(index));
+        } catch (error) {
+            dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
+        }
+
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+// called on /favorites and /suggestions
+export function removeFavoriteIntro(id) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+
+            const favorites = getState().getIn(['user', 'favorites']).toJS();
+            const index = favorites.indexOf(id);
 
             dispatch(removeFavorite(index));
         } catch (error) {
@@ -324,9 +339,10 @@ export function removeFavoriteThunk(id) {
 export function dislikePlace(id) {
     return async () => {
         try {
-            await request
-                .post(`${baseURL}/place/dislike`)
-                .send({ id });
+            // await request
+            //     .post(`${baseURL}/place/dislike`)
+            //     .send({ id })
+            //     .set('Authorization', getState().getIn(['auth', 'token']));
         } catch (error) {
             // don't need to do anything I think
         }

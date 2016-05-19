@@ -49,6 +49,16 @@ class App extends Component {
     }
 
     renderComponents() {
+        const { auth } = this.props;
+
+        if (auth.isAuthenticating) {
+            return (
+                <div style={STYLES.container}>
+                    {this.renderSpinner()}
+                </div>
+            );
+        }
+
         return (
             <div style={STYLES.container}>
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>

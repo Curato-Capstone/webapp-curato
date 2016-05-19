@@ -49,7 +49,7 @@ class Suggestions extends Component {
                 </div>
                 <div style={STYLES.cardContainer}>
                     { suggestions.length ?
-                        <div style={STYLES.card}>
+                        <div style={STYLES.card} key={place.id}>
                             <Card
                                 place={place}
                                 favorite={this.checkFavorited(place)}
@@ -97,7 +97,7 @@ class Suggestions extends Component {
         const { favorites } = this.props;
 
         for (let i = 0; i < favorites.length; i ++) {
-            if (favorites[i].id === place.id) {
+            if (favorites[i] === place.id) {
                 return true;
             }
         }
@@ -107,9 +107,9 @@ class Suggestions extends Component {
 
     handleFavorite(place) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavorite();
+            this.props.actions.removeFavoriteIntro(place.id);
         } else {
-            this.props.actions.addFavorite(place);
+            this.props.actions.addFavorite(place.id);
         }
     }
 
