@@ -27,7 +27,7 @@ export default class FullCard extends Component {
     render() {
         const { place, favorite, handleFavorite, handleBack } = this.props;
         const { loaded } = this.state;
-
+        console.log(place)
         return (
             <div style={STYLES.container(loaded)}>
                 <div style={STYLES.cardText.container(loaded)}>
@@ -38,6 +38,7 @@ export default class FullCard extends Component {
                         </div>
                         <div style={STYLES.cardText.address(loaded)}>{place.location.address}</div>
                         <div style={STYLES.info.container(loaded)}>
+                            {this.renderMap(place.location.lat, place.location.lng, place.name)}
                             <div style={[STYLES.info.contact, STYLES.info.body]}>
                                 <h2 style={STYLES.info.header}>Contact Info</h2>
                                 {this.renderPhoneNumber(place.contact.formattedPhone)}
@@ -46,7 +47,6 @@ export default class FullCard extends Component {
                                 {this.renderWebsite(place.url)}
                             </div>
                             {this.renderHours(place.hours)}
-                            {this.renderMap(place.location.lat, place.location.lng, place.name)}
                             {this.renderDescription(place.description)}
                         </div>
                     </div>
@@ -165,6 +165,7 @@ export default class FullCard extends Component {
     renderMap(lat: number, lng: number, name: string) {
         return (
             <div style={STYLES.map}>
+                <h2 style={STYLES.info.header}>Location</h2>
                 <Map name={name} lat={lat} lng={lng} />
             </div>
         );
@@ -475,10 +476,9 @@ const STYLES = {
     },
 
     map: {
-        minWidth: '300px',
-        height: '300px',
-        paddingTop: '30px',
+        width: '100%',
+        height: '400px',
         paddingBottom: '30px',
-        marginBottom: '20px'
+        marginBottom: '50px'
     }
 };
