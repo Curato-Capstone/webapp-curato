@@ -17,7 +17,7 @@ export default class UserAvatar extends Component {
         return (
             <div style={STYLES.container}>
                 <Link to="/account" style={STYLES.link}>
-                    <Avatar className="fa fa-paper-plane" style={STYLES.avatarIcon} />
+                    <Avatar className="fa fa-user" style={STYLES.avatarIcon} />
                     <div>{name}</div>
                 </Link>
             </div>
