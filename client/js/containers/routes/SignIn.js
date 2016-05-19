@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import * as authActions from 'modules/auth';
+import { routerActions } from 'react-router-redux';
+import { auth as authActions } from 'modules/index';
 
 import logoColor from 'images/logo/full-logo-color.svg';
-import logo from 'images/logo/full-logo.svg'
+import logo from 'images/logo/full-logo.svg';
 
 import SignInForm from 'components/Forms/SignInForm/SignInForm';
 import { primaryColor } from 'utils/colors';
@@ -18,15 +18,13 @@ class SignIn extends Component {
     state: void;
 
     render() {
-        const { actions } = this.props;
-
         return (
             <div style={STYLES.container}>
                 <img src={logoColor} style={STYLES.logo} />
                 <div style={STYLES.card}>
                     <div style={STYLES.left}>
                         <p style={STYLES.text}>Sign in to get your curated suggestions!</p>
-                        <SignInForm onSubmit={() => actions.signInUser()} />
+                        <SignInForm onSubmit={() => this.signInUser()} />
                     </div>
                     <div style={STYLES.right}>
                         <img src={logo} style={STYLES.sideLogo} />
@@ -34,6 +32,15 @@ class SignIn extends Component {
                 </div>
             </div>
         );
+    }
+
+    signInUser() {
+        const { actions } = this.props;
+
+        actions.signInUser()
+            .then(() => {
+                actions.push('/');
+            });
     }
 }
 
@@ -70,6 +77,7 @@ const STYLES = {
         textAlign: 'center',
         color: primaryColor,
         fontSize: '18px',
+        margin: '5px'
     },
 
     logo: {
@@ -118,7 +126,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators(authActions, dispatch),
+        actions : bindActionCreators({ ...authActions, ...routerActions }, dispatch),
     };
 }
 

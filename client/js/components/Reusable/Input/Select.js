@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor, accentColor } from 'utils/colors';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -28,7 +28,7 @@ export default class Select extends Component {
                     fullWidth
                     underlineStyle={{ borderColor: primaryColor }}
                     underlineFocusStyle={{ borderColor: primaryColor }}
-                    floatingLabelStyle={{ color: secondaryColor }}
+                    floatingLabelStyle={{ color: accentColor }}
                     {...other}
                 >
                     {options.map((option) =>

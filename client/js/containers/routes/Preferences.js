@@ -4,8 +4,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
-
-import * as userActions from 'modules/user';
+import { user as userActions } from 'modules/index';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';
@@ -13,7 +12,7 @@ import { preferencesInfo } from 'utils/preferences';
 import Slider from 'reusable/Slider/Slider';
 import Button from 'reusable/Button/Button';
 
-const preferencesList = ['price', 'culture', 'food', 'outdoors',
+const preferencesList = ['art', 'history', 'food', 'outdoors',
     'entertainment', 'relaxation', 'shopping', 'sports'];
 @Radium
 class Preferences extends Component {

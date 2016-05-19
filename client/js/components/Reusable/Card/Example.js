@@ -8,22 +8,25 @@ import Card from './Card';
 const place1 = {
     name: 'EMP',
     location: { address: '1234 Street Ave., Seattle, WA' },
-    image: require('images/places/emp.jpg'),
-    id: '123'
+    image: require('images/places/pike_place_market.jpg'),
+    id: '123',
+    categories: [{ name: 'Art Museum' }, { name: 'History Museum' }]
 };
 
 const place2 = {
     name: 'Space Needle',
     location: { address: '1234 Street Ave., Seattle, WA' },
-    image: require('images/places/space_needle.jpg'),
+    image: require('images/places/pike_place_market.jpg'),
     id: '124',
+    categories: [{ name: 'Landmark' }],
 };
 
 const place3 = {
     name: 'Pike Place Market',
     location: { address: '1234 Street Ave., Seattle, WA' },
     image: require('images/places/pike_place_market.jpg'),
-    id: '125'
+    id: '125',
+    categories: [{ name: 'Shop' }],
 };
 
 @Radium

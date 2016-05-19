@@ -1,6 +1,6 @@
 // @flow
 import { Map } from 'immutable';
-import type { Action } from 'flow/types';
+import type { Action } from '../../flow/types';
 
 // Actions
 // -----------------------------------

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 
-import * as authActions from 'modules/auth';
+import { auth as authActions } from 'modules/index';
 
 export default function requireAuthentication(MyComponent) {
     class AuthenticatedComponent extends Component {
@@ -20,12 +20,12 @@ export default function requireAuthentication(MyComponent) {
         }
 
         checkAuth() {
-            // const { auth } = this.props;
+            const { auth } = this.props;
 
             // if user isn't authenticated and we aren't in the process of authenticating
-            // if (!auth.get('authenticated') && !auth.get('isAuthenticating')) {
-            //     this.props.routerActions.push('/intro');
-            // }
+            if (!auth.get('isAuthenticated') && !auth.get('isAuthenticating')) {
+                this.props.routerActions.push('/intro');
+            }
         }
 
         render() {

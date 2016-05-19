@@ -4,7 +4,7 @@ import Radium from 'radium';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 
-import { primaryColor } from 'utils/colors';
+import { primaryColor, secondaryColor } from 'utils/colors';
 
 import logo from 'images/logo/logo.svg';
 
@@ -81,6 +81,7 @@ const STYLES = {
         minHeight: '600px',
         width: '50px',
         zIndex: '9',
+        boxShadow: '10px 0px 30px -15px rgba(0,0,0,0.65)',
         backgroundColor: primaryColor,
         transition: 'width 0.7s ease-in-out',
         '@media (min-width: 520px)': {
@@ -121,7 +122,7 @@ const STYLES = {
     },
 
     navIcon: {
-        color: 'white',
+        color: secondaryColor,
         textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
     },
 
@@ -132,7 +133,7 @@ const STYLES = {
         left: 3,
         height: '55px',
         width: '3px',
-        backgroundColor: 'white',
+        backgroundColor: secondaryColor,
         transition: 'transform 0.5s ease-in-out',
         '@media (min-width: 520px)': {
             left: 4

@@ -4,7 +4,6 @@ import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import padRight from 'pad-right';
 
 import type { Place } from 'flow/types';
 import { primaryColor } from 'utils/colors';
@@ -47,8 +46,8 @@ export default class FullCard extends Component {
                                 {this.renderWebsite(place.url)}
                             </div>
                             {this.renderHours(place.hours)}
-                            {this.renderDescription(place.description)}
                             {this.renderMap(place.location.lat, place.location.lng, place.name)}
+                            {this.renderDescription(place.description)}
                         </div>
                     </div>
                     <span style={STYLES.cardText.shadow(loaded)}></span>
@@ -78,7 +77,7 @@ export default class FullCard extends Component {
                     <div style={STYLES.cardImage.arrow(loaded)}>
                         <FontAwesome
                             onClick={handleBack}
-                            name="long-arrow-left"
+                            name="arrow-left"
                             size="2x"
                         />
                     </div>
@@ -242,9 +241,9 @@ const STYLES = {
             top: 10,
             left: 10,
             opacity: 0,
-            color: 'gray',
+            color: primaryColor,
             cursor: 'pointer',
-            transform: 'scale(1.5, 2.25)',
+            transform: 'scale(1.2, 1.2)',
             animation: 'x 1s ease-in-out 2.5s 1 normal forwards',
             animationName: loaded ? STYLES.cardImage.fadeArrowIn : null
         }),
@@ -476,7 +475,10 @@ const STYLES = {
     },
 
     map: {
-        width: '98%',
-        marginTop: '20px'
+        minWidth: '300px',
+        height: '300px',
+        paddingTop: '30px',
+        paddingBottom: '30px',
+        marginBottom: '20px'
     }
 };

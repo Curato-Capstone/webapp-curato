@@ -4,7 +4,7 @@ import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
 
-import { primaryColor } from 'utils/colors';
+import { primaryColor, secondaryColor } from 'utils/colors';
 
 @Radium
 export default class SearchBar extends Component {
@@ -43,7 +43,7 @@ export default class SearchBar extends Component {
                     <FontAwesome
                         name="search"
                         size="2x"
-                        style={{ color: 'white', textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                        style={{ color: secondaryColor, textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
                     />
                 </div>
             </div>

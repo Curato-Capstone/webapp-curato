@@ -4,11 +4,11 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
+import type { Place } from 'flow/types';
+import PlaceRecord from '../../models/Place';
 
 import { primaryColor } from 'utils/colors';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
 
 import Card from 'reusable/Card/Card';
 
@@ -16,17 +16,7 @@ import Card from 'reusable/Card/Card';
 class Favorites extends Component {
     static defaultProps = {};
     props:{
-        favorites: Array<
-            {
-                name : string,
-                id : string,
-                categories: Array<Object>,
-                location: {
-                    address: string
-                },
-                image: string
-            }
-        >
+        favorites: Array<Place>
     };
     state: void;
 
@@ -36,10 +26,10 @@ class Favorites extends Component {
 
         return (
             <div style={STYLES.container}>
-                {favorites.map((place) => {
+                {favorites.map((place, index) => {
                     return (
                         <Card
-                            key={place.id}
+                            key={place.id || index}
                             place={place}
                             favorite
                             hideDislike
@@ -101,8 +91,16 @@ const STYLES = {
 };
 
 function mapStateToProps(state) {
+    const places =  state.get('places').toJS();
+
     return {
-        favorites: state.get('user').toJS().favorites,
+        favorites: state.get('user').toJS().favorites.map((id) => {
+            if (places[id]) {
+                return places[id];
+            }
+
+            return new PlaceRecord();
+        })
     };
 }
 

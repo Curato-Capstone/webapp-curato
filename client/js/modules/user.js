@@ -1,8 +1,8 @@
 import { fromJS, Map, List } from 'immutable';
-import type { Place, Preferences, User, Action } from 'types/index';
+import type { Place, Preferences, User, Action } from '../../types/index';
 import request from 'superagent-bluebird-promise';
 
-import { routerActions } from 'react-router-redux';
+import * as placesActions from './places';
 import * as globalActions from './global';
 import * as authActions from './auth';
 
@@ -115,14 +115,14 @@ const initialState = Map({
     favorites   : List(),
     id          : '123456789',
     preferences : Map({
-        price         : 3,
-        culture       : 1,
-        food          : 4,
+        art           : 3,
+        history       : 3,
+        food          : 3,
         outdoors      : 3,
-        entertainment : 2,
-        relaxation    : 5,
+        entertainment : 3,
+        relaxation    : 3,
         shopping      : 3,
-        sports        : 2
+        sports        : 3
     })
 });
 
@@ -167,7 +167,7 @@ function favoritesReducer(state: List<Place>, action: Action): List<Place>  {
             return fromJS(action.favorites);
 
         case ADD_FAVORITE:
-            return state.push(fromJS(action.favorite));
+            return state.push(action.favorite);
 
         case REMOVE_FAVORITE:
             return state.delete(action.index);
@@ -193,47 +193,40 @@ function preferencesReducer(state: Map<string, number>, action: Action): Map<str
 // Thunks
 // -----------------------------------
 const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
-const sleep = (ms) => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(), ms)
-    });
-}
 
-const user = {
-    email       : 'mister-pie@hotmail.com',
-    name        : 'Mister Pie',
-    age         : 25,
-    gender      : 'male',
-    ethnicity   : 'white',
-    favorites   : [],
-    id          : '123456789',
-    preferences : {
-        price         : 3,
-        culture       : 1,
-        food          : 4,
-        outdoors      : 3,
-        entertainment : 2,
-        relaxation    : 5,
-        shopping      : 3,
-        sports        : 2
-    }
-};
 // called when page is first loaded
 export function getUserData() {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch(authActions.setIsAuthenticating(true));
+            dispatch(authActions.setToken(localStorage.getItem('accessToken')))
 
-            const res = await request.get(`${baseURL}/user`);
-            // const res = {};
-            // res.body = await new Promise((resolve) => {
-            //     setTimeout(() => resolve(user), 2000)
-            // });
+            const res = await request
+                .get(`${baseURL}/user`)
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(setUser(res.body));
+
+            // get favorites place data
+            // res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
+
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            console.log(error);
+            dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
+        }
+        dispatch(authActions.setIsAuthenticating(false));
+    };
+}
+
+// get favorites to put in
+export function getFavorite(id) {
+    return async (dispatch) => {
+        try {
+            const res = await request.get(`${baseURL}/place/${id}`);
+            console.log(res);
+            dispatch(placesActions.addPlaces([res.body]));
+        } catch (error) {
+            dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));
     };
@@ -246,8 +239,10 @@ export function updateAccount() {
             dispatch(globalActions.setLoading(true));
             const accountValues = getState().getIn(['form', 'AccountForm', 'values']).toJS();
 
-            // console.log(accountValues);
-            await sleep(1200);
+            await request
+                .put(`${baseURL}/user/`)
+                .send(accountValues)
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Account!'));
         } catch (error) {
@@ -265,11 +260,10 @@ export function updatePreferences() {
             dispatch(globalActions.setLoading(true));
             const preferences = getState().getIn(['user', 'preferences']).toJS();
 
-            // await request
-            //     .put(`${baseURL}/user/`)
-            //     .send({ preferences });
-
-            await sleep(1200);
+            await request
+                .put(`${baseURL}/user/`)
+                .send({ preferences })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
@@ -281,17 +275,17 @@ export function updatePreferences() {
 }
 
 // called on /favorites and /suggestions
-export function addFavoriteThunk(place) {
+export function addFavoriteThunk(id) {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            // await request
-            //     .post(`${baseURL}/place/favorites/add`)
-            //     .send({ id: place.id });
-            await sleep(300);
+            await request
+                .post(`${baseURL}/place/favorites/add`)
+                .send({ id })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
-            dispatch(addFavorite(place));
+            dispatch(addFavorite(id));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Unable to add favorite, blame Brandon'));
         }
@@ -301,29 +295,40 @@ export function addFavoriteThunk(place) {
 }
 
 // called on /favorites and /suggestions
-export function removeFavoriteThunk(place) {
+export function removeFavoriteThunk(id) {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            // await request
-            //     .post(`${baseURL}/place/favorites/remove`)
-            //     .send({ id: place.id });
-
-            await sleep(300);
+            await request
+                .post(`${baseURL}/place/favorites/remove`)
+                .send({ id })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
             const favorites = getState().getIn(['user', 'favorites']).toJS();
 
-            let index;
-            for (let i = 0; i < favorites.length; i++) {
-                if (favorites[i].id === place.id) {
-                    index = i;
-                }
-            }
+            const index = favorites.indexOf(id);
 
             dispatch(removeFavorite(index));
         } catch (error) {
+            dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
+        }
 
+        dispatch(globalActions.setLoading(false));
+    };
+}
+
+// called on /favorites and /suggestions
+export function removeFavoriteIntro(id) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(globalActions.setLoading(true));
+
+            const favorites = getState().getIn(['user', 'favorites']).toJS();
+            const index = favorites.indexOf(id);
+
+            dispatch(removeFavorite(index));
+        } catch (error) {
             dispatch(globalActions.setMessage('error', 'Unable to remove favorite'));
         }
 
@@ -332,13 +337,14 @@ export function removeFavoriteThunk(place) {
 }
 
 export function dislikePlace(id) {
-    return async (dispatch) => {
+    return async () => {
         try {
-            await request
-                .post(`${baseURL}/place/dislike`)
-                .send({ id });
+            // await request
+            //     .post(`${baseURL}/place/dislike`)
+            //     .send({ id })
+            //     .set('Authorization', getState().getIn(['auth', 'token']));
         } catch (error) {
-            // dispatch(globalActions.setMessage('error', 'Something went wrong :/'));
+            // don't need to do anything I think
         }
     };
 }

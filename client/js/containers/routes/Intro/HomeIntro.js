@@ -60,7 +60,7 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 'auto',
+        marginTop: '30px',
         marginBottom: '12px'
     },
 

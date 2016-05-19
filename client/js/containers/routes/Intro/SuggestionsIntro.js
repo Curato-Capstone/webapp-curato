@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor } from 'utils/colors';
 
@@ -32,7 +30,7 @@ class Suggestions extends Component {
         const { suggestionNum } = this.state;
 
         const place = suggestions[suggestionNum];
-        const items = suggestions.slice(0, 3).map((suggestion, index) => {
+        const items = suggestions.map((suggestion, index) => {
             return {
                 name: suggestion.id,
                 handleClick: () => this.setState({ suggestionNum: index })
@@ -50,15 +48,17 @@ class Suggestions extends Component {
                     to help give you even better suggestions in the future!
                 </div>
                 <div style={STYLES.cardContainer}>
-                    <div style={STYLES.card} key={place.id}>
-                        <Card
-                            place={place}
-                            favorite={this.checkFavorited(place)}
-                            handleFavorite={() => this.handleFavorite(place)}
-                            handleDislike={() => actions.removeSuggestion()}
-                            handleMore={() => {}}
-                        />
-                    </div>
+                    { suggestions.length ?
+                        <div style={STYLES.card} key={place.id}>
+                            <Card
+                                place={place}
+                                favorite={this.checkFavorited(place)}
+                                handleFavorite={() => this.handleFavorite(place)}
+                                handleDislike={() => actions.removeSuggestion(suggestionNum)}
+                                handleMore={() => {}}
+                            />
+                        </div> : this.renderEmpty()
+                    }
                     <div style={STYLES.dots.container}>
                         <FontAwesome
                             name="arrow-left"
@@ -97,7 +97,7 @@ class Suggestions extends Component {
         const { favorites } = this.props;
 
         for (let i = 0; i < favorites.length; i ++) {
-            if (favorites[i].id === place.id) {
+            if (favorites[i] === place.id) {
                 return true;
             }
         }
@@ -107,10 +107,25 @@ class Suggestions extends Component {
 
     handleFavorite(place) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavorite();
+            this.props.actions.removeFavoriteIntro(place.id);
         } else {
-            this.props.actions.addFavorite(place);
+            this.props.actions.addFavorite(place.id);
         }
+    }
+
+    renderEmpty() {
+        return (
+            <div style={STYLES.empty.text} key="empty">
+                <p>
+                    Didn't like any of our suggestions?
+                    We'll try harder next time!
+                </p>
+                <p>
+                    Maybe try changing your
+                    <Link to="/intro/preferences" style={STYLES.empty.link}> preferences</Link>!
+                </p>
+            </div>
+        )
     }
 }
 
@@ -174,12 +189,34 @@ const STYLES = {
             marginLeft: '16px'
         }
     },
+
+    empty: {
+        text: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            fontSize: '16px',
+            textAlign: 'center',
+            margin: '30px',
+            color: 'grey',
+            '@media (min-width: 520px)': {
+                fontSize: '20px',
+            }
+        },
+
+        link: {
+            color: primaryColor,
+            fontWeight: 'bold'
+        }
+    }
 };
 
 function mapStateToProps(state) {
+    const places =  state.get('places').toJS();
+
     return {
         favorites: state.getIn(['user', 'favorites']).toJS(),
-        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS().map((id) => places[id]),
     };
 }
 

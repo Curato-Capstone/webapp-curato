@@ -4,7 +4,8 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as authActions from 'modules/auth';
+import { routerActions } from 'react-router-redux';
+import { auth as authActions } from 'modules/index';
 
 import Header from 'components/Intro/Header';
 import SignUpForm from 'components/Forms/SignUpForm/SignUpForm';
@@ -18,17 +19,24 @@ class SignUp extends Component {
     state: void;
 
     render() {
-        const { actions } = this.props;
-
         return (
             <div>
                 <Header text="Sign Up!" />
                 <div style={STYLES.text}>
                     Now, create your account and start getting more curated suggestions today!
                 </div>
-                <SignUpForm onSubmit={() => actions.signUpUser()} />
+                <SignUpForm onSubmit={() => this.signUpUser()} />
             </div>
         );
+    }
+
+    signUpUser() {
+        const { actions } = this.props;
+
+        actions.signUpUser()
+            .then(() => {
+                actions.push('/');
+            });
     }
 }
 
@@ -45,7 +53,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators({ ...authActions }, dispatch),
+        actions : bindActionCreators({ ...authActions, ...routerActions }, dispatch),
     };
 }
 

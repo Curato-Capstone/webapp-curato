@@ -30,7 +30,7 @@ export default class Button extends Component {
             backgroundColor: this.getColor(type),
             opacity: disabled ? 0.6 : 1
         };
-        
+
         return (
             <div style={style}>
                 <button
@@ -74,7 +74,7 @@ export default class Button extends Component {
 const STYLES = {
     button : {
         border: '1px solid transparent',
-        boxShadow: '1px 1px 2px #888888',
+        boxShadow: '1px 3px 10px 0px #888888',
         borderRadius: '2em',
         cursor: 'pointer',
         display: 'inline-block',
@@ -85,14 +85,15 @@ const STYLES = {
         textAlign: 'center',
         textDecoration: 'none',
         textTransform: 'uppercase',
-        transition: 'opacity .3s ease-in-out',
+        transition: 'opacity .3s ease-in-out, transform 0.2s ease-in-out',
         whiteSpace: 'nowrap',
         ':hover': {
-            opacity: 0.85
+            opacity: 0.85,
+            transform: 'translateY(1px)'
         }
     },
 
     text: {
-        color: 'white'
+        color: secondaryColor
     }
 };

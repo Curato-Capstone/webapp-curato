@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import FlipMove from 'react-flip-move';
-
 import type { Place } from 'flow/types';
-
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import { primaryColor } from 'utils/colors';
 
@@ -31,20 +28,22 @@ class Suggestions extends Component {
 
         return (
             <div style={STYLES.container}>
-                {suggestions.length ? <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
-                    {suggestions.slice(0, 3).map((place, index) => (
-                        <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
-                            <Card
-                                key={place.id}
-                                place={place}
-                                favorite={this.checkFavorited(place)}
-                                handleFavorite={() => this.handleFavorite(place, index)}
-                                handleDislike={() => this.handleDislike(place, index)}
-                            />
-                        </div>
-                    ))}
-                    {this.renderEmptyState()}
-                </FlipMove> : null}
+                <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
+                    {suggestions.length ?
+                        suggestions.slice(0, 3).map((place, index) => (
+                            <div key={place.id} enterAnimation="fade" leaveAnimation="fade">
+                                <Card
+                                    key={place.id}
+                                    place={place}
+                                    favorite={this.checkFavorited(place)}
+                                    handleFavorite={() => this.handleFavorite(place, index)}
+                                    handleDislike={() => this.handleDislike(place, index)}
+                                />
+                            </div>
+                    ))  :
+                    <div>{this.renderEmptyState()}</div>
+                    }
+                </FlipMove>
                 <img style={STYLES.fourSquare} src={fourSquareImage} />
             </div>
         );
@@ -71,7 +70,7 @@ class Suggestions extends Component {
     checkFavorited(place) {
         const { favorites } = this.props;
         for (let i = 0; i < favorites.length; i ++) {
-            if (favorites[i].id === place.id) {
+            if (favorites[i] === place.id) {
                 return true;
             }
         }
@@ -81,9 +80,9 @@ class Suggestions extends Component {
 
     handleFavorite(place, index) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavoriteThunk(place, index);
+            this.props.actions.removeFavoriteThunk(place.id);
         } else {
-            this.props.actions.addFavoriteThunk(place);
+            this.props.actions.addFavoriteThunk(place.id);
         }
     }
 
@@ -138,7 +137,7 @@ const STYLES = {
             alignItems: 'center',
             fontSize: '16px',
             textAlign: 'center',
-            margin: '0 16px',
+            margin: '0 16px 30px 16px',
             color: 'grey',
             '@media (min-width: 520px)': {
                 fontSize: '20px',
@@ -153,10 +152,12 @@ const STYLES = {
 };
 
 function mapStateToProps(state, ownProps) {
+    const places =  state.get('places').toJS();
+
     return {
         user: state.get('user').toJS(),
         favorites: state.getIn(['user', 'favorites']).toJS(),
-        suggestions: state.getIn(['suggestions', 'suggestions']).toJS(),
+        suggestions: state.getIn(['suggestions', 'suggestions']).toJS().map((id) => places[id]),
         location: ownProps.location
     };
 }

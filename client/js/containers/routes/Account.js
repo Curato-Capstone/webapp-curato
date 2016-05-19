@@ -3,7 +3,7 @@ import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as userActions from 'modules/user';
+import { user as userActions } from 'modules/index';
 
 import AccountForm from 'components/Forms/AccountForm/AccountForm';
 import Avatar from 'material-ui/Avatar';

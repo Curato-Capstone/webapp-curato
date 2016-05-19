@@ -1,9 +1,9 @@
 import { fromJS, Map, List } from 'immutable';
-import type { Place, Action } from 'flow/types';
+import type { Place, Action } from '../..flow/types';
 import request from 'superagent-bluebird-promise';
 
-import { routerActions } from 'react-router-redux';
 import * as globalActions from './global';
+import * as placesActions from './places';
 
 // Actions
 // -----------------------------------
@@ -49,35 +49,10 @@ export function changeSearchText(text: string): Action {
     };
 }
 
-
-const place1 = {
-    name: 'EMP',
-    location: { address: '1234 Street Ave., Seattle, WA' },
-    image: require('images/places/emp.jpg'),
-    id: '123',
-    categories: [{ name: 'Art Museum' }, { name: 'History Museum' }]
-};
-
-const place2 = {
-    name: 'Space Needle',
-    location: { address: '1234 Street Ave., Seattle, WA' },
-    image: require('images/places/space_needle.jpg'),
-    id: '124',
-    categories: [{ name: 'Landmark' }],
-};
-
-const place3 = {
-    name: 'Pike Place Market',
-    location: { address: '1234 Street Ave., Seattle, WA' },
-    image: require('images/places/pike_place_market.jpg'),
-    id: '125',
-    categories: [{ name: 'Shop' }],
-};
-
 // Reducers
 // -----------------------------------
 const initialState = Map({
-    suggestions : List([place1, place2, place3]),
+    suggestions : List(),
     searchText: ''
 });
 
@@ -111,23 +86,24 @@ export default function reducer(state: State = initialState, action: Action): St
 
 // Thunks
 // -----------------------------------
-const suggestionBaseURL = 'http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000';
 const baseURL = 'http://ec2-54-186-80-121.us-west-2.compute.amazonaws.com:8000';
+
 export function getSuggestions({ random = false } = {}) {
     return async (dispatch, getState) => {
         try {
             dispatch(globalActions.setLoading(true));
 
-            const preferences = getState().getIn(['user', 'preferences']).toJS();
             const query = random ? '' : getState().getIn(['suggestions', 'searchText']);
 
             const res = await request
-                .post(`${baseURL}/suggestions`)
-                .send({preferences, q: query});
+                .get(`${baseURL}/suggestions`)
+                .query({ q: query })
+                .set('Authorization', getState().getIn(['auth', 'token']));
 
-            console.log(res);
-            dispatch(setSuggestions(res.body));
-            dispatch(routerActions.push('/suggestions'));
+            dispatch(placesActions.addPlaces(res.body));
+
+            const suggestionsIDs = res.body.map((suggestion) => suggestion.id);
+            dispatch(setSuggestions(suggestionsIDs));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Something went wrong :( '));
         }
@@ -144,10 +120,15 @@ export function getSuggestionsNoAccount() {
 
             const res = await request
                 .post(`${baseURL}/suggestions`)
-                .send({preferences});
+                .send({
+                    preferences,
+                    num_sugg: 3
+                });
 
-            dispatch(setSuggestions(res.body));
-            dispatch(routerActions.push('/intro/suggestions'));
+            dispatch(placesActions.addPlaces(res.body));
+
+            const suggestionsIDs = res.body.map((suggestion) => suggestion.id);
+            dispatch(setSuggestions(suggestionsIDs));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Something went wrong :( '));
         }

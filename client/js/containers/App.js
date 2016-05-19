@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
 
-import * as userActions from 'modules/user';
-import * as suggestionsActions from 'modules/suggestions';
+import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
 import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
@@ -36,7 +35,7 @@ class App extends Component {
     state: void;
 
     componentWillMount() {
-        // this.props.actions.getUserData()
+        this.props.actions.getUserData()
     }
 
     render(): React.Element {
@@ -50,6 +49,16 @@ class App extends Component {
     }
 
     renderComponents() {
+        const { auth } = this.props;
+
+        if (auth.isAuthenticating) {
+            return (
+                <div style={STYLES.container}>
+                    {this.renderSpinner()}
+                </div>
+            );
+        }
+
         return (
             <div style={STYLES.container}>
                 <FlipMove enterAnimation="fade" leaveAnimation="fade" style={STYLES.messageBar}>
@@ -63,23 +72,15 @@ class App extends Component {
     }
 
     renderView() {
-        if (!location.pathname.includes('intro')) {
-            return (
-                <FlipMove
-                    enterAnimation="fade"
-                    leaveAnimation="fade"
-                    duration={500}
-                    style={STYLES.app}
-                >
-                    {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
-                </FlipMove>
-            );
-        }
-
         return (
-            <div style={STYLES.app}>
+            <FlipMove
+                enterAnimation="fade"
+                leaveAnimation="fade"
+                duration={500}
+                style={STYLES.app}
+            >
                 {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
-            </div>
+            </FlipMove>
         );
     }
 
