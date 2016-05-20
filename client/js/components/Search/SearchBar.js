@@ -21,8 +21,8 @@ export default class SearchBar extends Component {
         handleSubmit: () => void,
     };
 
-    state = { clicking: false, enter: false };
-    state : { clicking: boolean };
+    state = { clicking: false, enter: false, };
+    state : { clicking: boolean, enter: boolean };
 
     render() {
         const { value, handleChange } = this.props;
@@ -85,7 +85,6 @@ const STYLES = {
         flexDirection: 'column',
         width: '90%',
         maxWidth: '700px',
-        // height: '200px',
     },
 
     searchContainer: {

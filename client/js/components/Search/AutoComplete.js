@@ -12,7 +12,7 @@ export default class SearchBar extends Component {
     props: {
         searchTerm: string,
         show: boolean,
-        handleResultClick: () => void
+        handleResultClick: () => void,
     };
     state : void;
 
@@ -21,13 +21,15 @@ export default class SearchBar extends Component {
         const results = autoCompleteTrie.find(searchTerm) || [];
 
         return (
-            <FlipMove
-                enterAnimation="accordianVertical"
-                leaveAnimation="accordianVertical"
-                style={STYLES.container(results, show)}
-            >
-                {this.renderResults(results)}
-            </FlipMove>
+            <div style={STYLES.containerWrapper}>
+                <FlipMove
+                    enterAnimation="accordianVertical"
+                    leaveAnimation="accordianVertical"
+                    style={STYLES.container(results, show)}
+                >
+                    {this.renderResults(results)}
+                </FlipMove>
+            </div>
         );
     }
 
@@ -47,22 +49,30 @@ export default class SearchBar extends Component {
 }
 
 const STYLES = {
+    containerWrapper: {
+        width: 'calc(100% - 50px)',
+        '@media (min-width: 520px)': {
+            width: 'calc(100% - 70px)'
+        }
+    },
+
     container: (results, show) => ({
-        width: 'calc(100% - 90px)',
+        width: '100%',
         backgroundColor: 'white',
-        height: show ? results.length * 25 : 0,
+        height: show ? results.length * 25 + 10 : 0,
         opacity: results.length && show ? 1 : 0,
         transform: 'translateY(5px)',
-        padding: '10px',
+        padding: '10px 0',
         transition: 'height 0.5s ease-in-out, opacity 0.5s ease-in-out'
     }),
 
     result: {
         height: '20px',
-        marginBottom: '5px',
+        padding: '5px 5px',
         cursor: 'pointer',
         ':hover': {
             opacity: '0.5',
+            backgroundColor: '#d3d3d3'
         }
     }
 };
