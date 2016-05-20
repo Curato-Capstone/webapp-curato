@@ -22,8 +22,8 @@ export default class SideNav extends Component {
                 <Link to="/">
                     <img src={logo} style={STYLES.logo} type="image/svg+xml" />
                 </Link>
-                <div style={STYLES.navItemsContainer} key="search">
-                    <div style={STYLES.navItem}>
+                <div style={STYLES.navItemsContainer}>
+                    <div style={STYLES.navItem} className="navItem" key="search">
                         <Link to="/">
                             <FontAwesome
                                 name="search"
@@ -32,7 +32,7 @@ export default class SideNav extends Component {
                             />
                         </Link>
                     </div>
-                    <div style={STYLES.navItem} key="favorites">
+                    <div style={STYLES.navItem} className="navItem" key="favorites">
                         <Link to="/favorites">
                             <FontAwesome
                                 name="heart"
@@ -41,7 +41,7 @@ export default class SideNav extends Component {
                             />
                         </Link>
                     </div>
-                    <div style={STYLES.navItem} key="preferences">
+                    <div style={STYLES.navItem} className="navItem" key="preferences">
                         <Link to="/preferences">
                             <FontAwesome
                                 name="sliders"
@@ -65,7 +65,7 @@ export default class SideNav extends Component {
             case '/preferences':
                 return 2;
             default:
-                return -99;
+                return -3;
         }
     }
 }
@@ -93,7 +93,7 @@ const STYLES = {
         height: '70px',
         width: '70px',
         margin: '20px 0 60px 0',
-        transition: 'transform 1s ease-in-out',
+        transition: 'transform 0.5s ease-in-out',
         transform: 'scale(0.7,0.7)',
         '@media (min-width: 520px)': {
             transform: 'scale(1, 1)'
@@ -114,11 +114,9 @@ const STYLES = {
         transition: 'transform 0.5s ease-in-out, opacity 0.25s ease-in-out',
         transform: 'scale(0.72,0.72)',
         ':hover': {
-            opacity: 0.6
-        },
-        '@media (min-width: 520px)': {
-            transform: 'scale(1, 1)'
-        },
+            opacity: 0.6,
+            transform: 'scale(0.72,0.72) translateY(5px)'
+        }
     },
 
     navIcon: {
