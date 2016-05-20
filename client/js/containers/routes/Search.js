@@ -103,7 +103,7 @@ const STYLES = {
     },
 
     randomButton: {
-        marginTop: '32px'
+        marginTop: '24px'
     }
 };
 

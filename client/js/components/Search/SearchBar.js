@@ -6,6 +6,8 @@ import FontAwesome from 'react-fontawesome';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 
+import AutoComplete from './AutoComplete';
+
 @Radium
 export default class SearchBar extends Component {
     static defaultProps = {
@@ -28,24 +30,32 @@ export default class SearchBar extends Component {
 
         return (
             <div style={STYLES.container}>
-                <input
-                    type="text"
-                    value={value}
-                    style={STYLES.input}
-                    placeholder={'Search for something to do!'}
-                    onChange={(e) => handleChange(e.target.value)}
-                    onKeyDown={this.handleKeyPress}
-                />
-                <div
-                    style={STYLES.icon(clicking)}
-                    onClick={this.search}
-                >
-                    <FontAwesome
-                        name="search"
-                        size="2x"
-                        style={{ color: secondaryColor, textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                <div style={STYLES.searchContainer}>
+                    <input
+                        type="text"
+                        key="searchInput"
+                        value={value}
+                        style={STYLES.input}
+                        placeholder={'Search for something to do!'}
+                        onChange={(e) => handleChange(e.target.value)}
+                        onKeyDown={this.handleKeyPress}
                     />
+                    <div
+                        style={STYLES.icon(clicking)}
+                        onClick={this.search}
+                    >
+                        <FontAwesome
+                            name="search"
+                            size="2x"
+                            style={{ color: secondaryColor, textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                        />
+                    </div>
                 </div>
+                <AutoComplete
+                    searchTerm={value.toLowerCase()}
+                    show={Radium.getState(this.state, 'searchInput', ':focus')}
+                    handleResultClick={(v) => handleChange(v)}
+                />
             </div>
         );
     }
@@ -72,8 +82,15 @@ export default class SearchBar extends Component {
 const STYLES = {
     container: {
         display: 'flex',
+        flexDirection: 'column',
         width: '90%',
-        maxWidth: '700px'
+        maxWidth: '700px',
+        // height: '200px',
+    },
+
+    searchContainer: {
+        display: 'flex',
+        width: '100%'
     },
 
     input: {
@@ -84,6 +101,7 @@ const STYLES = {
         fontFamily: 'Montserrat',
         fontWeight: '300',
         boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
+        ':focus': {},
         '@media (min-width: 520px)': {
             height: '70px',
             fontSize: '23px',
