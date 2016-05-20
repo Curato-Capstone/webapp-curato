@@ -208,7 +208,7 @@ export function getUserData() {
             dispatch(setUser(res.body));
 
             // get favorites place data
-            // res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
+            res.body.favorites.forEach((id) => dispatch(getFavorite(id)));
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
@@ -222,8 +222,8 @@ export function getUserData() {
 export function getFavorite(id) {
     return async (dispatch) => {
         try {
-            const res = await request.get(`${baseURL}/place/${id}`);
-            console.log(res);
+            const res = await request.get(`http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/place/${id}`);
+
             dispatch(placesActions.addPlaces([res.body]));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));

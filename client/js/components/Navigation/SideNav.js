@@ -65,7 +65,7 @@ export default class SideNav extends Component {
             case '/preferences':
                 return 2;
             default:
-                return -99;
+                return -3;
         }
     }
 }
