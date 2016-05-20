@@ -1,6 +1,23 @@
 [ignore]
 .*node_modules/fbjs.*
+.*node_modules/json5.*
 
 [options]
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
+esproposal.decorators=ignore
+unsafe.enable_getters_and_setters=true
+
+module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/\1'
+module.name_mapper='^containers\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/\1'
+module.name_mapper='^routes\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/containers/routes/\1'
+module.name_mapper='^reusable\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/components/reusable/\1'
+module.name_mapper='^modules\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/modules/\1'
+module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/client/js/utils/\1'
+module.name_mapper='^flow\/\(.*\)$' -> '<PROJECT_ROOT>/flow/\1'
+module.name_mapper='^images\/\(.*\)$' -> '<PROJECT_ROOT>/client/images/\1'
+module.name_mapper='^stylesheets\/\(.*\)$' -> '<PROJECT_ROOT>/client/stylesheets/\1'
+
+module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/flow/stub.js.flow'
+module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/flow/stub.js.flow'
+module.name_mapper.extension='png' -> '<PROJECT_ROOT>/flow/stub.js.flow'

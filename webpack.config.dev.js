@@ -10,27 +10,30 @@ module.exports = {
         path.resolve(ROOT_DIR, 'client', 'js', 'index.js')
     ],
 
-    devtool: "source-map",
-    
+    // devtool: 'source-map',
+
     resolve: {
         extensions: ['', '.js', '.jsx'],
         alias: {
             components: path.join(ROOT_DIR, 'client', 'js', 'components'),
             containers: path.join(ROOT_DIR, 'client', 'js', 'containers'),
-            flux: path.join(ROOT_DIR, 'client', 'js', 'redux'),
-            js: path.join(ROOT_DIR, 'client', 'js'),
-            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets')
+            routes: path.join(ROOT_DIR, 'client', 'js', 'containers', 'routes'),
+            reusable: path.join(ROOT_DIR, 'client', 'js', 'components', 'Reusable'),
+            modules: path.join(ROOT_DIR, 'client', 'js', 'modules'),
+            utils: path.join(ROOT_DIR, 'client', 'js', 'utils'),
+            flow: path.join(ROOT_DIR, 'flow'),
+            images: path.join(ROOT_DIR, 'client', 'images'),
+            stylesheets: path.join(ROOT_DIR, 'client', 'stylesheets'),
         }
     },
 
     output: {
-        publicPath: "/",
+        publicPath: '/',
         path: path.join(ROOT_DIR, 'build'),
         filename: 'bundle.js'
     },
 
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
     ],
@@ -42,10 +45,11 @@ module.exports = {
                 loader: 'babel',
                 exclude: path.join(ROOT_DIR, 'node_modules'),
                 query: {
-                    presets: ["es2015", "react", "stage-1"],
-                    "env": {
-                        "development": {
-                            "presets": ["react-hmre"]
+                    presets: ['es2015', 'react', 'stage-1'],
+                    plugins: ['transform-decorators-legacy'],
+                    env: {
+                        development: {
+                            presets: ['react-hmre']
                         }
                     }
                 }
@@ -58,7 +62,7 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: 'style-loader!css-loader'
             },
 
             {
@@ -67,5 +71,4 @@ module.exports = {
             }
         ]
     }
-}
-
+};

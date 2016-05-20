@@ -1,6 +1,101 @@
 @font-face {
-    font-family: 'Simplifica';
-    src: url('../fonts/Simplifica.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Black.otf') format('opentype');
+    font-weight: 800;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-ExtraBold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Bold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-SemiBold.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-UltraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Hairline.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+/*globals*/
+body {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+input {
+    border: none
+}
+
+#blah {
+    height: 400px;
+    width: 100%;
+}
+
+/*have to do this because radium doesn't work with react-flip-move*/
+@media (min-width: 1200px) {
+    .suggestionsContainer {
+        flex-direction: row !important;
+    }
+}
+
+@media (min-width: 520px) {
+    .navItem {
+        transform: scale(1, 1) !important;
+    }
+
+    .navItem:hover {
+        opacity: 0.6;
+        transform: scale(1, 1) translateY(3px) !important;
+    }
+}
+
+/*this is for the stepper*/
+span svg text {
+    fill: #BC4432
 }

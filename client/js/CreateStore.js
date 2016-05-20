@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 
 import DevTools from 'containers/DevTools';
-import Reducer from './modules/index';
+import Reducer from './modules/rootReducer';
 
 export default function composeStore() {
     const middleware = [
@@ -25,7 +25,7 @@ export default function composeStore() {
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('./modules/index', () => {
-            const nextRootReducer = require('./modules/index').default;
+            const nextRootReducer = require('./modules/rootReducer').default;
             store.replaceReducer(nextRootReducer);
         });
     }

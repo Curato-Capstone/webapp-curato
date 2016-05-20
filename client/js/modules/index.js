@@ -1,20 +1,21 @@
-import { routerReducer } from 'react-router-redux';
-import { reducer as formReducer } from 'redux-form';
-import { combineReducers } from 'redux-immutablejs';
-import { fromJS } from 'immutable';
+import userReducer, * as user from './user';
+import suggestionsReducer, * as suggestions from './suggestions';
+import placesReducer, * as places from './places';
+import authReducer, * as auth from './auth';
+import globalReducer, * as global from './global';
 
-import userReducer from './user';
-import suggestionsReducer from './suggestions';
+export {
+    userReducer,
+    suggestionsReducer,
+    placesReducer,
+    authReducer,
+    globalReducer
+};
 
-function formReducerImmutable(state = fromJS({}), action) {
-    return fromJS(formReducer(state.toJS(), action));
-}
-
-const rootReducer = combineReducers({
-    user        : userReducer,
-    suggestions : suggestionsReducer,
-    form        : formReducerImmutable,
-    routing     : routerReducer
-});
-
-export default rootReducer;
+export {
+    user,
+    suggestions,
+    places,
+    auth,
+    global
+};
