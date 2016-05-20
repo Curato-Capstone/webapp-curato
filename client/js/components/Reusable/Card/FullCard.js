@@ -160,7 +160,7 @@ export default class FullCard extends Component {
                 <div style={STYLES.info.body}>
                 <h2 style={STYLES.info.header}>Hours</h2>
                     {hoursList.map((day) => (
-                        <div>
+                        <div key={day[0]}>
                             <span style={STYLES.info.hour(dayLookup[day[0]] === dayNumber)}>
                                 {day[0]}:
                             </span>
