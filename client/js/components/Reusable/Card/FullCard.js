@@ -140,17 +140,38 @@ export default class FullCard extends Component {
     }
 
     renderHours(hours: Object) {
+        const hoursList = [['Monday', 'Mon'], ['Tuesday', 'Tue'], ['Wednesday', 'Wed'],
+            ['Thursday', 'Thu'], ['Friday', 'Fri'], ['Saturday', 'Sat'], ['Sunday', 'Sun']];
+
+        const dayLookup = {
+            Sunday: 0,
+            Monday: 1,
+            Tuesday: 2,
+            Wednesday: 3,
+            Thursday: 4,
+            Friday: 5,
+            Saturday: 6
+        };
+
+        const dayNumber = new Date().getDay();
+
         if (hours) {
             return (
                 <div style={STYLES.info.body}>
-                    <h2 style={STYLES.info.header}>Hours</h2>
-                    <div><span style={STYLES.info.hour}>Monday:</span>    {hours.Mon}</div>
-                    <div><span style={STYLES.info.hour}>Tuesday:</span>   {hours.Tue}</div>
-                    <div><span style={STYLES.info.hour}>Wednesday:</span> {hours.Wed}</div>
-                    <div><span style={STYLES.info.hour}>Thursday:</span>  {hours.Thu}</div>
-                    <div><span style={STYLES.info.hour}>Friday:</span>    {hours.Fri}</div>
-                    <div><span style={STYLES.info.hour}>Saturday:</span>  {hours.Sat}</div>
-                    <div><span style={STYLES.info.hour}>Sunday:</span>    {hours.Sun}</div>
+                <h2 style={STYLES.info.header}>Hours</h2>
+                    {hoursList.map((day) => (
+                        <div>
+                            <span style={STYLES.info.hour(dayLookup[day[0]] === dayNumber)}>
+                                {day[0]}:
+                            </span>
+                            <span
+                                style={STYLES.info.hourText(hours[day[1]])
+                                }
+                            >
+                                {hours[day[1]]}
+                            </span>
+                        </div>
+                    ))}
                 </div>
             );
         }
@@ -478,10 +499,18 @@ const STYLES = {
             }
         },
 
-        hour: {
-            width: '100px',
-            display: 'inline-block'
-        }
+        hour: (isToday) => ({
+            width: '105px',
+            display: 'inline-block',
+            fontWeight: isToday ? '600' : '400',
+            marginBottom: '1px',
+            fontStyle: isToday ? 'italic' : '',
+            // textDecoration: isToday ? 'underline' : ''
+        }),
+
+        hourText: (text) => ({
+            color: text === 'Closed' ? 'red' : 'green'
+        })
     },
 
     map: {
