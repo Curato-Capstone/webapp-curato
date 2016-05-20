@@ -50,7 +50,8 @@ const STYLES = {
         backgroundImage: `url(${require('images/icons/heart.png')})`,
         backgroundPosition: 'left',
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '2900%'
+        backgroundSize: '2900%',
+        transform: 'scale(1.2, 1.2)'
     },
 
     active: (active) => {

@@ -19,7 +19,7 @@ class Account extends Component {
 
         return (
             <div style={STYLES.container}>
-                <Avatar className="fa fa-paper-plane" size={250} style={STYLES.avatar} />
+                <Avatar className="fa fa-user" size={250} style={STYLES.avatar} />
                 <AccountForm onSubmit={() => actions.updateAccount()} />
             </div>
         );

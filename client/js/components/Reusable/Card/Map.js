@@ -13,14 +13,14 @@ export default class MyMap extends Component {
     state: void;
 
     componentDidMount() {
-        setTimeout(() => this.refs.map.getLeafletElement().invalidateSize(false), 2000);
+        setTimeout(() => this.refs.map.getLeafletElement().invalidateSize(false), 1000);
     }
 
     render() {
         const { lat, lng, name } = this.props;
 
         return (
-            <div style={STYLES.map}>
+            <div style={STYLES.container}>
                 <Map ref="map" center={[lat, lng]} zoom={18} style={STYLES.map}>
                     <TileLayer
                         url="http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
@@ -38,10 +38,15 @@ export default class MyMap extends Component {
 }
 
 const STYLES = {
-    map: {
+    container: {
+        width: '100%',
+        height: '100%',
         '@media screen and (min-width: 900px)': {
             width: '70%'
         },
+    },
+
+    map: {
         width: '100%',
         height: '100%'
     }
