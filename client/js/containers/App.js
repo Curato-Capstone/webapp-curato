@@ -104,7 +104,7 @@ class App extends Component {
             return null;
         }
 
-        let nav;
+        let nav = <span />;
         if (!location.pathname.includes('place')) {
             nav = (
                 <div key="navigation">
