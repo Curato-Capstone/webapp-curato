@@ -222,7 +222,7 @@ export function getUserData() {
 export function getFavorite(id) {
     return async (dispatch) => {
         try {
-            const res = await request.get(`http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/place/${id}`);
+            const res = await request.get(`${baseURL}/${id}`);
 
             dispatch(placesActions.addPlaces([res.body]));
         } catch (error) {
