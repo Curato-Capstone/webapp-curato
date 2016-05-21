@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { primaryColor } from 'utils/colors'
 
 import { user as userActions } from 'modules/index';
 
@@ -19,7 +20,7 @@ class Account extends Component {
 
         return (
             <div style={STYLES.container}>
-                <Avatar className="fa fa-user" size={250} style={STYLES.avatar} />
+                <Avatar className="fa fa-user" color="white" backgroundColor={primaryColor} size={250} style={STYLES.avatar} />
                 <AccountForm onSubmit={() => actions.updateAccount()} />
             </div>
         );
