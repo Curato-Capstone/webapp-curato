@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 
 import Avatar from 'material-ui/Avatar';
 
+import { primaryColor } from 'utils/colors'
+
 @Radium
 export default class UserAvatar extends Component {
     static defaultProps = {};
@@ -18,7 +20,7 @@ export default class UserAvatar extends Component {
             <div style={STYLES.container} key="userAvatar">
                 <Link to="/account" style={STYLES.link}>
                     <div style={STYLES.avatarWrapper(Radium.getState(this.state, 'userAvatar', ':hover'))}>
-                        <Avatar className="fa fa-user" style={STYLES.avatarIcon} />
+                        <Avatar className="fa fa-user" color="white" backgroundColor={primaryColor} />
                     </div>
                     <div>{name}</div>
                 </Link>
@@ -54,9 +56,5 @@ const STYLES = {
         width: '40px',
         marginRight: '12px',
         transition: 'transform 0.4s ease-in-out'
-    }),
-
-    avatarIcon: {
-        marginRight: '12px'
-    }
+    })
 };
