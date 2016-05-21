@@ -58,7 +58,7 @@ const STYLES = {
     container: (results, show) => ({
         width: '100%',
         backgroundColor: 'white',
-        height: results.length && show ? results.length * 25 + 10 : 0,
+        height: results.length && show ? results.length * 28 + 10 : 0,
         opacity: results.length && show ? 1 : 0,
         transform: 'translateY(5px)',
         padding: results.length && show ? '10px 0' : '',
@@ -68,7 +68,7 @@ const STYLES = {
 
     result: (selected) => ({
         height: '20px',
-        padding: '5px 5px',
+        padding: '6px 5px',
         cursor: 'pointer',
         opacity: selected ? 0.5 : 1,
         backgroundColor: selected ? '#d3d3d3' : '',
