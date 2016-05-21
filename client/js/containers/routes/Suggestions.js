@@ -28,7 +28,7 @@ class Suggestions extends Component {
 
         return (
             <div style={STYLES.container}>
-                <FlipMove className="suggestionsContainer" duration={750} style={STYLES.cardsContainer}>
+                <FlipMove className="suggestionsContainer" duration={800} style={STYLES.cardsContainer}>
                     {suggestions.length ?
                         suggestions.slice(0, 3).map((place, index) => (
                             <div key={place.id} enterAnimation="fade" leaveAnimation="fade">

@@ -86,9 +86,9 @@ const STYLES = {
 
     searchBarContainer: {
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        paddingTop: '40vh',
         width: '100%',
         minHeight: '100vh',
         opacity: 0,
@@ -103,7 +103,7 @@ const STYLES = {
     },
 
     randomButton: {
-        marginTop: '32px'
+        marginTop: '24px'
     }
 };
 
