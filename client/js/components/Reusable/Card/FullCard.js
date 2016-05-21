@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
+import smoothScroll from 'smoothscroll';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import type { Place } from 'flow/types';
@@ -24,6 +25,10 @@ export default class FullCard extends Component {
     state = { loaded: false };
     state : { loaded: bool };
 
+    componentDidMount() {
+        setTimeout(() => smoothScroll(document.getElementById('top'), 1500));
+    }
+
     render() {
         const { place, favorite, handleFavorite, handleBack } = this.props;
         const { loaded } = this.state;
@@ -31,7 +36,6 @@ export default class FullCard extends Component {
         return (
             <div style={STYLES.container(loaded)}>
                 <div style={STYLES.cardText.container(loaded)}>
-
                     <div style={STYLES.cardText.text(loaded)}>
                         <div style={STYLES.cardText.placeName(loaded)}>
                             {this.truncateName(place.name)}
@@ -70,6 +74,7 @@ export default class FullCard extends Component {
                         style={STYLES.cardImage.main(loaded)}
                         src={place.image}
                         onLoad={this.handleImageLoad}
+                        id="top"
                     />
                     <div style={STYLES.tag.main(loaded)}>
                         <Tag text={place.categories[0].name} />

@@ -111,7 +111,7 @@ const STYLES = {
     navItem: {
         height: '45px',
         margin: '40px 0',
-        transition: 'transform 0.5s ease-in-out, opacity 0.25s ease-in-out',
+        transition: 'transform 0.35s ease-in-out, opacity 0.25s ease-in-out',
         transform: 'scale(0.72,0.72)',
         ':hover': {
             opacity: 0.6,
