@@ -58,11 +58,12 @@ const STYLES = {
     container: (results, show) => ({
         width: '100%',
         backgroundColor: 'white',
-        height: show ? results.length * 25 + 10 : 0,
+        height: results.length && show ? results.length * 25 + 10 : 0,
         opacity: results.length && show ? 1 : 0,
         transform: 'translateY(5px)',
-        padding: '10px 0',
-        transition: 'height 0.5s ease-in-out, opacity 0.5s ease-in-out'
+        padding: results.length && show ? '10px 0' : '',
+        boxShadow: '0px 2px 5px 2px rgba(211,211,211,0.75)',
+        transition: 'height 0.5s ease-in-out, padding 0.5s ease-in-out, opacity 0.5s ease-in-out'
     }),
 
     result: (selected) => ({

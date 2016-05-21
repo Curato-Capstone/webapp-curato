@@ -128,11 +128,12 @@ const STYLES = {
         position: 'absolute',
         top: 38,
         transform: `translateY(${125 * item}px)`,
+        opacity: item < 0 ? 0 : 1,
         left: 3,
         height: '55px',
         width: '3px',
         backgroundColor: secondaryColor,
-        transition: 'transform 0.5s ease-in-out',
+        transition: 'transform 0.5s ease-in-out, opacity .7s ease-in-out',
         '@media (min-width: 520px)': {
             left: 4
         }

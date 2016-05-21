@@ -88,7 +88,7 @@ const STYLES = {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: '40vh',
+        paddingTop: '40vh',
         width: '100%',
         minHeight: '100vh',
         opacity: 0,
