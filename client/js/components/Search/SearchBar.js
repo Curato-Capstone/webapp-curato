@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
+import autoCompleteTrie from 'utils/trie';
 
 import { primaryColor, secondaryColor } from 'utils/colors';
 
@@ -21,12 +22,17 @@ export default class SearchBar extends Component {
         handleSubmit: () => void,
     };
 
-    state = { clicking: false, enter: false, };
-    state : { clicking: boolean, enter: boolean };
+    state = { clicking: false, enter: false, selected: -1, results: [], savedValue: '' };
+    state : { clicking: boolean, enter: boolean, selected: number, results: Array<string>, savedValue: string };
 
+    // componentWillReceiveProps(nextProps: Object) {
+    //     // if (!this.state.retainResults) {
+    //     //     this.setState({ results: autoCompleteTrie.find(nextProps.value) || [] });
+    //     // }
+    // }
     render() {
-        const { value, handleChange } = this.props;
-        const { clicking } = this.state;
+        const { value } = this.props;
+        const { clicking, selected, results } = this.state;
 
         return (
             <div style={STYLES.container}>
@@ -37,8 +43,8 @@ export default class SearchBar extends Component {
                         value={value}
                         style={STYLES.input}
                         placeholder={'Search for something to do!'}
-                        onChange={(e) => handleChange(e.target.value)}
-                        onKeyDown={this.handleKeyPress}
+                        onChange={(e) => this.handleChangeUpdateAuto(e.target.value)}
+                        onKeyDown={(e) => this.handleKeyPress(e, results)}
                     />
                     <div
                         style={STYLES.icon(clicking)}
@@ -54,17 +60,52 @@ export default class SearchBar extends Component {
                 <AutoComplete
                     searchTerm={value.toLowerCase()}
                     show={Radium.getState(this.state, 'searchInput', ':focus')}
-                    handleResultClick={(v) => handleChange(v)}
+                    handleResultClick={(v) => this.handleChangeUpdateAuto(v)}
+                    selected={selected}
+                    results={results}
                 />
             </div>
         );
     }
 
     @autobind
-    handleKeyPress(e: Object): void {
+    handleKeyPress(e: Object, results: Array<string>): void {
+        const { handleChange, value } = this.props;
+        const { selected, savedValue } = this.state;
+
         if (e.key === 'Enter') {
             this.search();
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+
+            if (selected + 1 !== results.length) {
+                if (selected === -1) {
+                    this.setState({ selected: selected + 1, savedValue: value });
+                } else {
+                    this.setState({ selected: selected + 1 });
+                }
+
+                this.handleChangeNoUpdateAuto(results[selected + 1]);
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+
+            if (selected - 1 !== -2) {
+                this.setState({ selected: selected - 1 });
+                this.handleChangeNoUpdateAuto(results[selected - 1] || savedValue || value);
+            }
+        } else {
+            this.setState({ retainResults: false, selected: -1 });
         }
+    }
+
+    handleChangeUpdateAuto(value: string) {
+        this.props.handleChange(value);
+        this.setState({ results: autoCompleteTrie.find(value) || [] });
+    }
+
+    handleChangeNoUpdateAuto(value: string) {
+        this.props.handleChange(value);
     }
 
     @autobind

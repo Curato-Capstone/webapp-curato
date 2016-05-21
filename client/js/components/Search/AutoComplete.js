@@ -3,22 +3,21 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import FlipMove from 'react-flip-move';
 
-import autoCompleteTrie from 'utils/trie';
 import { primaryColor, secondaryColor } from 'utils/colors';
 
 @Radium
 export default class SearchBar extends Component {
-    static defaultProps = { searchTerm: '' };
+    static defaultProps = {};
     props: {
-        searchTerm: string,
         show: boolean,
         handleResultClick: () => void,
+        selected: number,
+        results: Array<string>
     };
     state : void;
 
     render() {
-        const { searchTerm, show } = this.props;
-        const results = autoCompleteTrie.find(searchTerm) || [];
+        const { show, results } = this.props;
 
         return (
             <div style={STYLES.containerWrapper}>
@@ -34,11 +33,11 @@ export default class SearchBar extends Component {
     }
 
     renderResults(results: Array<string>) {
-        return results.map((result) => {
+        return results.map((result, index) => {
             return (
                 <div
                     key={result}
-                    style={STYLES.result}
+                    style={STYLES.result(this.props.selected === index)}
                     onClick={() => this.props.handleResultClick(result)}
                 >
                     {result}
@@ -66,13 +65,15 @@ const STYLES = {
         transition: 'height 0.5s ease-in-out, opacity 0.5s ease-in-out'
     }),
 
-    result: {
+    result: (selected) => ({
         height: '20px',
         padding: '5px 5px',
         cursor: 'pointer',
+        opacity: selected ? 0.5 : 1,
+        backgroundColor: selected ? '#d3d3d3' : '',
         ':hover': {
             opacity: '0.5',
             backgroundColor: '#d3d3d3'
         }
-    }
+    })
 };
