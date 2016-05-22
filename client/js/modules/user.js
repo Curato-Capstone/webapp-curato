@@ -222,7 +222,7 @@ export function getUserData() {
 export function getFavorite(id) {
     return async (dispatch) => {
         try {
-            const res = await request.get(`${baseURL}/${id}`);
+            const res = await request.get(`${baseURL}/place/${id}`);
 
             dispatch(placesActions.addPlaces([res.body]));
         } catch (error) {
