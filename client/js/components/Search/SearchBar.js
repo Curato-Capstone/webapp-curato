@@ -22,14 +22,21 @@ export default class SearchBar extends Component {
         handleSubmit: () => void,
     };
 
-    state = { clicking: false, enter: false, selected: -1, results: [], savedValue: '' };
-    state : { clicking: boolean, enter: boolean, selected: number, results: Array<string>, savedValue: string };
+    state = {
+        clicking: false,
+        enter: false,
+        selected: -1,
+        results: [],
+        savedValue: ''
+    };
+    state : {
+        clicking: boolean,
+        enter: boolean,
+        selected: number,
+        results: Array<string>,
+        savedValue: string
+    };
 
-    // componentWillReceiveProps(nextProps: Object) {
-    //     // if (!this.state.retainResults) {
-    //     //     this.setState({ results: autoCompleteTrie.find(nextProps.value) || [] });
-    //     // }
-    // }
     render() {
         const { value } = this.props;
         const { clicking, selected, results } = this.state;
@@ -47,13 +54,13 @@ export default class SearchBar extends Component {
                         onKeyDown={(e) => this.handleKeyPress(e, results)}
                     />
                     <div
-                        style={STYLES.icon(clicking)}
+                        style={STYLES.iconContainer(clicking)}
                         onClick={this.search}
                     >
                         <FontAwesome
                             name="search"
                             size="2x"
-                            style={{ color: secondaryColor, textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)' }}
+                            style={STYLES.icon}
                         />
                     </div>
                 </div>
@@ -70,7 +77,7 @@ export default class SearchBar extends Component {
 
     @autobind
     handleKeyPress(e: Object, results: Array<string>): void {
-        const { handleChange, value } = this.props;
+        const { value } = this.props;
         const { selected, savedValue } = this.state;
 
         if (e.key === 'Enter') {
@@ -148,7 +155,7 @@ const STYLES = {
         }
     },
 
-    icon: (clicking: boolean) => ({
+    iconContainer: (clicking: boolean) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -166,5 +173,10 @@ const STYLES = {
             width: '80px',
             height: '72px',
         }
-    })
+    }),
+
+    icon: {
+        color: secondaryColor,
+        textShadow: '0 5px 0 rgba(0, 0, 0, 0.1)'
+    }
 };

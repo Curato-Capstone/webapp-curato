@@ -1,7 +1,6 @@
 // @flow
 import { Map, fromJS } from 'immutable';
-import type { Action } from '../../flow/types';
-import request from 'superagent-bluebird-promise';
+import type { Action } from 'flow/types';
 
 // Actions
 // -----------------------------------
@@ -10,18 +9,18 @@ export const ADD_PLACES = 'ADD_PLACES';
 
 // Action Creators
 // -----------------------------------
-export function setPlaces(places: Array<Object>) {
+export function setPlaces(places: Array<Object>): Action {
     return {
         type: SET_PLACES,
         places
-    }
+    };
 }
 
-export function addPlaces(places: Array<Object>) {
+export function addPlaces(places: Array<Object>): Action {
     return {
         type: ADD_PLACES,
         places
-    }
+    };
 }
 
 
@@ -35,14 +34,14 @@ export default function reducer(state: State = initialState, action: Action): St
 
     switch (action.type) {
         case SET_PLACES:
-            for (let place of action.places) {
+            for (const place of action.places) {
                 places[place.id] = fromJS(place);
             }
 
             return fromJS(places);
 
         case ADD_PLACES:
-            for (let place of action.places) {
+            for (const place of action.places) {
                 places[place.id] = fromJS(place);
             }
 

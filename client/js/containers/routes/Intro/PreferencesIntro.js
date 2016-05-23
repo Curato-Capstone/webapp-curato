@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
 import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';
 import FontAwesome from 'react-fontawesome';
 

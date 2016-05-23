@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import { user as userActions } from 'modules/index';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
+import { primaryColor } from 'utils/colors';
 import { preferencesInfo } from 'utils/preferences';
 
 import Slider from 'reusable/Slider/Slider';

@@ -7,7 +7,6 @@ import FlipMove from 'react-flip-move';
 
 import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
 
-import Sample from 'components/Sample';
 import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
 import BreadCrumbs from 'components/Navigation/BreadCrumbs';
@@ -35,7 +34,7 @@ class App extends Component {
     state: void;
 
     componentWillMount() {
-        this.props.actions.getUserData()
+        this.props.actions.getUserData();
     }
 
     render(): React.Element {

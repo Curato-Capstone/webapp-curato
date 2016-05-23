@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-import autobind from 'autobind-decorator';
 
 import type { Place } from 'flow/types';
 import { primaryColor } from 'utils/colors';

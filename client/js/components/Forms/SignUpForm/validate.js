@@ -17,7 +17,7 @@ function validate(values: Map<string, any>): Object {
     } else if (password.length < 8) {
         errors.password = 'Password must be at least 8 characters!';
     } else if (password.length > 20) {
-        errors.password = 'Password can only be a max of 20 characters!'
+        errors.password = 'Password can only be a max of 20 characters!';
     }
 
     const name = values.get('name');

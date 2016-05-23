@@ -199,7 +199,7 @@ export function getUserData() {
     return async (dispatch, getState) => {
         try {
             dispatch(authActions.setIsAuthenticating(true));
-            dispatch(authActions.setToken(localStorage.getItem('accessToken')))
+            dispatch(authActions.setToken(localStorage.getItem('accessToken')));
 
             const res = await request
                 .get(`${baseURL}/user`)

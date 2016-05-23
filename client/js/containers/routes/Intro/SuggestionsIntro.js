@@ -125,7 +125,7 @@ class Suggestions extends Component {
                     <Link to="/intro/preferences" style={STYLES.empty.link}> preferences</Link>!
                 </p>
             </div>
-        )
+        );
     }
 }
 

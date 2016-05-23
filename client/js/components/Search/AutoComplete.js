@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import FlipMove from 'react-flip-move';
 
-import { primaryColor, secondaryColor } from 'utils/colors';
-
 @Radium
 export default class SearchBar extends Component {
     static defaultProps = {};
