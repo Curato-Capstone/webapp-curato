@@ -37,7 +37,7 @@ class Preferences extends Component {
                 handleClick: () => this.setState({ prefNum: index })
             };
         });
-
+        
         const preferenceName = preferencesList[prefNum];
         const info = preferencesInfo[preferenceName];
 

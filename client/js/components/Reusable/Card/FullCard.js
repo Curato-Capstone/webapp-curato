@@ -169,10 +169,7 @@ export default class FullCard extends Component {
                             <span style={STYLES.info.hour(dayLookup[day[0]] === dayNumber)}>
                                 {day[0]}:
                             </span>
-                            <span
-                                style={STYLES.info.hourText(hours[day[1]])
-                                }
-                            >
+                            <span style={STYLES.info.hourText(hours[day[1]])}>
                                 {hours[day[1]]}
                             </span>
                         </div>
@@ -514,7 +511,7 @@ const STYLES = {
         }),
 
         hourText: (text) => ({
-            color: text === 'Closed' ? 'red' : 'green'
+            color: text === 'Closed' ? '#c62828' : '#2E7D32'
         })
     },
 

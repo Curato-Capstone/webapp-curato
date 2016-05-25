@@ -156,14 +156,12 @@ const STYLES = {
     }
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     const places =  state.get('places').toJS();
 
     return {
-        user: state.get('user').toJS(),
         favorites: state.getIn(['user', 'favorites']).toJS(),
         suggestions: state.getIn(['suggestions', 'suggestions']).toJS().map((id) => places[id]),
-        location: ownProps.location
     };
 }
 
