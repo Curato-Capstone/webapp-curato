@@ -111,11 +111,21 @@ export function signInUser() {
             localStorage.setItem('accessToken', res.header.authorization);
             dispatch(setToken(token));
 
+            // get favorites place data
+            res.body.favorites.forEach((id) => dispatch(userActions.getFavorite(id)));
+
             dispatch(userActions.setUser(res.body));
             dispatch(setIsAuthenticated(true));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Sign In Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
+    };
+}
+
+export function signOutUser() {
+    return async (dispatch: () => void, getState: () => Object) => {
+        localStorage.removeItem('accessToken');
+        // dispatch(userActions.setUser());
     };
 }

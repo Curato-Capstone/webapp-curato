@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StyleRoot } from 'radium';
 import FlipMove from 'react-flip-move';
+import { routerActions } from 'react-router-redux';
 
-import { user as userActions, suggestions as suggestionsActions } from 'modules/index';
+import {
+    user as userActions,
+    suggestions as suggestionsActions,
+    auth as authActions,
+ } from 'modules/index';
 
 import SideNav from 'components/Navigation/SideNav';
 import UserAvatar from 'components/Navigation/UserAvatar';
@@ -97,7 +102,7 @@ class App extends Component {
     }
 
     renderNavigation() {
-        const { location, user } = this.props;
+        const { location, user, actions } = this.props;
 
         if (location.pathname.includes('intro') || location.pathname.includes('signin')) {
             return null;
@@ -107,7 +112,13 @@ class App extends Component {
         if (!location.pathname.includes('place')) {
             nav = (
                 <div key="navigation">
-                    <SideNav location={location} />
+                    <SideNav
+                        location={location}
+                        handleSignOut={() => {
+                            actions.signOutUser()
+                                .then(() => actions.push('/signin'));
+                        }}
+                    />
                     <UserAvatar name={user.name} />
                     <BreadCrumbs location={location} />
                 </div>
@@ -164,7 +175,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions : bindActionCreators({ ...userActions, ...suggestionsActions }, dispatch),
+        actions : bindActionCreators({ ...userActions, ...suggestionsActions, ...authActions, ...routerActions }, dispatch),
     };
 }
 

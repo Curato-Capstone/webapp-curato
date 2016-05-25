@@ -15,7 +15,7 @@ export default class SideNav extends Component {
     state: void;
 
     render() {
-        const { location } = this.props;
+        const { location, handleSignOut } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -49,6 +49,16 @@ export default class SideNav extends Component {
                                 style={STYLES.navIcon}
                             />
                         </Link>
+                    </div>
+                    <div style={STYLES.navItem} className="navItem" key="logout">
+                        <div style={STYLES.signout} onClick={handleSignOut}>
+                            <FontAwesome
+                                name="sign-out"
+                                size="2x"
+                                style={STYLES.navIcon}
+                            />
+                            <div style={STYLES.signoutText}>Sign Out</div>
+                        </div>
                     </div>
                     <div style={STYLES.active(this.getActiveIndex(location.pathname))} />
                 </div>
@@ -137,5 +147,17 @@ const STYLES = {
         '@media (min-width: 520px)': {
             left: 4
         }
-    })
+    }),
+
+    signout: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    signoutText: {
+        color: 'white',
+        fontSize: 14
+    }
 };

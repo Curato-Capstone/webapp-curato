@@ -212,7 +212,7 @@ export function getUserData() {
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
+            // dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));
     };
