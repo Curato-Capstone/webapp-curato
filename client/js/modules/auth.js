@@ -110,11 +110,10 @@ export function signInUser() {
             const token = res.header.authorization;
             localStorage.setItem('accessToken', res.header.authorization);
             dispatch(setToken(token));
-
             // get favorites place data
-            res.body.favorites.forEach((id) => dispatch(userActions.getFavorite(id)));
+            res.body[0].favorites.forEach((id) => dispatch(userActions.getFavorite(id)));
 
-            dispatch(userActions.setUser(res.body));
+            dispatch(userActions.setUser(res.body[0]));
             dispatch(setIsAuthenticated(true));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Sign In Failed!'));

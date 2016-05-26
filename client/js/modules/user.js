@@ -267,6 +267,7 @@ export function updatePreferences() {
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
+            console.log(error)
             dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
 
