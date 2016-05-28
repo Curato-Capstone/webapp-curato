@@ -199,7 +199,7 @@ export function getUserData() {
     return async (dispatch, getState) => {
         try {
             dispatch(authActions.setIsAuthenticating(true));
-            dispatch(authActions.setToken(localStorage.getItem('accessToken')))
+            dispatch(authActions.setToken(localStorage.getItem('accessToken')));
 
             const res = await request
                 .get(`${baseURL}/user`)
@@ -212,7 +212,7 @@ export function getUserData() {
 
             dispatch(authActions.setIsAuthenticated(true));
         } catch (error) {
-            dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
+            // dispatch(globalActions.setMessage('error', 'Failed to get user data, blame Brandon'));
         }
         dispatch(authActions.setIsAuthenticating(false));
     };
@@ -222,7 +222,7 @@ export function getUserData() {
 export function getFavorite(id) {
     return async (dispatch) => {
         try {
-            const res = await request.get(`http://ec2-52-38-203-54.us-west-2.compute.amazonaws.com:5000/place/${id}`);
+            const res = await request.get(`${baseURL}/place/${id}`);
 
             dispatch(placesActions.addPlaces([res.body]));
         } catch (error) {
@@ -267,6 +267,7 @@ export function updatePreferences() {
 
             dispatch(globalActions.setMessage('success', 'Successfully Updated Preferences!'));
         } catch (error) {
+            console.log(error)
             dispatch(globalActions.setMessage('error', 'Update failed, blame Brandon'));
         }
 

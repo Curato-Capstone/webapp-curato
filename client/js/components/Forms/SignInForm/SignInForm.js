@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import Button from 'reusable/Button/Button';
 import Input from 'reusable/Input/TextField';
-import Select from 'reusable/Input/Select';
 
 @Radium
 class SignInForm extends Component {
@@ -69,7 +67,7 @@ const STYLES = {
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
-        
+
         alignItems: 'center',
         width: '90%',
         padding: '0 16px',

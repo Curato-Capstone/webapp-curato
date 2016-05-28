@@ -63,9 +63,9 @@ class Place extends Component {
 
     handleFavorite(place) {
         if (this.checkFavorited(place)) {
-            this.props.actions.removeFavoriteThunk(place);
+            this.props.actions.removeFavoriteThunk(place.id);
         } else {
-            this.props.actions.addFavoriteThunk(place);
+            this.props.actions.addFavoriteThunk(place.id);
         }
     }
 
@@ -73,7 +73,7 @@ class Place extends Component {
         const { favorites } = this.props;
 
         for (let i = 0; i < favorites.length; i ++) {
-            if (favorites[i].id === place.id) {
+            if (favorites[i] === place.id) {
                 return true;
             }
         }

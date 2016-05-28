@@ -86,11 +86,12 @@ const STYLES = {
 
     searchBarContainer: {
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        paddingTop: '40vh',
         width: '100%',
         minHeight: '100vh',
+        boxSizing: 'border-box',
         opacity: 0,
         animation: 'x .8s ease-in-out 0s 1 normal forwards',
         animationName: lowerSearchBarKeyframes,
@@ -103,7 +104,7 @@ const STYLES = {
     },
 
     randomButton: {
-        marginTop: '32px'
+        marginTop: '24px'
     }
 };
 

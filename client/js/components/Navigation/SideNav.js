@@ -15,7 +15,7 @@ export default class SideNav extends Component {
     state: void;
 
     render() {
-        const { location } = this.props;
+        const { location, handleSignOut } = this.props;
 
         return (
             <div style={STYLES.container}>
@@ -49,6 +49,16 @@ export default class SideNav extends Component {
                                 style={STYLES.navIcon}
                             />
                         </Link>
+                    </div>
+                    <div style={STYLES.navItem} className="navItem" key="logout">
+                        <div style={STYLES.signout} onClick={handleSignOut}>
+                            <FontAwesome
+                                name="sign-out"
+                                size="2x"
+                                style={STYLES.navIcon}
+                            />
+                            <div style={STYLES.signoutText}>Sign Out</div>
+                        </div>
                     </div>
                     <div style={STYLES.active(this.getActiveIndex(location.pathname))} />
                 </div>
@@ -111,7 +121,7 @@ const STYLES = {
     navItem: {
         height: '45px',
         margin: '40px 0',
-        transition: 'transform 0.5s ease-in-out, opacity 0.25s ease-in-out',
+        transition: 'transform 0.35s ease-in-out, opacity 0.25s ease-in-out',
         transform: 'scale(0.72,0.72)',
         ':hover': {
             opacity: 0.6,
@@ -128,13 +138,26 @@ const STYLES = {
         position: 'absolute',
         top: 38,
         transform: `translateY(${125 * item}px)`,
+        opacity: item < 0 ? 0 : 1,
         left: 3,
         height: '55px',
         width: '3px',
         backgroundColor: secondaryColor,
-        transition: 'transform 0.5s ease-in-out',
+        transition: 'transform 0.5s ease-in-out, opacity .7s ease-in-out',
         '@media (min-width: 520px)': {
             left: 4
         }
-    })
+    }),
+
+    signout: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    signoutText: {
+        color: 'white',
+        fontSize: 14
+    }
 };

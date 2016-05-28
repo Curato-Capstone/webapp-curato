@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import autobind from 'autobind-decorator';
 import FontAwesome from 'react-fontawesome';
+import smoothScroll from 'smoothscroll';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import type { Place } from 'flow/types';
@@ -24,6 +25,10 @@ export default class FullCard extends Component {
     state = { loaded: false };
     state : { loaded: bool };
 
+    componentDidMount() {
+        setTimeout(() => smoothScroll(document.getElementById('top'), 1500));
+    }
+
     render() {
         const { place, favorite, handleFavorite, handleBack } = this.props;
         const { loaded } = this.state;
@@ -31,7 +36,6 @@ export default class FullCard extends Component {
         return (
             <div style={STYLES.container(loaded)}>
                 <div style={STYLES.cardText.container(loaded)}>
-
                     <div style={STYLES.cardText.text(loaded)}>
                         <div style={STYLES.cardText.placeName(loaded)}>
                             {this.truncateName(place.name)}
@@ -70,6 +74,7 @@ export default class FullCard extends Component {
                         style={STYLES.cardImage.main(loaded)}
                         src={place.image}
                         onLoad={this.handleImageLoad}
+                        id="top"
                     />
                     <div style={STYLES.tag.main(loaded)}>
                         <Tag text={place.categories[0].name} />
@@ -160,14 +165,11 @@ export default class FullCard extends Component {
                 <div style={STYLES.info.body}>
                 <h2 style={STYLES.info.header}>Hours</h2>
                     {hoursList.map((day) => (
-                        <div>
+                        <div key={day[0]}>
                             <span style={STYLES.info.hour(dayLookup[day[0]] === dayNumber)}>
                                 {day[0]}:
                             </span>
-                            <span
-                                style={STYLES.info.hourText(hours[day[1]])
-                                }
-                            >
+                            <span style={STYLES.info.hourText(hours[day[1]])}>
                                 {hours[day[1]]}
                             </span>
                         </div>
@@ -509,7 +511,7 @@ const STYLES = {
         }),
 
         hourText: (text) => ({
-            color: text === 'Closed' ? 'red' : 'green'
+            color: text === 'Closed' ? '#c62828' : '#2E7D32'
         })
     },
 

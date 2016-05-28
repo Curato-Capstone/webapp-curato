@@ -1,6 +1,6 @@
 // @flow
 import { Map } from 'immutable';
-import type { Action } from '../../flow/types';
+import type { Action } from 'flow/types';
 import request from 'superagent-bluebird-promise';
 
 import * as globalActions from './global';
@@ -15,21 +15,21 @@ export const SET_TOKEN = 'SET_TOKEN';
 
 // Action Creators
 // -----------------------------------
-export function setIsAuthenticating(authenticating: bool): Action {
+export function setIsAuthenticating(authenticating: boolean): Action {
     return {
         type: SET_IS_AUTHENTICATING,
         authenticating
     };
 }
 
-export function setIsAuthenticated(authenticated: bool) {
+export function setIsAuthenticated(authenticated: boolean) {
     return {
         type: SET_IS_AUTHENTICATED,
         authenticated
     };
 }
 
-export function setToken(token) {
+export function setToken(token: string) {
     return {
         type: SET_TOKEN,
         token
@@ -85,8 +85,8 @@ export function signUpUser() {
 
             // grab token and store it
             const token = res.header.authorization;
-            localStorage.setItem('accessToken', res.header.authorization)
-            dispatch(setToken(token))
+            localStorage.setItem('accessToken', res.header.authorization);
+            dispatch(setToken(token));
 
             dispatch(userActions.setUser(res.body));
             dispatch(setIsAuthenticated(true));
@@ -106,16 +106,25 @@ export function signInUser() {
                 .post(`${baseURL}/user/signin`)
                 .send(loginCredentials);
 
-            //grab token and store it
+            // grab token and store it
             const token = res.header.authorization;
-            localStorage.setItem('accessToken', res.header.authorization)
-            dispatch(setToken(token))
+            localStorage.setItem('accessToken', res.header.authorization);
+            dispatch(setToken(token));
+            // get favorites place data
+            res.body[0].favorites.forEach((id) => dispatch(userActions.getFavorite(id)));
 
-            dispatch(userActions.setUser(res.body));
+            dispatch(userActions.setUser(res.body[0]));
             dispatch(setIsAuthenticated(true));
         } catch (error) {
             dispatch(globalActions.setMessage('error', 'Sign In Failed!'));
             return SubmissionError({ _error: 'You dun goofed' });
         }
+    };
+}
+
+export function signOutUser() {
+    return async (dispatch: () => void, getState: () => Object) => {
+        localStorage.removeItem('accessToken');
+        // dispatch(userActions.setUser());
     };
 }

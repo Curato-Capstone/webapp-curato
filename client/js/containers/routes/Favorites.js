@@ -35,7 +35,6 @@ class Favorites extends Component {
                             hideDislike
                             handleFavorite={() => {}}
                             handleDislike={() => {}}
-                            handleMore={() => {}}
                         />
                     );
                 })}

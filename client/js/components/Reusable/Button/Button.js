@@ -28,7 +28,9 @@ export default class Button extends Component {
             ...STYLES.button,
             ...this.getDimensions(size),
             backgroundColor: this.getColor(type),
-            opacity: disabled ? 0.6 : 1
+            opacity: disabled ? 0.6 : 1,
+            pointerEvents: disabled ? 'none' : '',
+            cursor: disabled ? 'not-allowed' : 'pointer' 
         };
 
         return (

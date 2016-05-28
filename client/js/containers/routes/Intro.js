@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Radium from 'radium';
 
 import { primaryColor } from 'utils/colors';
@@ -25,7 +24,7 @@ class Intro extends Component {
 
     render() {
         const { location } = this.props;
-        const pathname = location.pathname.split('/').pop()
+        const pathname = location.pathname.split('/').pop();
 
         return (
             <div style={STYLES.container}>
